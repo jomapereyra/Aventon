@@ -1,0 +1,29 @@
+header {
+	background: black;
+	color:#fff;
+      }
+
+.main {
+	background: orange;
+	color:#fff;
+	}
+
+.color1 {
+	background: black;
+	color:#fff;
+}
+
+.color2 {
+	background: #B0C4DE;
+	color: black;
+}
+
+article {
+	background: black;
+	color:#fff;
+      }
+
+footer {
+	background: #2c3e50;
+	color:#fff;
+}
