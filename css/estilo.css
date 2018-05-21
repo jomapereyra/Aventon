@@ -27,3 +27,11 @@ footer {
 	background: #2c3e50;
 	color:#fff;
 }
+
+.nav-item{
+	padding-right: 10px;
+}
+
+.sin-margen{
+	margin: 0px;
+}
