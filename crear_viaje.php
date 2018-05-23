@@ -17,12 +17,12 @@
 	include("header.php");
 	?>
 
-	<form name="origen" action="">
+	<form class="" name="origen" action="">
 
 		<!-- ******************************* ETAPA 1 *******************************</!-->
 
-		<div class="container" id="etapa1">
-			<div class="row">
+		<div class="container my-container" id="etapa1">
+			<div class="row semitransparente rounded">
 				<div class="col-md-4">
 					<h1>Punto de Partida</h1>
 					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis atque beatae magni iusto, tempora eveniet distinctio eius sequi, consequuntur earum voluptatem recusandae molestiae doloremque fugit mollitia quisquam assumenda incidunt, debitis.</p>
@@ -40,6 +40,9 @@
 							}
 							?>
 						</select>
+						<div id="mensaje1" class="error"><i class="fas fa-times"></i>
+
+						&nbsp;Debe ingresar una provincia</div>
 					</div>
 
 					<!-- ******* CIUDAD ORIGEN **************** -->
@@ -55,9 +58,13 @@
 						<!-- ******** CALLE ORIGEN **************** -->
 						<div class="form-group col-md-6 col-sm-12">
 							<label for="calle_origen">Ingrese la calle: </label>
-							<input type="text" class="form-control" id="calle_origen" placeholder="Calle">
+							<input type="text" class="form-control" id="calle_origen" value="" placeholder="Calle">
+							<div id="mensaje2" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe ingresar una calle</div>
+							<div id="mensaje2_1" class="error"><i class="fas fa-times"></i>
+							&nbsp;No se admiten caracteres especiales</div>
 							<small id="ayudaCalleOrigen" class="text-muted">
-								El nombre de la calle no debe contener caracteres especiales.
+								La calle no debe contener caracteres especiales.
 							</small>
 						</div>
 
@@ -66,6 +73,8 @@
 							<label for="numero_origen">Ingrese la altura: </label>
 							<input type="text" class="form-control" 
 							id="numero_origen" placeholder="Nro calle">
+							<div id="mensaje3" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe ingresar un numero</div>
 						</div>
 
 					</div>
@@ -88,8 +97,8 @@
 
 		<!-- ******************************* ETAPA 2 *******************************</!-->
 
-		<div class="container" id="etapa2">
-			<div class="row">
+		<div class="container my-container" id="etapa2">
+			<div class="row semitransparente rounded">
 				<div class="col-md-4">
 					<h1>Punto de Llegada</h1>
 					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis atque beatae magni iusto, tempora eveniet distinctio eius sequi, consequuntur earum voluptatem recusandae molestiae doloremque fugit mollitia quisquam assumenda incidunt, debitis.</p>
@@ -107,6 +116,9 @@
 							}
 							?>
 						</select>
+						<div id="mensaje4" class="error"><i class="fas fa-times"></i>
+
+						&nbsp;Debe ingresar una provincia</div>
 					</div>
 
 					<!-- ******* CIUDAD DESTINO **************** -->
@@ -123,6 +135,10 @@
 						<div class="form-group col-md-6 col-sm-12">
 							<label for="calle_destino">Ingrese la calle: </label>
 							<input type="text" class="form-control" id="calle_destino" placeholder="Calle">
+							<div id="mensaje5" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe ingresar una calle</div>
+							<div id="mensaje5_1" class="error"><i class="fas fa-times"></i>
+							&nbsp;No se admiten caracteres especiales</div>
 							<small id="ayudaCalleDestino" class="text-muted">
 								El nombre de la calle no debe contener caracteres especiales.
 							</small>
@@ -132,6 +148,8 @@
 						<div class="form-group col-md-6 col-sm-12">
 							<label for="numero_destino">Ingrese la altura: </label>
 							<input type="text" class="form-control" id="numero_destino" placeholder="Nro calle">
+							<div id="mensaje6" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe ingresar un numero</div>
 						</div>
 
 					</div>
@@ -154,8 +172,8 @@
 
 		<!-- ******************************* ETAPA 3 *******************************</!-->
 
-		<div class="container" id="etapa3">
-			<div class="row">
+		<div class="container my-container" id="etapa3">
+			<div class="row semitransparente rounded">
 				<div class="col-md-4">
 					<h1>Fechas de partida y llegada</h1>
 					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis atque beatae magni iusto, tempora eveniet distinctio eius sequi, consequuntur earum voluptatem recusandae molestiae doloremque fugit mollitia quisquam assumenda incidunt, debitis.</p>
@@ -168,7 +186,7 @@
 						<div class="form-group col-md-12 col-sm-12">
 							<label for="fecha_partida">Ingrese la fecha de partida: </label>
 							<div class="input-group date" id="datetimepicker7" data-target-input="nearest">
-								<input type="text" id="datetimepicker7" class="form-control datetimepicker-input" data-target="#datetimepicker7" data-toggle="datetimepicker"/>
+								<input id="fecha_partida" type="text" id="datetimepicker7" class="form-control datetimepicker-input" data-target="#datetimepicker7" data-toggle="datetimepicker"/>
 								<div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
 									<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 								</div>
@@ -183,7 +201,7 @@
 						<div class="form-group col-md-12 col-sm-12">
 							<label for="fecha_llegada">Ingrese la fecha de llegada: </label>
 							<div class="input-group date" id="datetimepicker8" data-target-input="nearest">
-								<input type="text" id="datetimepicker8" class="form-control datetimepicker-input" data-target="#datetimepicker8" data-toggle="datetimepicker"/>
+								<input id="fecha_llegada" type="text" id="datetimepicker8" class="form-control datetimepicker-input" data-target="#datetimepicker8" data-toggle="datetimepicker" disabled />
 								<div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
 									<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 								</div>
@@ -213,8 +231,8 @@
 
 		<!-- ******************************* ETAPA 4 *******************************</!-->
 
-		<div class="container" id="etapa4">
-			<div class="row">
+		<div class="container my-container" id="etapa4">
+			<div class="row semitransparente rounded">
 				<div class="col-md-4">
 					<h1>Descripcion del viaje</h1>
 					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis atque beatae magni iusto, tempora eveniet distinctio eius sequi, consequuntur earum voluptatem recusandae molestiae doloremque fugit mollitia quisquam assumenda incidunt, debitis.</p>
@@ -276,8 +294,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		$(function () {
+			var fecha = new Date();
 			$('#datetimepicker8').datetimepicker({
 				useCurrent: false
+			});
+			$("#datetimepicker7").on("change.datetimepicker",function (e) {
+				$('#datetimepicker7').datetimepicker('minDate', fecha.getDate()) 
+			});
+			$("#datetimepicker7").on("change.datetimepicker",function (e) {
+				$('#datetimepicker7').datetimepicker('pickHour', fecha.getHours()) 
 			});
 			$("#datetimepicker7").on("change.datetimepicker", function (e) {
 				$('#datetimepicker8').datetimepicker('minDate', e.date);
