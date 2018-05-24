@@ -1,5 +1,9 @@
-<footer>
+
+<footer class="my-footer">
 	<div class="container">
-		<h3> footer</h3>
+		<div class="row">
+			<h3 class="sin-margen"> footer</h3>	
+		</div>
 	</div>
-</footer>
+</footer>	
+

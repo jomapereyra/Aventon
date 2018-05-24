@@ -15,4 +15,13 @@ $(document).ready(function(){
 			$("#ciudad_destino").prop("disabled", false);
 		}
 	});
+
+	$("#fecha_partida").blur( function() {
+		if ($(this).val() === "") {
+			$("#fecha_llegada").prop("disabled", true);
+		} else {
+			$("#fecha_llegada").prop("disabled", false);
+		}
+	});
+
 })

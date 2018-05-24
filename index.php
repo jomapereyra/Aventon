@@ -5,36 +5,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/estilo.css">
+	<link rel="stylesheet" href="css/fontawesome-all.min.css">
 </head>
 <body>
-	<header>
-		<div class="container-fluid">
-			<h1>header</h1>
-		</div>
-	</header>
-	<div class="container color2">
-		<br>
-		<br>
-		<br>
-	</div>
-	<div class="container color2">
-		<form action="" class="form-horizontal">
+	<?php include("header.php");?>
+	<div class="container my-container col-md-8">
+		
+		<form action="" class="form-horizontal semitransparente rounded">
+			<div class="form-group padding-left-15">
+				<h1 class="text-center">Bienvenido a nuestro sitio!</h2>
+				<h4 class="text-center">Inicie sesión para empezar a viajar</h4>	
+			</div>
 			<div class="form-group">
 				<label for="nombre" class="control-label col-md-2">Email:</label>
-				<div class="col-md-10">
+				<div class="col-md-12">
 					<input class="form-control" type="email" name="" id="nombre" placeholder="Email">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="contraseña" class="control-label col-md-2"> Contraseña: </label>
-				<div class="col-md-10">
+				<div class="col-md-12">
 					<input class="form-control" type="password" name="" id="contraseña" placeholder="Contraseña">
 				</div>
 			</div>
-			<br>
 			<div class="form-group">
 				<div class="col-md-2  col-xs-offset-7 col-md-offset-10">
-					<button class="btn btn-primary">Enviar</button>
+					<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
 				</div>
 			</div>
 			<div class="form-group">
@@ -43,23 +39,10 @@
 				</div>
 			</div>
 		</form>
-	</div>
-	<div class="container color2">
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>	
-	</div>
-	<footer>
-		<div class="container">
-			<h3> footer</h3>
-		</div>
-	</footer>
 
-	<script src="js/jquery.js"></script>
+	</div>
+	<?php include("footer.php"); ?>
+	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-
 </body>
 </html>

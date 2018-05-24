@@ -1,12 +1,12 @@
 header {
 	background: black;
 	color:#fff;
-      }
+}
 
 .main {
 	background: orange;
 	color:#fff;
-	}
+}
 
 .color1 {
 	background: black;
@@ -21,11 +21,19 @@ header {
 article {
 	background: black;
 	color:#fff;
-      }
+}
 
 footer {
 	background: #2c3e50;
 	color:#fff;
+}
+
+body{
+	background-image: url("../img/posible_fondo.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center center;
+	background-repeat: no-repeat;
 }
 
 .nav-item{
@@ -34,4 +42,50 @@ footer {
 
 .sin-margen{
 	margin: 0px;
+}
+
+.padding-left-15{
+	padding-left: 15px
+}
+
+.error{
+	-webkit-box-shadow:0 0 10px rgba(0,0,0,0.3);
+	-moz-box-shadow:0 0 10px rgba(0,0,0,0.3);
+	-o-box-shadow:0 0 10px rgba(0,0,0,0.3);
+	background: #e83f3fc7;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	margin-top: -90px;
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 15px;
+	color: #fff;
+	display: none;
+}
+
+.my-container{
+	position: relative; 
+	padding: 20px;
+	min-height: 70%;
+}
+
+.my-footer{
+	margin-top: 50px;
+	width: 100%;
+	min-height: 10%;
+	bottom:0;
+	padding-bottom:30px;
+}
+
+.logo{
+	height: 80px;
+	width: 100px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.semitransparente{
+	background-color: #ffffffb0;
+	padding: 20px;
 }

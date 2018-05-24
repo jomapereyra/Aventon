@@ -1,6 +1,9 @@
 <header>
 	<div class="container-fluid">
-		<h1 class="sin-margen">header</h1>
+		<div class="row">
+			<img class="logo" src="img/logo-aventon.png" alt="">
+			<!-- <h1 class="sin-margen">header</h1>	--> 
+		</div>
 	</div>
 </header>
 <div class="">
