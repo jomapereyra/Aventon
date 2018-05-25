@@ -16,7 +16,7 @@
 	include("header.php");
 	?>
 
-	<form class="" name="origen" action="">
+	<form class="" name="origen" action="guardar_viaje.php" method="POST">
 
 		<!-- ******************************* ETAPA 1 *******************************</!-->
 
@@ -192,6 +192,8 @@
 							</div>
 							<div id="mensaje7" class="error"><i class="fas fa-times"></i>
 							&nbsp;Debe ingresar una fecha de partida</div>
+							<div id="mensaje7_1" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe ingresar una fecha igual o superior a la actual</div>
 							<small id="ayudaFecha1" class="text-muted">
 								La fecha de partida debe ser superior o igual a la actual 
 							</small>
@@ -208,6 +210,8 @@
 							</div>
 							<div id="mensaje8" class="error"><i class="fas fa-times"></i>
 							&nbsp;Debe ingresar una hora de partida</div>
+							<div id="mensaje8_1" class="error"><i class="fas fa-times"></i>
+							&nbsp;Respete una diferencia de 2 horas a la actual para poder continuar</div>
 							<small id="ayudaHora1" class="text-muted">
 								La hora de partida debe tener una diferencia minima de 2 horas a la actual 
 							</small>
@@ -228,6 +232,8 @@
 							</div>
 							<div id="mensaje9" class="error"><i class="fas fa-times"></i>
 							&nbsp;Debe ingresa una fecha de llegada</div>
+							<div id="mensaje9_1" class="error"><i class="fas fa-times"></i>
+							&nbsp;La fecha de llegada debe ser igual o superior a la fecha actual</div>
 							<small id="ayudaFecha2" class="text-muted">
 								La fecha de llegada debe ser superior o igual a la fecha de partida
 							</small>
@@ -244,7 +250,8 @@
 							</div>
 							<div id="mensaje10" class="error"><i class="fas fa-times"></i>
 							&nbsp;Debe ingresar una hora de llegada</div>
-
+							<div id="mensaje10_1" class="error"><i class="fas fa-times"></i>
+							&nbsp;Si el viaje transcurre en un dia, el horario de llegada debe ser superior al horario de partida</div>
 						</div>
 
 					</div>
@@ -284,6 +291,8 @@
 						<div class="form-group col-md-12 col-sm-12">
 							<label for="descripcion">Escriba un texto breve sobre los detalles del viaje: </label>
 							<textarea class="form-control" id="descripcion" rows="10"></textarea>
+							<div id="mensaje11" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe ingresar una descripcion del viaje para finalizar</div>
 							<small id="ayudaDescripcion" class="text-muted">
 								En la descripcion puede agregar restricciones o condiciones del viaje.<br>
 								Tenga en cuenta que no debe superar los x caracteres
@@ -300,7 +309,7 @@
 						</div>
 
 						<div class="form-group col-md-6 col-sm-6 col-xs-12">
-							<button type="submit" class="btn btn-info btn-block ">Crear Viaje</button>
+							<button id="boton_etapa4" type="submit" class="btn btn-info btn-block " disabled>Crear Viaje</button>
 						</div>			
 					</div>
 				</div>

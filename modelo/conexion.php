@@ -15,6 +15,10 @@ class Conexion{
 
 		}
 		return $conexion;
+	}
+
+	public function preparar_consulta($consulta){
+		return $this->prepare($consulta);
 	} 
 
 }

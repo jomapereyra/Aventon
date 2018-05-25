@@ -168,33 +168,102 @@ $(document).ready(function(){
 		var hora_partida=$("#hora_partida").val();
 		var fecha_llegada=$("#fecha_llegada").val();
 		var hora_llegada=$("#hora_llegada").val();
+		var fecha=new Date();
+		var dia=fecha.getDate();
+		var mes=fecha.getMonth()+1;
+		var año=fecha.getFullYear();
+		var horas=fecha.getHours()+2;
+		var minutos=fecha.getMinutes();
 		
+		/* ****************** EL COMPORTMAIENTO DEPENDE DE LA DIFERENCIA HORARIA ********** */
 
+		if(horas>24){
+			horas='01';
+			fecha.setDate(fecha.getDate()+1);
+			dia=fecha.getDate();
+			mes=fecha.getMonth()+1;
+			año=fecha.getFullYear();
+		}
+		else{
+			if(horas==24){
+				horas='00';
+			}
+			else{
+				if(horas<10){
+					horas='0'+horas;
+				} 
+			}
+		}
+
+		/* ******************* EN CUALQUIERA DE LOS CASOS SE HACE ESTO ************* */
+
+		if(dia<10){
+			dia='0'+dia;
+		} 
+		if(mes<10){
+			mes='0'+mes;
+		}
+		
+		if(minutos<10){
+			minutos='0'+minutos;
+		}
+
+		var fecha_actual=String(año+"-"+mes+"-"+dia);
+		
+		var hora_minima=String(horas+":"+minutos);
+		
 		if(fecha_partida==""){
 			$("#mensaje7").fadeIn();
 		}
 		else{
 			$("#mensaje7").fadeOut();
-			if (hora_partida==""){
-				$("#mensaje8").fadeIn();
+			if(fecha_partida<fecha_actual){
+				$("#mensaje7_1").fadeIn();
 			}
 			else{
-				$("#mensaje8").fadeOut();
-				if(fecha_llegada==""){
-					$("#mensaje9").fadeIn();
+				$("#mensaje7_1").fadeOut();
+				if (hora_partida==""){
+					$("#mensaje8").fadeIn();
 				}
 				else{
-					$("#mensaje9").fadeOut();
-					if(hora_llegada==""){
-						$("#mensaje10").fadeIn();
+					$("#mensaje8").fadeOut();
+					if(fecha_partida==fecha_actual && hora_partida<hora_minima){
+						$("#mensaje8_1").fadeIn();
 					}
 					else{
-						$("#mensaje10").fadeOut();
-						$("#etapa3").hide();
-						$("#etapa4").show();
+						$("#mensaje8_1").fadeOut();
+						if(fecha_llegada==""){
+							$("#mensaje9").fadeIn();
+						}
+						else{
+							$("#mensaje9").fadeOut();
+							if(fecha_llegada<fecha_partida){
+								$("#mensaje9_1").fadeIn();
+							}
+							else{
+								$("#mensaje9_1").fadeOut();
+								if(hora_llegada==""){
+									$("#mensaje10").fadeIn();
+								}
+								else{
+									$("#mensaje10").fadeOut();
+									if(fecha_partida==fecha_llegada && hora_llegada<hora_partida){
+										$("#mensaje10_1").fadeIn();
+									}
+									else{
+										$("#mensaje10_1").fadeOut();
+										$("#etapa3").hide();
+										$("#etapa4").show();
+									}
+								}
+							}
+							
+						}
 					}
-				}		
+
+				}	
 			}
+			
 		}
 	})
 
@@ -204,6 +273,17 @@ $(document).ready(function(){
 	})
 
 	/* ****************** ETAPA 4 ******************************* */
+
+	$("#descripcion").change(function(){
+		if($(this).val()===""){
+			$("#mensaje11").fadeIn();
+			$("#boton_etapa4").prop("disabled",true);
+		}
+		else{
+			$("#mensaje11").fadeOut();
+			$("#boton_etapa4").prop("disabled",false);
+		}
+	})
 
 	$("#volver_etapa3").click(function(){
 		$("#etapa4").hide();
