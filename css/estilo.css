@@ -29,7 +29,19 @@ footer {
 }
 
 body{
-	background-image: url("../img/posible_fondo.jpg");
+	
+}
+
+.fondo-inicio{
+	background-image: url("../img/fondo_inicio.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.fondo-usuario{
+	background-image: url("../img/fondo_usuario.jpg");
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center center;
@@ -83,6 +95,30 @@ body{
 	padding-bottom: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
+}
+
+.logo-alternativo{
+	height: 60px;
+	width: 180px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+.font-bad{
+	color: #6b1010;
+	font-weight: bolder;
+}
+
+.icon-bad{
+	font-size: 100px;
+	color: #6b1010; 
+}
+
+.bad-notice{
+	background-color: #e22626b0;
+	padding: 20px;
 }
 
 .semitransparente{

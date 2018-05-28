@@ -2,7 +2,6 @@
 	<div class="container-fluid">
 		<div class="row">
 			<img class="logo" src="img/logo-aventon.png" alt="">
-			<!-- <h1 class="sin-margen">header</h1>	--> 
 		</div>
 	</div>
 </header>
@@ -24,7 +23,7 @@
 					<a class="nav-link disabled" href="#"><i class="fas fa-user"></i> Mi Perfil</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="crear_viaje.php"><i class="fas fa-taxi"></i> Crear Viaje</a>
+					<a class="nav-link" href="crear_viaje.php"><i class="fab fa-avianex"></i> Crear Viaje</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-suitcase"></i> Mis Viajes
@@ -33,6 +32,9 @@
 						<a class="dropdown-item" href="#">Mis Viajes Creados</a>
 						<a class="dropdown-item" href="#">Mis Viajes Participados</a>
 					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="mis_vehiculos.php"><i class="fas fa-taxi"></i> Mis Vehiculos</a>
 				</li>
 			</ul>
 		</div>

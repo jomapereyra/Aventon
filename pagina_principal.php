@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/fontawesome-all.min.css">
 	<link rel="stylesheet" href="css/estilo.css">
 </head>
-<body>
+<body class="fondo-usuario">
 	<?php include("header.php");?>
 	<div class="container my-container">
 		<section class="main row">

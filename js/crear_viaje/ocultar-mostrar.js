@@ -1,6 +1,8 @@
 $("#etapa2").hide();
 $("#etapa3").hide();
 $("#etapa4").hide();
+$("#etapa5").hide();
+$("#etapaExtra").hide();
 $(document).ready(function(){
 
 	/* *********************** ETAPA 1 ************************ */
@@ -253,7 +255,7 @@ $(document).ready(function(){
 									else{
 										$("#mensaje10_1").fadeOut();
 										$("#etapa3").hide();
-										$("#etapa4").show();
+										$("#etapaExtra").show();
 									}
 								}
 							}
@@ -272,23 +274,99 @@ $(document).ready(function(){
 		$("#etapa2").show();
 	})
 
-	/* ****************** ETAPA 4 ******************************* */
+	/* ****************** ETAPA EXTRA ******************************* */
 
-	$("#descripcion").change(function(){
-		if($(this).val()===""){
-			$("#mensaje11").fadeIn();
-			$("#boton_etapa4").prop("disabled",true);
+	$("#boton_etapaExtra").click(function(){
+		if($("#vehiculo").val()===""){
+			$("#mensaje13").fadeIn();
 		}
 		else{
-			$("#mensaje11").fadeOut();
-			$("#boton_etapa4").prop("disabled",false);
+			$("#mensaje13").fadeOut();
+			$("#etapaExtra").hide();
+			$("#etapa4").show();
+		}
+	})
+
+	$("#vehiculo").on("change focus",function(){
+		if($("#vehiculo").val()===""){
+			$("#mensaje13").fadeIn();
+		}
+		else{
+			$("#mensaje13").fadeOut();
 		}
 	})
 
 	$("#volver_etapa3").click(function(){
-		$("#etapa4").hide();
+		$("#etapaExtra").hide();
 		$("#etapa3").show();
 	})
 
+	/* ****************** ETAPA 4 ******************************* */
+
+	$("#boton_etapa4").click(function(){
+		if($("#costo").val()===""){
+			$("#mensaje12").fadeIn();
+		}
+		else{
+			$("#mensaje12").fadeOut();
+			if($("#descripcion").val()==""){
+				$("#mensaje11").fadeIn();
+			}
+			else{
+				$("#mensaje11").fadeOut();
+				var cost=parseFloat($("#costo").val());
+				var costo_impuestos=cost+(Math.floor(cost*15)/100);
+				$("#costo").val(costo_impuestos);
+				$("#etapa4").hide();
+				$("#etapa5").show();
+				var html="<li>Provincia de partida: " + $('#provincia_origen option:selected').text() + "</li>"+
+				"<li>Ciudad de partida: " + $('#ciudad_origen option:selected').text() + "</li>"+
+				"<li>Calle de partida: " + $('#calle_origen').val() + "</li>"+
+				"<li>Numero de partida: " + $('#numero_origen').val() + "</li>"+
+				"<li>Provincia de llegada: " + $('#provincia_destino option:selected').text() + "</li>"+
+				"<li>Ciudad de llegada: " + $('#ciudad_destino option:selected').text() + "</li>"+
+				"<li>Calle de llegada: " + $('#calle_destino').val() + "</li>"+
+				"<li>Numero de llegada: " + $('#numero_destino').val() + "</li>"+
+				"<li>Fecha de partida: " + $('#fecha_partida').val() + "</li>"+
+				"<li>Hora de partida: " + $('#hora_partida').val() + "</li>"+
+				"<li>Fecha de llegada: " + $('#fecha_llegada').val() + "</li>"+
+				"<li>Hora de llegada: " + $('#hora_llegada').val() + "</li>"+
+				"<li>Costo con impuestos: " + costo_impuestos + "</li>"+
+				"<li>Descripcion del viaje: " + $('#descripcion').val() + "</li>";
+				$("#lista_confirmacion").append(html);
+			}
+		}
+	})
+
+	$("#descripcion").blur(function(){
+		if($(this).val()==""){
+			$("#mensaje11").fadeIn();
+		}
+		else{
+			$("#mensaje11").fadeOut();
+		}
+	})
+
+
+	$("#costo").change(function(){
+		if($(this).val()==""){
+			$("#mensaje12").fadeIn();
+		}
+		else{
+			$("#mensaje12").fadeOut();
+		}
+	})
+
+	$("#volver_etapaExtra").click(function(){
+		$("#etapa4").hide();
+		$("#etapaExtra").show();
+	})
+
+	$("#volver_etapa4").click(function(){
+		$("#lista_confirmacion").empty();
+		$("#etapa5").hide();
+		$("#etapa4").show();
+	})
 
 })
+
