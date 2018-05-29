@@ -4,7 +4,7 @@ header {
 }
 
 .main {
-	background: orange;
+	background: ;
 	color:#fff;
 }
 
@@ -19,9 +19,10 @@ header {
 }
 
 article {
-	background: black;
-	color:#fff;
-}
+	background-color: rgba(0,0,255,0.5);
+	color:black;
+
+      }
 
 footer {
 	background: #2c3e50;
@@ -124,4 +125,10 @@ body{
 .semitransparente{
 	background-color: #ffffffb0;
 	padding: 20px;
+}
+
+.jumbotron{
+	background-color: rgba(1,1,254,0.5);
+	color:black;
+
 }
