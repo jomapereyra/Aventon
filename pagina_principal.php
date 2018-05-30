@@ -14,7 +14,7 @@
 </head>
 <body class="fondo-usuario">
 	<?php include("header.php");?>
-	<div class="container   ">
+	<div class="container my-container  ">
 		
 			<section class="main row  col-xs-8  ">
 			

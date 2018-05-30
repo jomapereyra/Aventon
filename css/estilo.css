@@ -1,11 +1,17 @@
 header {
 	background: black;
+	columns: #000000;
 	
 }
 
 .main {
-	background: ;
-	color: black;
+	/*background: ;*/
+	color: #000000;
+	
+}
+.main row {
+	/*background: ;*/
+	color: #000000;
 	
 }
 
@@ -20,7 +26,8 @@ header {
 }
 
 article {
-	color:black;
+	color: #000000;
+	
 	
 
 
@@ -127,7 +134,7 @@ body{
 .semitransparente{
 	background-color: #ffffffb0;
 	padding: 20px;
-	color:black;
+	color: #000000;
 
 }
 
