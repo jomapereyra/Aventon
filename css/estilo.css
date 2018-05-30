@@ -1,16 +1,17 @@
 header {
 	background: black;
-	color:#fff;
+	
 }
 
 .main {
 	background: ;
-	color:#fff;
+	color: black;
+	
 }
 
 .color1 {
 	background: black;
-	color:#fff;
+	
 }
 
 .color2 {
@@ -19,10 +20,11 @@ header {
 }
 
 article {
-	background-color: rgba(0,0,255,0.5);
 	color:black;
+	
 
-      }
+
+}
 
 footer {
 	background: #2c3e50;
@@ -125,10 +127,7 @@ body{
 .semitransparente{
 	background-color: #ffffffb0;
 	padding: 20px;
-}
-
-.jumbotron{
-	background-color: rgba(1,1,254,0.5);
 	color:black;
 
 }
+

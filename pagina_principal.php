@@ -14,69 +14,71 @@
 </head>
 <body class="fondo-usuario">
 	<?php include("header.php");?>
-	<div class="container ">
-		<section class="main row  border border-dark">
+	<div class="container   ">
 		
-			<?php
-				foreach ($array_v as $elemento){
-					$ubicacion1= $viajes->get_ubicacion_origen($elemento['id_origen']);
-					  
-						foreach ($ubicacion1 as $elemento1){
-							$provincia1= $viajes->get_provincia($elemento1['id_provincia']);
-								foreach ($provincia1 as $elemento3){
-									$localidad1= $viajes->get_ciudad($elemento1['id_ciudad']);
-									foreach ($localidad1 as $elemento5){
-										
-									}
-								}
-						}
-					$ubicacion2= $viajes->get_ubicacion_destino($elemento['id_destino']);
-						foreach ($ubicacion2 as $elemento2){
-							$provincia2= $viajes->get_provincia($elemento2['id_provincia']);
-								foreach ($provincia2 as $elemento4){
-									$localidad2= $viajes->get_ciudad($elemento2['id_ciudad']);
-										foreach ($localidad2 as $elemento6){
+			<section class="main row  col-xs-8  ">
+			
+				<?php
+					foreach ($array_v as $elemento){
+						$ubicacion1= $viajes->get_ubicacion_origen($elemento['id_origen']);
+						  
+							foreach ($ubicacion1 as $elemento1){
+								$provincia1= $viajes->get_provincia($elemento1['id_provincia']);
+									foreach ($provincia1 as $elemento3){
+										$localidad1= $viajes->get_ciudad($elemento1['id_ciudad']);
+										foreach ($localidad1 as $elemento5){
+											
 										}
-								}
-						}
+									}
+							}
+						$ubicacion2= $viajes->get_ubicacion_destino($elemento['id_destino']);
+							foreach ($ubicacion2 as $elemento2){
+								$provincia2= $viajes->get_provincia($elemento2['id_provincia']);
+									foreach ($provincia2 as $elemento4){
+										$localidad2= $viajes->get_ciudad($elemento2['id_ciudad']);
+											foreach ($localidad2 as $elemento6){
+											}
+									}
+							}
 
-					?><article class=" col-xl-12 col-xs-12 border border-dark">
-							
-							<div class="container  ">
-								<div class="main row col-xs-12">
-									
-									<div class="col-xs-6 col-xl-6">
-										<?php $v= $elemento['id_viaje'];?>
-										<p><?php echo "Fecha Salida" . " " . $elemento['fecha_salida'];?></p>
-										<p><?php echo "Provincia:" . " " . $elemento3['nombre_provincia'] . " " ;?></p>
-										<p><?php echo "Ciudad:" . " " . $elemento5['nombre_localidad'] . " " ;?></p>
-									</div>
-									<div class="col-xs-6 col-xl-6">
-										<p><?php echo "Fecha Llegada:"  . " " . $elemento['fecha_llegada'] . " ";?></p>
-										<p><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></p>
-										<p><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></p>
+						?><article class=" row col-xl-8 col-xs-8 border border-dark semitransparente ">
+								
+								<div class="container    ">
+									<div class="main row col-xs-8 ">
 										
+										<div class="col-xs-4 col-xl-6">
+											<?php $v= $elemento['id_viaje'];?>
+											<p><?php echo "Fecha Salida" . " " . $elemento['fecha_salida'];?></p>
+											<p><?php echo "Provincia:" . " " . $elemento3['nombre_provincia'] . " " ;?></p>
+											<p><?php echo "Ciudad:" . " " . $elemento5['nombre_localidad'] . " " ;?></p>
+										</div>
+										<div class="col-xs-4 col-xl-6">
+											<p><?php echo "Fecha Llegada:"  . " " . $elemento['fecha_llegada'] . " ";?></p>
+											<p><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></p>
+											<p><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></p>
 											
-										<form action="mostrarinfoviaje.php" method="post" name="formulario">
-											<input type="hidden" name="variable1" value="<?php echo $elemento['id_viaje'];?> ">
-											<input class="btn btn-primary pull-right" type="submit" value="+Info" >
-										</form>
-											
-											
+												
+											<form action="mostrarinfoviaje.php" method="post" name="formulario">
+												<input type="hidden" name="variable1" value="<?php echo $elemento['id_viaje'];?> ">
+												<input class="btn btn-primary float-right" type="submit" value="+Info" >
+											</form>
+												
+												
+										</div>
 									</div>
+										
 								</div>
-									
-							</div>
-						
-						
-					</article>
-					<?php
+							
+							
+						</article>
+						<?php
 
-				}
+					}
 
 
-			 ?>
-		</section>
+				 ?>
+			</section>
+		
 	</div>
 	<?php include("footer.php"); ?>
 	<script src="js/jquery.min.js"></script>
