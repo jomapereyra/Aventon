@@ -16,7 +16,10 @@
 	require_once("modelo/provincia.php");
 	require_once("modelo/usuario.php");
 	$tabla_vehiculo=new Vehiculo();
-	if(!$tabla_vehiculo->tiene_vehiculo(1)){
+	$email=$_SESSION["usuario"];
+	$tabla_usuario=new Usuario();
+	$usuario=$tabla_usuario->get_id($email);
+	if(!$tabla_vehiculo->tiene_vehiculo($usuario["id_usuario"])){
 
 		include("advertencia_crear_viaje.php");
 

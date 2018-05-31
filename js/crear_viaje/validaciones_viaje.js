@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 	$("#calle_origen").on("keyup blur",function(){
 		var calle=$("#calle_origen").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 		if(calle==""){
 			$("#mensaje2").fadeIn();
 		}
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		var provincia=$("#provincia_origen").val();
 		var calle=$("#calle_origen").val();
 		var numero=$("#numero_origen").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 
 		if(provincia==""){
 			$("#mensaje1").fadeIn();
@@ -96,7 +96,7 @@ $(document).ready(function(){
 
 	$("#calle_destino").on("keyup blur",function(){
 		var calle=$("#calle_destino").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 		if(calle==""){
 			$("#mensaje5").fadeIn();
 		}
@@ -127,7 +127,7 @@ $(document).ready(function(){
 		var provincia=$("#provincia_destino").val();
 		var calle=$("#calle_destino").val();
 		var numero=$("#numero_destino").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 
 		if(provincia==""){
 			$("#mensaje4").fadeIn();
