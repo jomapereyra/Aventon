@@ -1,7 +1,7 @@
 <?php 
-require_once("ciudad.php");
+require_once("../modelo/ciudad.php");
 $tabla_ciudad=new Ciudad();
-$provincia=$_GET["provincia_origen"];
+$provincia=$_GET["provincia_destino"];
 if($provincia != ""){
 	$ciudades=$tabla_ciudad->get_ciudades($provincia);
 	foreach ($ciudades as $ciu) {

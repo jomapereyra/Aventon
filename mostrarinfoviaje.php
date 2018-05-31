@@ -18,7 +18,7 @@
 <body class="fondo-usuario">
 	<?php include("header.php");?>
 	<div class="container">
-		<section class="main row">
+		<section class="row">
 			
 			<?php
 				foreach ($array_v as $elemento){
@@ -45,7 +45,7 @@
 
 					?><article class=" semitransparente">
 							<div class="container border border-dark ">
-								<div class="main row">
+								<div class="row">
 									<div class="col-xs-12 col-xl-12">
 										<p><h1><center>INFORMACION DEL VIAJE </center></h1></p>
 									</div>

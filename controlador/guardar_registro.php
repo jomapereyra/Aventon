@@ -1,5 +1,5 @@
 <?php 
-require_once("registro.php");
+require_once("../modelo/registro.php");
 $email=$_POST["email_usuario"];
 $apellido=$_POST["apellido_usuario"];
 $nombre=$_POST["nombre_usuario"];

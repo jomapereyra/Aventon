@@ -16,7 +16,7 @@
 	<?php include("header.php");?>
 	<div class="container   ">
 		
-			<section class="main row  col-xs-8  ">
+			<section class="row  col-xs-8  ">
 			
 				<?php
 					foreach ($array_v as $elemento){
@@ -44,7 +44,7 @@
 						?><article class=" row col-xl-8 col-xs-8 border border-dark semitransparente ">
 								
 								<div class="container    ">
-									<div class="main row col-xs-8 ">
+									<div class="row col-xs-8 ">
 										
 										<div class="col-xs-4 col-xl-6">
 											<?php $v= $elemento['id_viaje'];?>

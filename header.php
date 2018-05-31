@@ -1,9 +1,18 @@
+<?php
+session_start();
+if(!isset($_SESSION["usuario"])){
+	header("location:index.php");
+}
+?>
 <header>
 	<div class="container-fluid">
 		<div class="row">
-			<img class="logo" src="img/logo-aventon.png" alt="">
+			<div class="col-md-6 col-sm-6 col-6">
+				<img class="logo" src="img/logo-aventon.png" alt="">
+			</div>				
 		</div>
 	</div>
+</div>
 </header>
 <div class="">
 
@@ -12,15 +21,14 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+
+			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
 					<a class="nav-link" href="pagina_principal.php"><i class="fas fa-home"></i> Inicio<span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link disabled" href="#"><i class="fas fa-search"></i> Buscar</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="#"><i class="fas fa-user"></i> Mi Perfil</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="crear_viaje.php"><i class="fab fa-avianex"></i> Crear Viaje</a>
@@ -37,6 +45,26 @@
 					<a class="nav-link" href="mis_vehiculos.php"><i class="fas fa-taxi"></i> Mis Vehiculos</a>
 				</li>
 			</ul>
+
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<h6 class="dropdown-header">
+							&nbsp;<?php
+							require_once("modelo/usuario.php");
+							$tabla_usuario=new Usuario();
+							$nom_ape=$tabla_usuario->get_nombre_apellido($_SESSION["usuario"]);
+							echo 'Hola ',$nom_ape['nombre'],' ',$nom_ape['apellido']; ?>
+
+						</h6>
+						<a class="dropdown-item" href="#">Ver Perfil</a>
+						<a class="dropdown-item" href="controlador/cerrar_sesion.php">Cerrar Sesión</a>
+					</div>
+				</li>
+			</ul>
+
 		</div>
 	</nav>
 

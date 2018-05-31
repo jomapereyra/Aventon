@@ -17,34 +17,25 @@
 			</div>
 
 			<?php
-
 			require_once("/modelo/vehiculo.php");
 			$vehiculo=new Vehiculo();
+			$email=$_SESSION["usuario"];
+			$tabla_usuario=new Usuario();
+			$usuario=$tabla_usuario->get_id($email);
 
 			/* SI NO TENGO VEHICULO ME APARECE UN MENSAJE Y LA OPCION PARA AGREGAR */
 
-			if(!$vehiculo->tiene_vehiculo(1)){
-				echo "
-				<div class='container my-container'>
-				<div class='bad-notice rounded'>
-				<div class='row'>
-				<div class='col-md-2 col-sm-12 text-center'>
-				<i class='far fa-frown icon-bad'></i>
-				</div>
-				<div class='col-md-10 col-sm-12 text-center'>
-				<h2 class='font-bad'>Usted no cuenta con ningun medio de transporte</h2> 
-				</div>
-
-				</div>
-				</div>
-				</div>
-				";
+			if(!$vehiculo->tiene_vehiculo($usuario["id_usuario"])){
+				include("advertencia_mis_vehiculos.php");
 			}
 
 			/* SI TENGO VEHICULOS ME APARECEN OPCIONES DE ELIMINAR Y MODIFICAR */ 
 			
 			else{
-				$vehiculos=$vehiculo->mis_vehiculos(1);
+				$email=$_SESSION["usuario"];
+				$tabla_usuario=new Usuario();
+				$usuario=$tabla_usuario->get_id($email);
+				$vehiculos=$vehiculo->mis_vehiculos($usuario["id_usuario"]);
 				?>
 				<div class="container my-container">
 					<div class="table-responsive">
@@ -77,7 +68,7 @@
 										<td><?php echo $v["cant_asientos"] ?></td>
 
 										<td><a class="btn btn-info btn-block" href="modificar_vehiculo.php?id=<?php echo $v['id_vehiculo']?> & patente=<?php echo $v['patente']?> & marca=<?php echo $v['marca']?> & modelo=<?php echo $v['modelo']?> & año=<?php echo $v['anio']?> & tipo=<?php echo $v['id_tipo_vehiculo']?> & cant=<?php echo $v['cant_asientos']?>">Modificar</a></td>
-										<td><a class="btn btn-danger btn-block" href="modelo/eliminar_vehiculo.php?id=<?php echo $v['id_vehiculo']?>">Eliminar</a></td>
+										<td><a class="btn btn-danger btn-block" href="controlador/eliminar_vehiculo.php?id=<?php echo $v['id_vehiculo']?>">Eliminar</a></td>
 									</tr>
 									<?php
 								}

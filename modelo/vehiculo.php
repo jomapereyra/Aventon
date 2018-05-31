@@ -36,5 +36,11 @@ class Vehiculo{
 		}
 		return $mis_v;
 	}
+
+	public function get_limite($id){
+		$consulta=$this->db->query("SELECT cant_asientos FROM vehiculo WHERE vehiculo.id_vehiculo=$id");
+		$resultado=$consulta->fetch(PDO::FETCH_ASSOC);
+		return $resultado["cant_asientos"];
+	}
 }
 ?>
