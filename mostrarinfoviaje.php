@@ -47,7 +47,7 @@
 							<div class="container  ">
 								<div class="row">
 									<div class="col-xs-12 col-xl-12">
-										<p><h1><center>INFORMACION DEL VIAJE </center></h1></p>
+										<p><u><h1><center>INFORMACION DEL VIAJE </center></h1></u></p>
 									</div>
 									<div class="col-xs-5 col-xl-5">
 										<center>
@@ -73,7 +73,7 @@
 									</div>
 									<div class="col-xs-12 col-xl-12">
 											<center>
-												<p><h2><center>DESCRIPCION DEL VIAJE </center></h2></p>
+												<u><p><h2><center>DESCRIPCION DEL VIAJE </center></h2></p></u>
 												<p><h4><?php echo $elemento['descripcion'] . " ";?></h4></p>
 																
 											</center>
