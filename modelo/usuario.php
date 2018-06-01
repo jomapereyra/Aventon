@@ -2,6 +2,7 @@
 class Usuario{
 	private $db;//conexion
 	private $usuarios;
+	private $via;
 
 	public function __construct(){
 		require_once("conexion.php");
@@ -33,6 +34,16 @@ class Usuario{
 		$consulta=$this->db->query("SELECT * FROM usuario WHERE usuario.email='".$email."'");
 		$datos=$consulta->fetch(PDO::FETCH_ASSOC);
 		return $datos;
+	}
+
+	public function get_viajes_creados($email){
+		$datos=array();
+		$consulta=$this->db->query("SELECT * FROM usuario INNER JOIN  viaje ON (usuario.id_usuario = viaje.id_usuario) WHERE usuario.email='".$email."'");
+		while ($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
+				$this->via[]=$fila;
+		} 
+		return $this->via;
+		
 	}
 }
 ?>

@@ -35,16 +35,18 @@ if(!isset($_SESSION["usuario"])){
 			<li class="nav-item">
 				<a class="nav-link" href="crear_viaje.php"><i class="fab fa-avianex"></i> Crear Viaje</a>
 			</li>
-			<!--
+			
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-suitcase"></i> Mis Viajes
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="#">Mis Viajes Creados</a>
+					<a class="dropdown-item" href="mis_viajes_creados.php">Mis Viajes Creados</a>
+					<!--
 					<a class="dropdown-item" href="#">Mis Viajes Participados</a>
+					-->
 				</div>
 			</li>
-		-->
+		
 		<li class="nav-item">
 			<a class="nav-link" href="mis_vehiculos.php"><i class="fas fa-taxi"></i> Mis Vehiculos</a>
 		</li>
