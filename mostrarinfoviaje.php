@@ -43,8 +43,8 @@
 								}
 						}
 
-					?><article class=" semitransparente">
-							<div class="container border border-dark ">
+					?><article class=" semitransparente container border border-dark">
+							<div class="container  ">
 								<div class="row">
 									<div class="col-xs-12 col-xl-12">
 										<p><h1><center>INFORMACION DEL VIAJE </center></h1></p>
@@ -64,7 +64,14 @@
 											<p><h3><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></h3></p>
 											<p><h3><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></h3></p>					
 										</center>
-									</div>
+										</div>
+											<div class="col-xs-12 col-xl-12">
+											<center>
+												<p><h2><center>DESCRIPCION DEL VIAJE </center></h2></p>
+												<p><h4><?php echo $elemento['descripcion'] . " ";?></h4></p>
+																
+											</center>
+										</div>
 								</div>
 							</div>
 						
