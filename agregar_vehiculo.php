@@ -13,7 +13,7 @@
 	$tabla_tipo=new TipoVehiculo();
 	$tipos=$tabla_tipo->get_tipos();
 	?>
-	<form class="" action="modelo/guardar_vehiculo.php" method="post" onSubmit="return validar();">
+	<form class="" action="controlador/guardar_vehiculo.php" method="post" onSubmit="return validar();">
 
 		<div class="container my-container">
 

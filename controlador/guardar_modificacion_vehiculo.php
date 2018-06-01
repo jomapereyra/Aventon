@@ -1,5 +1,5 @@
 <?php 
-require_once("vehiculo.php");
+require_once("../modelo/vehiculo.php");
 $patente=$_POST["patente"];
 $marca=$_POST["marca"];
 $modelo=$_POST["modelo"];

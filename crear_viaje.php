@@ -14,38 +14,26 @@
 	include("header.php");
 	require_once("modelo/vehiculo.php");
 	require_once("modelo/provincia.php");
+	require_once("modelo/usuario.php");
 	$tabla_vehiculo=new Vehiculo();
-	if(!$tabla_vehiculo->tiene_vehiculo(1)){
+	$email=$_SESSION["usuario"];
+	$tabla_usuario=new Usuario();
+	$usuario=$tabla_usuario->get_id($email);
+	if(!$tabla_vehiculo->tiene_vehiculo($usuario["id_usuario"])){
 
-		echo "
-		<div class='container my-container'>
-		<div class='semitransparente rounded'>
-		<div class='container my-container'>
-		<div class='bad-notice rounded'>
-		<div class='row'>
-		<div class='col-md-2 col-sm-12 text-center'>
-		<i class='fas fa-walking icon-bad'></i>
-		</div>
-		<div class='col-md-10 col-sm-12 text-center'>
-		<h2 class='font-bad'>No puede crear un viaje si no posee ningún vehículo.<br>Por favor,diríjase a 'Mis Vehiculos' para agregarlo.</h2> 
-		</div>
-
-		</div>
-		</div>
-		</div>
-		</div>
-		</div>
-		";
+		include("advertencia_crear_viaje.php");
 
 	}
 	else{
-
+		$email=$_SESSION["usuario"];
+		$tabla_usuario=new Usuario();
+		$usuario=$tabla_usuario->get_id($email);
 		$tabla_provincia=new Provincia();
 		$provincias=$tabla_provincia->get_provincias();
-		$vehiculos=$tabla_vehiculo->mis_vehiculos(1);
+		$vehiculos=$tabla_vehiculo->mis_vehiculos($usuario["id_usuario"]);
 		?>
 
-		<form class="" name="origen" action="modelo/guardar_viaje.php" method="post">
+		<form class="pading-bottom-20" name="fo" action="controlador/guardar_viaje.php" method="post">
 
 			<!-- ******************************* ETAPA 1 *******************************</!-->
 
@@ -60,7 +48,7 @@
 						<!-- ******* PROVINCIA ORIGEN ************** -->
 						<div class="form-group">
 							<label for="provincia_origen">Seleccione la provincia: </label>
-							<select class="form-control" id="provincia_origen" name="provincia_origen" onchange="cambiarCiudadesOrigen()">
+							<select class="form-control" id="provincia_origen" name="provincia_origen">
 								<option value="">Elija la provincia</option>
 								<?php 
 								foreach ($provincias as $pr) {
@@ -77,7 +65,6 @@
 						<div class="form-group">
 							<label for="ciudad_origen">Seleccione la ciudad: </label>
 							<select class="form-control" id="ciudad_origen" name="ciudad_origen" disabled>
-								<option value="">Elija la ciudad</option>
 							</select>
 						</div>
 
@@ -138,7 +125,7 @@
 						<!-- ******* PROVINCIA DESTINO ************** -->
 						<div class="form-group">
 							<label for="provincia_destino">Seleccione la provincia: </label>
-							<select class="form-control" id="provincia_destino" name="provincia_destino" onchange="cambiarCiudadesDestino()">
+							<select class="form-control" id="provincia_destino" name="provincia_destino">
 								<option value="">Elija la provincia</option>
 								<?php 
 								foreach ($provincias as $pr) {
@@ -155,7 +142,6 @@
 						<div class="form-group">
 							<label for="ciudad_destino">Seleccione la ciudad: </label>
 							<select class="form-control" id="ciudad_destino" name="ciudad_destino" disabled>
-								<option value="">Elija la ciudad</option>
 							</select>
 						</div>
 
@@ -187,11 +173,16 @@
 						<!-- ******** BOTONES ETAPA 2 **************** -->
 
 						<div class="form-row">
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
+								<a class="btn btn-danger btn-block" href="pagina_principal.php" role="button">Cancelar</a>
+							</div>
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="volver_etapa1" class="btn btn-block btn-warning">Atras</button>
 							</div>
 
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="boton_etapa2" class="btn btn-info btn-block ">Siguiente</button>
 							</div>			
 						</div>
@@ -295,11 +286,16 @@
 						<!-- ******** BOTONES ETAPA 3 **************** -->
 
 						<div class="form-row">
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
+								<a class="btn btn-danger btn-block" href="pagina_principal.php" role="button">Cancelar</a>
+							</div>
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="volver_etapa2" class="btn btn-block btn-warning">Atras</button>
 							</div>
 
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="boton_etapa3" class="btn btn-info btn-block ">Siguiente</button>
 							</div>			
 						</div>
@@ -339,6 +335,18 @@
 								&nbsp;Debe ingresar un vehiculo</div>
 							</div>
 
+							<!-- ****************** ASIENTOS ************************** -->
+
+							<div class="form-group col-md-12">
+								<label for="asientos">Ingrese la cantidad de asientos disponibles: </label>
+								<input type="number" class="form-control" id="asientos" name="asientos" disabled>
+								<div id="mensaje14" class="error"><i class="fas fa-times"></i>
+								&nbsp;Debe ingresar la cantidad de asientos</div>
+								<div id="mensaje14_1" class="error"><i class="fas fa-times"></i>
+								&nbsp;El vehiculo seleccionado solo dispone de x asientos</div>	
+							</div>
+
+
 						</div>
 
 
@@ -375,6 +383,7 @@
 							<div class="form-group col-md-12 col-sm-12">
 								<label for="costo">Ingrese un monto: </label>
 								<input type="number" step="any" class="form-control" name="costo" id="costo" placeholder="Costo"></input>
+								<input type="hidden" name="costo_impuesto" id="costo_impuesto"></input>
 								<div id="mensaje12" class="error"><i class="fas fa-times"></i>
 								&nbsp;Debe ingresar un monto</div>
 								<small id="ayudaDescripcion" class="text-muted">
@@ -406,11 +415,16 @@
 						<!-- ******** BOTONES ETAPA 4 **************** -->
 
 						<div class="form-row">
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
+								<a class="btn btn-danger btn-block" href="pagina_principal.php" role="button">Cancelar</a>
+							</div>
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="volver_etapaExtra" class="btn btn-block btn-warning">Atras</button>
 							</div>
 
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button id="boton_etapa4" type="button" class="btn btn-info btn-block">Siguiente</button>
 							</div>			
 						</div>
@@ -422,11 +436,11 @@
 
 			<div class="container my-container" id="etapa5">
 				<div class="row semitransparente rounded">
-					<div class="col-md-4">
+					<div class="col-md-12 col-sm-12">
 						<h1>Confirmación</h1>
 						<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis atque beatae magni iusto, tempora eveniet distinctio eius sequi, consequuntur earum voluptatem recusandae molestiae doloremque fugit mollitia quisquam assumenda incidunt, debitis.</p>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-12 col-sm-12">
 
 						<!-- ************** TODOS MIS DATOS INGRESADOS ************ -->
 						<h2>Características del viaje:</h2>
@@ -439,12 +453,17 @@
 						<!-- ******** BOTONES ETAPA 5 **************** -->
 
 						<div class="form-row">
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
+								<a class="btn btn-danger btn-block" href="pagina_principal.php" role="button">Cancelar</a>
+							</div>
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="volver_etapa4" class="btn btn-block btn-warning">Atras</button>
 							</div>
 
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<button id="boton_etapa4" type="submit" class="btn btn-info btn-block">Crear Viaje</button>
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
+								<button type="submit" class="btn btn-info btn-block">Crear Viaje</button>
 							</div>			
 						</div>
 					</div>
@@ -455,25 +474,11 @@
 	<?php }
 	include("footer.php");
 	?>
-	<script type="text/javascript">
-		function cambiarCiudadesOrigen(){
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.open("GET","modelo/ajaxData1.php?provincia_origen="+document.getElementById("provincia_origen").value,false);
-			xmlhttp.send(null);
-			document.getElementById("ciudad_origen").innerHTML=xmlhttp.responseText;	
-		}
-		function cambiarCiudadesDestino(){
-			var xmlhttp=new XMLHttpRequest();
-			xmlhttp.open("GET","modelo/ajaxData2.php?provincia_destino="+document.getElementById("provincia_destino").value,false);
-			xmlhttp.send(null);
-			document.getElementById("ciudad_destino").innerHTML=xmlhttp.responseText;	
-		}
-	</script>
 	<script src="js/jquery.min.js"></script>
-	<script src="js/crear_viaje/ocultar-mostrar.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/crear_viaje/select_ciudad.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="js/crear_viaje/validaciones_viaje.js"></script>
+	<script src="js/crear_viaje/traeme_ciudades.js"></script>
+	<script src="js/crear_viaje/enabled_disabled.js"></script>
 </body>
 </html>
 

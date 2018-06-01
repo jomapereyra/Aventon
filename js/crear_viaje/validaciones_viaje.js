@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 	/* *********************** ETAPA 1 ************************ */
 
-	$("#provincia_origen").change(function(){
+	$("#provincia_origen").on("change blur",function(){
 		var provincia=$("#provincia_origen").val();
 		if(provincia==""){
 			$("#mensaje1").fadeIn();
@@ -17,9 +17,9 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#calle_origen").blur(function(){
+	$("#calle_origen").on("keyup blur",function(){
 		var calle=$("#calle_origen").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 		if(calle==""){
 			$("#mensaje2").fadeIn();
 		}
@@ -35,7 +35,7 @@ $(document).ready(function(){
 	})
 
 	
-	$("#numero_origen").blur(function(){
+	$("#numero_origen").on("keyup blur",function(){
 		var numero=$("#numero_origen").val();
 		if(numero==""){
 			$("#mensaje3").fadeIn();
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		var provincia=$("#provincia_origen").val();
 		var calle=$("#calle_origen").val();
 		var numero=$("#numero_origen").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 
 		if(provincia==""){
 			$("#mensaje1").fadeIn();
@@ -72,8 +72,8 @@ $(document).ready(function(){
 						$("#mensaje3").fadeIn();
 					}
 					else{
-						$("#etapa1").hide();
-						$("#etapa2").show();
+						$("#etapa1").hide("slow");
+						$("#etapa2").show("slow");
 					}
 				}
 				
@@ -84,7 +84,7 @@ $(document).ready(function(){
 
 	/* **************************** ETAPA 2 ************************************* */
 
-	$("#provincia_destino").change(function(){
+	$("#provincia_destino").on("change blur",function(){
 		var provincia=$("#provincia_destino").val();
 		if(provincia==""){
 			$("#mensaje4").fadeIn();
@@ -94,9 +94,9 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#calle_destino").blur(function(){
+	$("#calle_destino").on("keyup blur",function(){
 		var calle=$("#calle_destino").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 		if(calle==""){
 			$("#mensaje5").fadeIn();
 		}
@@ -112,7 +112,7 @@ $(document).ready(function(){
 	})
 
 	
-	$("#numero_destino").blur(function(){
+	$("#numero_destino").on("keyup blur",function(){
 		var numero=$("#numero_destino").val();
 		if(numero==""){
 			$("#mensaje6").fadeIn();
@@ -127,7 +127,7 @@ $(document).ready(function(){
 		var provincia=$("#provincia_destino").val();
 		var calle=$("#calle_destino").val();
 		var numero=$("#numero_destino").val();
-		var especiales="^[A-Za-z0-9_]{0,30}$";
+		var especiales="^[A-Za-z0-9_ ]{0,30}$";
 
 		if(provincia==""){
 			$("#mensaje4").fadeIn();
@@ -148,8 +148,8 @@ $(document).ready(function(){
 						$("#mensaje6").fadeIn();
 					}
 					else{
-						$("#etapa2").hide();
-						$("#etapa3").show();
+						$("#etapa2").hide("slow");
+						$("#etapa3").show("slow");
 					}
 				}
 				
@@ -158,8 +158,8 @@ $(document).ready(function(){
 	})
 
 	$("#volver_etapa1").click(function(){
-		$("#etapa2").hide();
-		$("#etapa1").show();
+		$("#etapa2").hide("slow");
+		$("#etapa1").show("slow");
 	})
 
 	/* ****************** ETAPA 3 ******************************* */
@@ -254,8 +254,8 @@ $(document).ready(function(){
 									}
 									else{
 										$("#mensaje10_1").fadeOut();
-										$("#etapa3").hide();
-										$("#etapaExtra").show();
+										$("#etapa3").hide("slow");
+										$("#etapaExtra").show("slow");
 									}
 								}
 							}
@@ -270,20 +270,43 @@ $(document).ready(function(){
 	})
 
 	$("#volver_etapa2").click(function(){
-		$("#etapa3").hide();
-		$("#etapa2").show();
+		$("#etapa3").hide("slow");
+		$("#etapa2").show("slow");
 	})
 
 	/* ****************** ETAPA EXTRA ******************************* */
 
+	var limite=999;
+
+	$("#vehiculo").change(function(){
+		var v_id=$("#vehiculo").val();
+		$.get("controlador/ajaxData3.php",{id_vehiculo:v_id},function(resultado){
+			limite=resultado;
+		})
+	})
+
+
 	$("#boton_etapaExtra").click(function(){
+		var cant=parseInt($("#asientos").val());
 		if($("#vehiculo").val()===""){
 			$("#mensaje13").fadeIn();
 		}
 		else{
 			$("#mensaje13").fadeOut();
-			$("#etapaExtra").hide();
-			$("#etapa4").show();
+			if($("#asientos").val()===""){
+				$("#mensaje14").fadeIn();
+			}
+			else{
+				$("#mensaje14").fadeOut();
+				if(cant>limite){
+					$("#mensaje14_1").fadeIn();
+				}
+				else{
+					$("#mensaje14_1").fadeOut();
+					$("#etapaExtra").hide("slow");
+					$("#etapa4").show("slow");
+				}
+			}
 		}
 	})
 
@@ -296,9 +319,27 @@ $(document).ready(function(){
 		}
 	})
 
+	$("#asientos").on("keyup blur",function(){
+		if($("#asientos").val()===""){
+			$("#mensaje14").fadeIn();
+		}
+		else{
+			$("#mensaje14").fadeOut();
+			var cant=parseInt($("#asientos").val());
+			if(cant>limite){
+				$("#mensaje14_1").empty();
+				$("#mensaje14_1").text("El vehiculo seleccionado tiene un maximo de "+limite+" asientos");
+				$("#mensaje14_1").fadeIn();
+			}
+			else{
+				$("#mensaje14_1").fadeOut();
+			}
+		}
+	})
+
 	$("#volver_etapa3").click(function(){
-		$("#etapaExtra").hide();
-		$("#etapa3").show();
+		$("#etapaExtra").hide("slow");
+		$("#etapa3").show("slow");
 	})
 
 	/* ****************** ETAPA 4 ******************************* */
@@ -315,10 +356,10 @@ $(document).ready(function(){
 			else{
 				$("#mensaje11").fadeOut();
 				var cost=parseFloat($("#costo").val());
-				var costo_impuestos=cost+(Math.floor(cost*15)/100);
-				$("#costo").val(costo_impuestos);
-				$("#etapa4").hide();
-				$("#etapa5").show();
+				var costo_impuesto=cost+(Math.floor(cost*15)/100);
+				$("#costo_impuesto").val(costo_impuesto);
+				$("#etapa4").hide("slow");
+				$("#etapa5").show("slow");
 				var html="<li>Provincia de partida: " + $('#provincia_origen option:selected').text() + "</li>"+
 				"<li>Ciudad de partida: " + $('#ciudad_origen option:selected').text() + "</li>"+
 				"<li>Calle de partida: " + $('#calle_origen').val() + "</li>"+
@@ -331,14 +372,16 @@ $(document).ready(function(){
 				"<li>Hora de partida: " + $('#hora_partida').val() + "</li>"+
 				"<li>Fecha de llegada: " + $('#fecha_llegada').val() + "</li>"+
 				"<li>Hora de llegada: " + $('#hora_llegada').val() + "</li>"+
-				"<li>Costo con impuestos: " + costo_impuestos + "</li>"+
+				"<li>Vehiculo: " + $('#vehiculo option:selected').text() + "</li>"+
+				"<li>Asientos disponibles: " + $('#asientos').val() + "</li>"+
+				"<li>Costo con impuestos: " + $('#costo_impuesto').val() +"</li>"+
 				"<li>Descripcion del viaje: " + $('#descripcion').val() + "</li>";
 				$("#lista_confirmacion").append(html);
 			}
 		}
 	})
 
-	$("#descripcion").blur(function(){
+	$("#descripcion").on("keyup blur",function(){
 		if($(this).val()==""){
 			$("#mensaje11").fadeIn();
 		}
@@ -348,7 +391,7 @@ $(document).ready(function(){
 	})
 
 
-	$("#costo").change(function(){
+	$("#costo").on("keyup blur",function(){
 		if($(this).val()==""){
 			$("#mensaje12").fadeIn();
 		}
@@ -358,14 +401,14 @@ $(document).ready(function(){
 	})
 
 	$("#volver_etapaExtra").click(function(){
-		$("#etapa4").hide();
-		$("#etapaExtra").show();
+		$("#etapa4").hide("slow");
+		$("#etapaExtra").show("slow");
 	})
 
 	$("#volver_etapa4").click(function(){
 		$("#lista_confirmacion").empty();
-		$("#etapa5").hide();
-		$("#etapa4").show();
+		$("#etapa5").hide("slow");
+		$("#etapa4").show("slow");
 	})
 
 })

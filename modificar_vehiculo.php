@@ -19,7 +19,7 @@
 	$tipo=$_GET["tipo"];
 	$cant=$_GET["cant"];
 	?>
-	<form class="" action="modelo/guardar_modificacion_vehiculo.php" method="post" onSubmit="return validar();">
+	<form class="" action="controlador/guardar_modificacion_vehiculo.php" method="post" onSubmit="return validar();">
 
 		<div class="container my-container">
 
@@ -94,15 +94,14 @@
 							<select class="form-control" id="tipo_vehiculo" name="tipo_vehiculo">
 								<option value="">Elija el tipo de vehiculo</option>
 								<?php
-								$cont=1; 
 								foreach ($tipos as $t) {
-									if ($tipo==$cont) {
+									$id_tipo=(int)$t['id_tipo_vehiculo'];
+									if ($tipo==$id_tipo) {
 										echo '<option value="'.$t['id_tipo_vehiculo'].'" selected>'.$t['tipo_vehiculo'].'</option>';
 									}
 									else{
 										echo '<option value="'.$t['id_tipo_vehiculo'].'">'.$t['tipo_vehiculo'].'</option>';
 									}
-									$cont++;
 								}
 								?>
 							</select>

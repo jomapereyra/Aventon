@@ -24,4 +24,12 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#vehiculo").change( function() {
+		if ($(this).val() === "") {
+			$("#asientos").prop("disabled", true);
+		} else {
+			$("#asientos").prop("disabled", false);
+		}
+	});
+
 })

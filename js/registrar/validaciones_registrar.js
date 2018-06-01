@@ -127,79 +127,90 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#boton_reg").click(function(){
-		var nombre=$("#nombre_usuario").val();
-		var apellido=$("#apellido_usuario").val();
-		var email=$("#email_usuario").val();
-		var contraseña=$("#contraseña").val();
-		var confirmar_contraseña=$("#confirmar_contraseña").val();
-		var fecha_nacimiento=$("#fecha_nacimiento").val();
-		var telefono=$("#telefono_usuario").val();
-		var fecha=new Date();
-		fecha.setDate(fecha.getDate());
-		dia=fecha.getDate();
-		mes=fecha.getMonth()+1;
-		año=fecha.getFullYear()-18;
-
-		if(dia<10){
-			dia='0'+dia;
-		} 
-		if(mes<10){
-			mes='0'+mes;
-		}
+	/*$("#boton_reg").click(function(){
 		
-		var fecha_menor= String(año+"-"+mes+"-"+dia);
-		
+	})*/
+});
+function validar(){
+	var nombre=$("#nombre_usuario").val();
+	var apellido=$("#apellido_usuario").val();
+	var email=$("#email_usuario").val();
+	var contraseña=$("#contraseña").val();
+	var confirmar_contraseña=$("#confirmar_contraseña").val();
+	var fecha_nacimiento=$("#fecha_nacimiento").val();
+	var telefono=$("#telefono_usuario").val();
+	var fecha=new Date();
+	fecha.setDate(fecha.getDate());
+	dia=fecha.getDate();
+	mes=fecha.getMonth()+1;
+	año=fecha.getFullYear()-18;
 
-		if(nombre==""){
-			$("#mensaje1").fadeIn();
+	if(dia<10){
+		dia='0'+dia;
+	} 
+	if(mes<10){
+		mes='0'+mes;
+	}
+
+	var fecha_menor= String(año+"-"+mes+"-"+dia);
+
+
+	if(nombre==""){
+		$("#mensaje1").fadeIn();
+		return false;
+	}
+	else{
+		$("#mensaje1").fadeOut();
+		if(apellido==""){
+			$("#mensaje2").fadeIn();
+			return false;
 		}
 		else{
-			$("#mensaje1").fadeOut();
-			if(apellido==""){
-				$("#mensaje2").fadeIn();
+			$("#mensaje2").fadeOut();
+			if(email==""){
+				$("#mensaje3").fadeIn();
+				return false;
 			}
 			else{
-				$("#mensaje2").fadeOut();
-				if(email==""){
-					$("#mensaje3").fadeIn();
-					
+				$("#mensaje3").fadeOut();
+				if(contraseña==""){
+					$("#mensaje4").fadeIn();
+					return false;
 				}
 				else{
-					$("#mensaje3").fadeOut();
-					if(contraseña==""){
-						$("#mensaje4").fadeIn();
+					$("#mensaje4").fadeOut();
+					if (!(confirmar_contraseña==contraseña)) {
+						$("#mensaje5_1").fadeIn();
+						return false;
 					}
 					else{
-						$("#mensaje4").fadeOut();
-						if (!(confirmar_contraseña==contraseña)) {
-							$("#mensaje5_1").fadeIn();
+						$("#mensaje5_1").fadeOut();
+						if(fecha_nacimiento==""){
+							$("#mensaje6").fadeIn();
+							return false;
 						}
 						else{
-							$("#mensaje5_1").fadeOut();
-							if(fecha_nacimiento==""){
-								$("#mensaje6").fadeIn();
+							$("#mensaje6").fadeOut();
+							if(fecha_nacimiento>fecha_menor){
+								$("#mensaje6_1").fadeIn();
+								return false;
 							}
 							else{
-								$("#mensaje6").fadeOut();
-								if(fecha_nacimiento>fecha_menor){
-									$("#mensaje6_1").fadeIn();
+								$("#mensaje6_1").fadeOut();
+								if(telefono==""){
+									$("#mensaje7").fadeIn();
+									return false;
 								}
 								else{
-									$("#mensaje6_1").fadeOut();
-									if(telefono==""){
-										$("#mensaje7").fadeIn();
-									}
-									else{
-										$("#mensaje7").fadeOut();
-									}
-									
+									$("#mensaje7").fadeOut();
+									return true;
 								}
+
 							}
 						}
 					}
 				}
 			}
 		}
-	})
-})
+	}
+}
