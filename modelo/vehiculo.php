@@ -14,9 +14,9 @@ class Vehiculo{
 		$resultado->execute(array(':pa'=>$patente,':id_u'=>$id_usuario,':id_t'=>$id_tipo,':mar'=>$marca,':mod'=>$modelo,':anio'=>$anio,':cant'=>$cant_asientos));
 	}
 
-	public function modificar($patente,$id_usuario,$id_tipo,$marca,$modelo,$anio,$cant_asientos){
-		$resultado=$this->db->prepare("UPDATE vehiculo SET patente=:pa,id_usuario=:id_u,id_tipo_vehiculo=:id_t,marca=:mar,modelo=:mod,anio=:anio,cant_asientos=:cant");
-		$resultado->execute(array(':pa'=>$patente,':id_u'=>$id_usuario,':id_t'=>$id_tipo,':mar'=>$marca,':mod'=>$modelo,':anio'=>$anio,':cant'=>$cant_asientos));
+	public function modificar($patente,$id_vehiculo,$id_tipo,$marca,$modelo,$anio,$cant_asientos){
+		$resultado=$this->db->prepare("UPDATE vehiculo SET patente=:pa,id_tipo_vehiculo=:id_t,marca=:mar,modelo=:mod,anio=:anio,cant_asientos=:cant WHERE vehiculo.id_vehiculo=$id_vehiculo");
+		$resultado->execute(array(':pa'=>$patente,':id_t'=>$id_tipo,':mar'=>$marca,':mod'=>$modelo,':anio'=>$anio,':cant'=>$cant_asientos));
 	}
 
 	public function eliminar($id){

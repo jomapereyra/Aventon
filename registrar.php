@@ -26,7 +26,7 @@
 		</div>
 	</div>
 </header>
-<form class="padding-bottom-20" name="origen" action="controlador/guardar_registro.php" onSubmit="return validar()" method="post">
+<form class="padding-bottom-20" name="origen" action="controlador/guardar_registro.php" method="post">
 	<div class="container my-container" id="">
 		<div class="row semitransparente rounded">
 			<div class="col-md-4">
@@ -61,7 +61,7 @@
 					<input class="form-control" type="text" name="email_usuario" id="email_usuario" placeholder="Email">
 					<div id="mensaje3" class="error"><i class="fas fa-times"></i>
 					&nbsp;Debe ingresar un email</div>
-					<div id="mensaje3_1" class="error"><i class="fas fa-times"></i>
+					<div id="mensaje8" class="error"><i class="fas fa-times"></i>
 					&nbsp;Email existente</div>
 				</div>
 				<div class="form-group col-md-6 col-sm-12">
@@ -111,6 +111,7 @@
 					<small id="ayudaNombre" class="text-muted">
 						EJ:"02344452729" "0234415427554".
 					</small>
+					
 				</div>
 
 				<!--************** BOTONES **************-->
@@ -121,7 +122,7 @@
 					</div>
 
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<button id="boton_reg" type="submit"  class="btn btn-info btn-block">Registrar</button>
+						<button id="boton_reg" type="button"  class="btn btn-info btn-block">Registrar</button>
 					</div>			
 				</div>
 			</div>

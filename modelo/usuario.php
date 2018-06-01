@@ -2,7 +2,6 @@
 class Usuario{
 	private $db;//conexion
 	private $usuarios;
-	private $via;
 
 	public function __construct(){
 		require_once("conexion.php");
@@ -12,6 +11,11 @@ class Usuario{
 
 	public function existe($email,$pass){
 		$registro=$this->db->query("SELECT * FROM usuario WHERE usuario.email='".$email."'". "AND usuario.contrasenia='".$pass."'")->rowCount();
+		return $registro > 0;
+	}
+
+	public function existe1($email){
+		$registro=$this->db->query("SELECT * FROM usuario WHERE usuario.email='".$email."'")->rowCount();
 		return $registro > 0;
 	}
 
@@ -36,14 +40,18 @@ class Usuario{
 		return $datos;
 	}
 
-	public function get_viajes_creados($email){
+	public function get_datos_id($id){
 		$datos=array();
-		$consulta=$this->db->query("SELECT * FROM usuario INNER JOIN  viaje ON (usuario.id_usuario = viaje.id_usuario) WHERE usuario.email='".$email."'");
-		while ($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
-				$this->via[]=$fila;
-		} 
-		return $this->via;
-		
+		$consulta=$this->db->query("SELECT * FROM usuario WHERE usuario.id_usuario='".$id."'");
+		$datos=$consulta->fetch(PDO::FETCH_ASSOC);
+		return $datos;
 	}
+
+	public function modificar($id_usuario,$nombre,$apellido,$contraseña,$telefono,$fecha_nacimiento){
+		$resultado=$this->db->prepare("UPDATE usuario SET nombre=:nom,apellido=:ape,contrasenia=:pass,telefono=:tel,f_nacimiento=:fn WHERE usuario.id_usuario=$id_usuario");
+		$resultado->execute(array(':nom'=>$nombre,':ape'=>$apellido,':pass'=>$contraseña,':tel'=>$telefono,':fn'=>$fecha_nacimiento));
+	}
+
+	
 }
 ?>

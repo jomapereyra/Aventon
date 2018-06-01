@@ -39,6 +39,8 @@ $(document).ready(function(){
 		var hotmail= email.indexOf("@hotmail.com");
 		var gmail= email.indexOf("@gmail.com");
 		var yahoo= email.indexOf("@yahoo.com");
+
+		$("#mensaje8").fadeOut();
 		
 		if(email==""){
 			$("#mensaje3").fadeIn();
@@ -53,8 +55,6 @@ $(document).ready(function(){
 		else{
 			$("#mensaje3").fadeOut();
 		}
-
-
 
 	})
 
@@ -127,90 +127,96 @@ $(document).ready(function(){
 		}
 	})
 
-	/*$("#boton_reg").click(function(){
-		
-	})*/
-});
-function validar(){
-	var nombre=$("#nombre_usuario").val();
-	var apellido=$("#apellido_usuario").val();
-	var email=$("#email_usuario").val();
-	var contraseña=$("#contraseña").val();
-	var confirmar_contraseña=$("#confirmar_contraseña").val();
-	var fecha_nacimiento=$("#fecha_nacimiento").val();
-	var telefono=$("#telefono_usuario").val();
-	var fecha=new Date();
-	fecha.setDate(fecha.getDate());
-	dia=fecha.getDate();
-	mes=fecha.getMonth()+1;
-	año=fecha.getFullYear()-18;
+	$("#boton_reg").click(function(){
 
-	if(dia<10){
-		dia='0'+dia;
-	} 
-	if(mes<10){
-		mes='0'+mes;
-	}
+		var nombre=$("#nombre_usuario").val();
+		var apellido=$("#apellido_usuario").val();
+		var email=$("#email_usuario").val();
+		var contraseña=$("#contraseña").val();
+		var confirmar_contraseña=$("#confirmar_contraseña").val();
+		var fecha_nacimiento=$("#fecha_nacimiento").val();
+		var telefono=$("#telefono_usuario").val();
+		var fecha=new Date();
+		fecha.setDate(fecha.getDate());
+		dia=fecha.getDate();
+		mes=fecha.getMonth()+1;
+		año=fecha.getFullYear()-18;
 
-	var fecha_menor= String(año+"-"+mes+"-"+dia);
+		if(dia<10){
+			dia='0'+dia;
+		} 
+		if(mes<10){
+			mes='0'+mes;
+		}
+
+		var fecha_menor= String(año+"-"+mes+"-"+dia);
 
 
-	if(nombre==""){
-		$("#mensaje1").fadeIn();
-		return false;
-	}
-	else{
-		$("#mensaje1").fadeOut();
-		if(apellido==""){
-			$("#mensaje2").fadeIn();
-			return false;
+		if(nombre==""){
+			$("#mensaje1").fadeIn();
 		}
 		else{
-			$("#mensaje2").fadeOut();
-			if(email==""){
-				$("#mensaje3").fadeIn();
-				return false;
+			$("#mensaje1").fadeOut();
+			if(apellido==""){
+				$("#mensaje2").fadeIn();
 			}
 			else{
-				$("#mensaje3").fadeOut();
-				if(contraseña==""){
-					$("#mensaje4").fadeIn();
-					return false;
+				$("#mensaje2").fadeOut();
+				if(email==""){
+					$("#mensaje3").fadeIn();
 				}
 				else{
-					$("#mensaje4").fadeOut();
-					if (!(confirmar_contraseña==contraseña)) {
-						$("#mensaje5_1").fadeIn();
-						return false;
+					$("#mensaje3").fadeOut();
+					if(contraseña==""){
+						$("#mensaje4").fadeIn();
 					}
 					else{
-						$("#mensaje5_1").fadeOut();
-						if(fecha_nacimiento==""){
-							$("#mensaje6").fadeIn();
-							return false;
+						$("#mensaje4").fadeOut();
+						if (!(confirmar_contraseña==contraseña)) {
+							$("#mensaje5_1").fadeIn();
 						}
 						else{
-							$("#mensaje6").fadeOut();
-							if(fecha_nacimiento>fecha_menor){
-								$("#mensaje6_1").fadeIn();
-								return false;
+							$("#mensaje5_1").fadeOut();
+							if(fecha_nacimiento==""){
+								$("#mensaje6").fadeIn();
 							}
 							else{
-								$("#mensaje6_1").fadeOut();
-								if(telefono==""){
-									$("#mensaje7").fadeIn();
-									return false;
+								$("#mensaje6").fadeOut();
+								if(fecha_nacimiento>fecha_menor){
+									$("#mensaje6_1").fadeIn();
 								}
 								else{
-									$("#mensaje7").fadeOut();
-									return true;
-								}
+									$("#mensaje6_1").fadeOut();
+									if(telefono==""){
+										$("#mensaje7").fadeIn();
+									}
+									else{
+										$("#mensaje7").fadeOut();
+										$.get("controlador/ajaxRegistrar.php",{email:email,nombre_usuario:nombre,apellido_usuario:apellido,contraseña:contraseña,fecha_nacimiento:fecha_nacimiento,telefono_usuario:telefono},function(resultado){
+											if(!resultado){
+												alert("Usuario registrado correctamente");
+												$(location).attr('href',"index.php");
+											}
+											else{
+												$("#mensaje8").fadeIn();
+											}
 
+										})
+									}
+
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-	}
-}
+
+	})
+})
+
+
+
+
+
+

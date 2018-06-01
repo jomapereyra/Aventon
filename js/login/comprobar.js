@@ -24,10 +24,7 @@ $(document).ready(function(){
 		var contraseña=$("#contraseña").val();
 
 		$.get("controlador/ajaxLogin.php",{email:email,contraseña:contraseña},function(resultado){
-			alert("llego segunda");
-			alert(resultado);
 			if(resultado){
-				alert("estoy registrado");
 				$(location).attr('href',"pagina_principal.php");
 			}
 			else{
@@ -46,7 +43,6 @@ $(document).ready(function(){
 			}
 			else{
 				$("#mensaje2").fadeOut();
-				alert("llego primera");
 			}
 		}
 

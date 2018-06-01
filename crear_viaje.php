@@ -353,13 +353,19 @@
 						<!-- ******** BOTONES ETAPA EXTRA **************** -->
 
 						<div class="form-row">
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
+								<a class="btn btn-danger btn-block" href="pagina_principal.php" role="button">Cancelar</a>
+							</div>
+
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button type="button" id="volver_etapa3" class="btn btn-block btn-warning">Atras</button>
 							</div>
 
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group col-md-4 col-sm-4 col-xs-12">
 								<button id="boton_etapaExtra" type="button" class="btn btn-info btn-block">Siguiente</button>
-							</div>			
+							</div>	
+
 						</div>
 
 					</div>
@@ -404,9 +410,11 @@
 								name="descripcion" rows="10"></textarea>
 								<div id="mensaje11" class="error"><i class="fas fa-times"></i>
 								&nbsp;Debe ingresar una descripcion del viaje para finalizar</div>
+								<div id="mensaje11_1" class="error"><i class="fas fa-times"></i>
+								&nbsp;Limite de caracteres:300</div>
 								<small id="ayudaDescripcion" class="text-muted">
 									En la descripcion puede agregar restricciones o condiciones del viaje.<br>
-									Tenga en cuenta que no debe superar los x caracteres
+									Tenga en cuenta que no debe superar los 300 caracteres
 								</small>
 							</div>
 

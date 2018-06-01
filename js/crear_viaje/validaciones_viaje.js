@@ -355,38 +355,53 @@ $(document).ready(function(){
 			}
 			else{
 				$("#mensaje11").fadeOut();
-				var cost=parseFloat($("#costo").val());
-				var costo_impuesto=cost+(Math.floor(cost*15)/100);
-				$("#costo_impuesto").val(costo_impuesto);
-				$("#etapa4").hide("slow");
-				$("#etapa5").show("slow");
-				var html="<li>Provincia de partida: " + $('#provincia_origen option:selected').text() + "</li>"+
-				"<li>Ciudad de partida: " + $('#ciudad_origen option:selected').text() + "</li>"+
-				"<li>Calle de partida: " + $('#calle_origen').val() + "</li>"+
-				"<li>Numero de partida: " + $('#numero_origen').val() + "</li>"+
-				"<li>Provincia de llegada: " + $('#provincia_destino option:selected').text() + "</li>"+
-				"<li>Ciudad de llegada: " + $('#ciudad_destino option:selected').text() + "</li>"+
-				"<li>Calle de llegada: " + $('#calle_destino').val() + "</li>"+
-				"<li>Numero de llegada: " + $('#numero_destino').val() + "</li>"+
-				"<li>Fecha de partida: " + $('#fecha_partida').val() + "</li>"+
-				"<li>Hora de partida: " + $('#hora_partida').val() + "</li>"+
-				"<li>Fecha de llegada: " + $('#fecha_llegada').val() + "</li>"+
-				"<li>Hora de llegada: " + $('#hora_llegada').val() + "</li>"+
-				"<li>Vehiculo: " + $('#vehiculo option:selected').text() + "</li>"+
-				"<li>Asientos disponibles: " + $('#asientos').val() + "</li>"+
-				"<li>Costo con impuestos: " + $('#costo_impuesto').val() +"</li>"+
-				"<li>Descripcion del viaje: " + $('#descripcion').val() + "</li>";
-				$("#lista_confirmacion").append(html);
+				var descripcion=$("#descripcion").val();
+				if(descripcion.length > 300){
+					$("#mensaje11_1").fadeIn();
+				}
+				else{
+					$("#mensaje11_1").fadeOut();
+					var cost=parseFloat($("#costo").val());
+					var costo_impuesto=cost+(Math.floor(cost*15)/100);
+					$("#costo_impuesto").val(costo_impuesto);
+					$("#etapa4").hide("slow");
+					$("#etapa5").show("slow");
+					var html="<li>Provincia de partida: " + $('#provincia_origen option:selected').text() + "</li>"+
+					"<li>Ciudad de partida: " + $('#ciudad_origen option:selected').text() + "</li>"+
+					"<li>Calle de partida: " + $('#calle_origen').val() + "</li>"+
+					"<li>Numero de partida: " + $('#numero_origen').val() + "</li>"+
+					"<li>Provincia de llegada: " + $('#provincia_destino option:selected').text() + "</li>"+
+					"<li>Ciudad de llegada: " + $('#ciudad_destino option:selected').text() + "</li>"+
+					"<li>Calle de llegada: " + $('#calle_destino').val() + "</li>"+
+					"<li>Numero de llegada: " + $('#numero_destino').val() + "</li>"+
+					"<li>Fecha de partida: " + $('#fecha_partida').val() + "</li>"+
+					"<li>Hora de partida: " + $('#hora_partida').val() + "</li>"+
+					"<li>Fecha de llegada: " + $('#fecha_llegada').val() + "</li>"+
+					"<li>Hora de llegada: " + $('#hora_llegada').val() + "</li>"+
+					"<li>Vehiculo: " + $('#vehiculo option:selected').text() + "</li>"+
+					"<li>Asientos disponibles: " + $('#asientos').val() + "</li>"+
+					"<li>Costo con impuestos: " + $('#costo_impuesto').val() +"</li>"+
+					"<li>Descripcion del viaje: " + $('#descripcion').val() + "</li>";
+					$("#lista_confirmacion").append(html);
+				}
+				
 			}
 		}
 	})
 
 	$("#descripcion").on("keyup blur",function(){
-		if($(this).val()==""){
+		var descripcion=$("#descripcion").val();
+		if(descripcion==""){
 			$("#mensaje11").fadeIn();
 		}
 		else{
 			$("#mensaje11").fadeOut();
+			if(descripcion.length > 300){
+				$("#mensaje11_1").fadeIn();
+			}
+			else{
+				$("#mensaje11_1").fadeOut();
+			}
 		}
 	})
 

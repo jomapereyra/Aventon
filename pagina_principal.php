@@ -13,7 +13,16 @@
 	<link rel="stylesheet" href="css/estilo.css">
 </head>
 <body class="fondo-usuario">
-	<?php include("header.php");?>
+	<?php include("header.php");
+	require_once("modelo/viaje.php");
+	$viaje_tabla=new Viaje();
+	$existen_viajes=$viaje_tabla->hay_viaje();
+	if(!$existen_viajes){
+		include("advertencia_inicio.php");
+	}
+	else{
+	?>
+
 	<div class="container   ">
 		
 			<section class="row  col-xs-8  ">
@@ -48,14 +57,14 @@
 										
 										<div class="col-xs-4 col-xl-6">
 											<?php $v= $elemento['id_viaje'];?>
-											<p><u><b> Fecha Salida: </u></b><?php echo " " . $elemento['fecha_salida'];?></p>
-											<p><b><u> Provincia: </u></b> <?php echo " " . $elemento3['nombre_provincia'] . " " ;?></p>
-											<p><b><u> Ciudad: </u></b> <?php echo " " . $elemento5['nombre_localidad'] . " " ;?></p>
+											<p><?php echo "Fecha Salida" . " " . $elemento['fecha_salida'];?></p>
+											<p><?php echo "Provincia:" . " " . $elemento3['nombre_provincia'] . " " ;?></p>
+											<p><?php echo "Ciudad:" . " " . $elemento5['nombre_localidad'] . " " ;?></p>
 										</div>
 										<div class="col-xs-4 col-xl-6">
-											<p><b><u>Fecha Llegada:</u></b>   <?php echo " " . $elemento['fecha_llegada'] . " ";?></p>
-											<p><b><u> Provincia:</u></b> <?php echo " " . $elemento4['nombre_provincia'] . " " ;?></p>
-											<p><b><u> Ciudad: </u></b>  <?php echo " " . $elemento6['nombre_localidad'] . " " ;?></p>
+											<p><?php echo "Fecha Llegada:"  . " " . $elemento['fecha_llegada'] . " ";?></p>
+											<p><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></p>
+											<p><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></p>
 											
 												
 											<form action="mostrarinfoviaje.php" method="post" name="formulario">
@@ -80,7 +89,9 @@
 			</section>
 		
 	</div>
-	<?php include("footer.php"); ?>
+	<?php
+	} 
+	include("footer.php"); ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

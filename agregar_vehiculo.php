@@ -30,7 +30,10 @@
 
 					&nbsp;Debe ingresar la patente</div>
 					<div id="mensaje1_1" class="error"><i class="fas fa-times"></i>
-					&nbsp;No se admiten caracteres especiales</div>
+					&nbsp;No se admiten caracteres especiales, minúsculas ni espacios</div>
+					<small id="ayudaNombre" class="text-muted">
+						Ej:"MJD811" o "AC062WR"
+					</small>
 
 				</div>
 
@@ -111,6 +114,9 @@
 							<div id="mensaje6" class="error"><i class="fas fa-times"></i>
 
 							&nbsp;Debe ingresar la cantidad de asientos</div>
+							<div id="mensaje6_1" class="error"><i class="fas fa-times"></i>
+
+							&nbsp;Tiene que tener al menos 1 asiento</div>
 						</div>
 
 					</div>

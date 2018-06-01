@@ -12,6 +12,7 @@
 	require_once("modelo/tipo_vehiculo.php");
 	$tabla_tipo=new TipoVehiculo();
 	$tipos=$tabla_tipo->get_tipos();
+	$id_vehiculo=$_GET["id"];
 	$patente=$_GET["patente"];
 	$marca=$_GET["marca"];
 	$modelo=$_GET["modelo"];
@@ -30,13 +31,13 @@
 				<!-- ******** PATENTE ******************* -->
 				
 				<div class="form-group">
-					<label for="patente">Ingrese la patente de su vehiculo: </label>
-					<input type="text" class="form-control" id="patente" name="patente" placeholder="Patente" value=<?php echo $patente ?>>
+					<label for="patente">Cambiar la patente del vehiculo: </label>
+					<input type="text" class="form-control" id="patente" name="patente" placeholder="Patente" value=<?php echo $patente; echo $patente ?>>
 					<div id="mensaje1" class="error"><i class="fas fa-times"></i>
 
 					&nbsp;Debe ingresar la patente</div>
 					<div id="mensaje1_1" class="error"><i class="fas fa-times"></i>
-					&nbsp;No se admiten caracteres especiales ni minúsculas</div>
+					&nbsp;No se admiten caracteres especiales, minúsculas ni espacios</div>
 
 				</div>
 
@@ -46,7 +47,7 @@
 					
 					<div class="col-md-4 col-sm-12">
 						<div class="form-group">
-							<label for="marca">Ingrese la marca de su vehiculo: </label>
+							<label for="marca">Cambiar la marca del vehiculo: </label>
 							<input type="text" class="form-control" id="marca" name="marca" placeholder="Marca" value=<?php echo $marca ?>>
 							<div id="mensaje2" class="error"><i class="fas fa-times"></i>
 
@@ -58,7 +59,7 @@
 
 					<div class="col-md-4 col-sm-12">
 						<div class="form-group">
-							<label for="modelo">Ingrese el modelo de su vehiculo: </label>
+							<label for="modelo">Cambiar el modelo del vehiculo: </label>
 							<input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo" value=<?php echo $modelo ?>>
 							<div id="mensaje3" class="error"><i class="fas fa-times"></i>
 
@@ -70,7 +71,7 @@
 
 					<div class="col-md-4 col-sm-12">
 						<div class="form-group">
-							<label for="año">Ingrese el año de su vehiculo: </label>
+							<label for="año">Cambiar el año del vehiculo: </label>
 							<input type="number" min="1950" class="form-control" id="año" name="año" placeholder="Año" value=<?php echo "$año" ?>>
 							<div id="mensaje4" class="error"><i class="fas fa-times"></i>
 
@@ -90,7 +91,7 @@
 					<div class="col-md-6 col-sm-12">
 
 						<div class="form-group">
-							<label for="tipo_vehiculo">Seleccione el tipo de vehiculo: </label>
+							<label for="tipo_vehiculo">Cambiar el tipo de vehiculo: </label>
 							<select class="form-control" id="tipo_vehiculo" name="tipo_vehiculo">
 								<option value="">Elija el tipo de vehiculo</option>
 								<?php
@@ -119,12 +120,17 @@
 					<div class="col-md-6 col-sm-12">
 
 						<div class="form-group">
-							<label for="asientos">Ingrese la cantidad de asientos: </label>
+							<label for="asientos">Cambiar la cantidad de asientos: </label>
 							<input type="number" class="form-control" id="asientos" name="asientos" placeholder="Cantidad" value="<?php echo $cant ?>">
 							<div id="mensaje6" class="error"><i class="fas fa-times"></i>
 
 							&nbsp;Debe ingresar la cantidad de asientos</div>
+							<div id="mensaje6_1" class="error"><i class="fas fa-times"></i>
+
+							&nbsp;Tiene que tener al menos 1 asiento</div>
 						</div>
+
+						<input type="hidden" class="form-control" id="id_vehiculo" name="id_vehiculo" value=<?php echo $id_vehiculo ?>>
 
 					</div>
 

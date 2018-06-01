@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	$("#patente").on("keyup blur",function(){
 		var patente=$("#patente").val();
-		var especiales="^[A-Z0-9_ ]{0,30}$";
+		var especiales="^[A-Z0-9_]{0,30}$";
 		if(patente==""){
 			$("#mensaje1").fadeIn();
 		}
@@ -15,6 +15,18 @@ $(document).ready(function(){
 		else{
 			$("#mensaje1_1").fadeOut();
 		}
+		if (patente.length < 6) {
+				$("#mensaje1").fadeIn();
+			}
+			else{
+				$("#mensaje1").fadeOut();
+				if (patente.length > 7) {
+					$("#mensaje1").fadeIn();
+				}
+				else{
+					$("#mensaje1").fadeOut();
+				}
+			}
 	})
 
 	$("#marca").on("keyup blur",function(){
@@ -74,6 +86,12 @@ $(document).ready(function(){
 		else{
 			$("#mensaje6").fadeOut();
 		}
+		if(asientos==0){
+			$("#mensaje6_1").fadeIn();
+		}
+		else{
+			$("#mensaje6_1").fadeOut();
+		}
 	})
 
 });
@@ -128,7 +146,14 @@ function validar(){
 								return false;
 							}
 							else{
-								return true;
+								if(asientos==0){
+									$("#mensaje6_1").fadeIn();
+									return false;
+								}else{
+									$("#mensaje6_1").fadeOut();
+									return true;
+								}
+								
 							}
 						}
 					}
