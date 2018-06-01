@@ -17,13 +17,13 @@
 </head>
 <body class="fondo-usuario">
 	<?php include("header.php");?>
-<<<<<<< HEAD
+
 	<div class="container my-container">
 		<section class=" row">
-=======
-	<div class="container">
+
+	<div class="container-fluid">
 		<section class="row">
->>>>>>> 05168b49812afff0178ee2c284b745e2e345ce17
+
 			
 			<?php
 				foreach ($array_v as $elemento){
@@ -48,15 +48,11 @@
 								}
 						}
 
-<<<<<<< HEAD
+
 					?><article class=" semitransparente border border-dark my-container">
-							<div class="container  ">
+							<div class="container-fluid  ">
 								<div class=" row">
-=======
-					?><article class=" semitransparente">
-							<div class="container border border-dark ">
-								<div class="row">
->>>>>>> 05168b49812afff0178ee2c284b745e2e345ce17
+
 									<div class="col-xs-12 col-xl-12">
 										<p><u><h1><center>INFORMACION DEL VIAJE </center></h1></u></p>
 									</div>

@@ -55,11 +55,12 @@ if(!isset($_SESSION["usuario"])){
 							&nbsp;<?php
 							require_once("modelo/usuario.php");
 							$tabla_usuario=new Usuario();
+							
 							$nom_ape=$tabla_usuario->get_nombre_apellido($_SESSION["usuario"]);
 							echo 'Hola ',$nom_ape['nombre'],' ',$nom_ape['apellido']; ?>
 
 						</h6>
-						<a class="dropdown-item" href="#">Ver Perfil</a>
+						<a class="dropdown-item" href="perfil.php">Ver Perfil</a>
 						<a class="dropdown-item" href="controlador/cerrar_sesion.php">Cerrar Sesión</a>
 					</div>
 				</li>
