@@ -27,5 +27,12 @@ class Usuario{
 		$datos=$consulta->fetch(PDO::FETCH_ASSOC);
 		return $datos;
 	}
+
+	public function get_datos($email){
+		$datos=array();
+		$consulta=$this->db->query("SELECT * FROM usuario WHERE usuario.email='".$email."'");
+		$datos=$consulta->fetch(PDO::FETCH_ASSOC);
+		return $datos;
+	}
 }
 ?>

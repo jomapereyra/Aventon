@@ -310,7 +310,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#vehiculo").on("change focus",function(){
+	$("#vehiculo").on("change blur",function(){
 		if($("#vehiculo").val()===""){
 			$("#mensaje13").fadeIn();
 		}

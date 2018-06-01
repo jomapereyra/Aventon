@@ -17,13 +17,8 @@
 </head>
 <body class="fondo-usuario">
 	<?php include("header.php");?>
-
-	<div class="container my-container">
-		<section class=" row">
-
-	<div class="container-fluid">
+	<div class="container">
 		<section class="row">
-
 			
 			<?php
 				foreach ($array_v as $elemento){
@@ -48,48 +43,28 @@
 								}
 						}
 
-
-					?><article class=" semitransparente border border-dark my-container">
-							<div class="container-fluid  ">
-								<div class=" row">
-
+					?><article class=" semitransparente">
+							<div class="container border border-dark ">
+								<div class="row">
 									<div class="col-xs-12 col-xl-12">
-										<p><u><h1><center>INFORMACION DEL VIAJE </center></h1></u></p>
+										<p><h1><center>INFORMACION DEL VIAJE </center></h1></p>
 									</div>
-									<div class="col-xs-4 col-xl-4">
+									<div class="col-xs-6 col-xl-6">
 										<center>
-											<p> <h4>Fecha Salida: <?php echo " " . $elemento['fecha_salida']. " ";?> </h4> </p>
-											<p> <h4>Hora de Salida: <?php echo " " . $elemento['hora_salida']. " ";?> </h4> </p>
-											<p> <h4>calle: <?php echo " " . $elemento1['calle']. " ";?> </h4> </p>
-											<p> <h4>numero: <?php echo " " . $elemento1['numero']. " ";?> </h4> </p>
-											<p><h4><?php echo "Provincia:" . " " . $elemento3['nombre_provincia'] . " " ;?></h4></p>
-											<p><h4><?php echo "Ciudad:" . " " . $elemento5['nombre_localidad'] . " " ;?></h4></p>
+											<p> <h3>Fecha Salida: <?php echo " " . $elemento['fecha_salida']. " ";?> </h3> </p>
+											<p> <h3>Hora de Salida: <?php echo " " . $elemento['hora_salida']. " ";?> </h3> </p>
+											<p><h3><?php echo "Provincia:" . " " . $elemento3['nombre_provincia'] . " " ;?></h3></p>
+											<p><h3><?php echo "Ciudad:" . " " . $elemento5['nombre_localidad'] . " " ;?></h3></p>
 										</center>
 									</div>
-									<div class="col-xs-4 col-xl-4">
+									<div class="col-xs-6 col-xl-6">
 										<center>
-											<p><h4><?php echo "Fecha Llegada:"  . " " . $elemento['fecha_llegada'] . " ";?></h4></p>
-											<p><h4><?php echo "Hora Llegada:"  . " " . $elemento['hora_llegada'] . " ";?></h4></p>
-											<p> <h4>calle: <?php echo " " . $elemento2['calle']. " ";?> </h4> </p>
-											<p> <h4>numero: <?php echo " " . $elemento2['numero']. " ";?> </h4> </p>
-											<p><h4><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></h4></p>
-											<p><h4><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></h4></p>					
-										</center>
-
-
-									</div>
-									<div class="col-xs-4 col-xl-4">
-										<center>
-											<p><h3><?php echo "Precio:"  . " " . $elemento['costo'] . " ";?></h3></p>			
+											<p><h3><?php echo "Fecha Llegada:"  . " " . $elemento['fecha_llegada'] . " ";?></h3></p>
+											<p><h3><?php echo "Hora Llegada:"  . " " . $elemento['hora_llegada'] . " ";?></h3></p>
+											<p><h3><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></h3></p>
+											<p><h3><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></h3></p>					
 										</center>
 									</div>
-									<div class="col-xs-12 col-xl-12">
-										<center>
-											<p><u><h3>Descripcion<h3></u></p>
-											<p><h5><?php echo  $elemento['descripcion'] . " ";?></h5></p>				
-										</center>
-									</div>
-
 								</div>
 							</div>
 						

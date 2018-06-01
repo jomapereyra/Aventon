@@ -36,7 +36,7 @@
 
 					&nbsp;Debe ingresar la patente</div>
 					<div id="mensaje1_1" class="error"><i class="fas fa-times"></i>
-					&nbsp;No se admiten caracteres especiales</div>
+					&nbsp;No se admiten caracteres especiales ni minúsculas</div>
 
 				</div>
 

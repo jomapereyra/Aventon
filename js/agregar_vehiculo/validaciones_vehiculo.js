@@ -86,7 +86,7 @@ function validar(){
 	var año=$("#año").val();
 	var tipo=$("#tipo_vehiculo").val();
 	var cant=$("#asientos").val();
-	var especiales="^[A-Za-z0-9_ ]{0,30}$";
+	var especiales="^[A-Z0-9_ ]{0,30}$";
 
 	if(patente==""){
 		$("#mensaje1").fadeIn();

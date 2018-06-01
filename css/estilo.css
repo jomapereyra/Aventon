@@ -11,28 +11,12 @@ body{
 
 header {
 	background: black;
-<<<<<<< HEAD
-	columns: #000000;
-	
-}
-
-.main {
-	/*background: ;*/
-	color: #000000;
-	
-}
-.main row {
-	/*background: ;*/
-	color: #000000;
-	
-=======
 	color:#fff;
 }
 
 .main {
 	background: orange;
 	color:#fff;
->>>>>>> 05168b49812afff0178ee2c284b745e2e345ce17
 }
 
 .color1 {
@@ -46,15 +30,7 @@ header {
 }
 
 article {
-<<<<<<< HEAD
-	color: #000000;
-	
-	
-
-
-=======
 	background: black;
->>>>>>> 05168b49812afff0178ee2c284b745e2e345ce17
 }
 
 footer {
@@ -109,6 +85,10 @@ footer {
 	padding-top: 10px
 }
 
+.padding-top-8{
+	padding-top: 8px
+}
+
 .padding-top-16{
 	padding-top: 16px
 }
@@ -145,6 +125,10 @@ footer {
 	padding-bottom:30px;
 }
 
+.perfil-container{
+	background-color: #90b4c1a6;
+}
+
 .logo{
 	height: 80px;
 	width: 100px;
@@ -177,6 +161,12 @@ footer {
 	font-size: 30px;
 }
 
+.icon-conexion{
+	font-size: 8px;
+	vertical-align: middle;
+	color: #32e232;
+}
+
 .bad-notice{
 	background-color: #e22626b0;
 	padding: 20px;
@@ -185,11 +175,4 @@ footer {
 .semitransparente{
 	background-color: #ffffffb0;
 	padding: 20px;
-<<<<<<< HEAD
-	color: #000000;
-
 }
-
-=======
-}
->>>>>>> 05168b49812afff0178ee2c284b745e2e345ce17

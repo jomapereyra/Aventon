@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("#email").on("keyup focus",function(){
+	$("#email").on("keyup",function(){
 		if($(this).val()==""){
 			$("#mensaje1").fadeIn();
 		}
@@ -9,7 +9,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#contraseña").on("keyup focus",function(){
+	$("#contraseña").on("keyup",function(){
 		if($(this).val()==""){
 			$("#mensaje2").fadeIn();
 		}
