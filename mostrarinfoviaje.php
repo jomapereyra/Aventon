@@ -43,11 +43,11 @@ $array_v= $viajes->get_un_viaje($cadena);
 					}
 				}
 
-				?><article class=" semitransparente">
-					<div class="container border border-dark ">
+				?><article class=" semitransparente border border-dark">
+					<div class="container  ">
 						<div class="row">
 							<div class="col-12 col-xl-12">
-								<p><h1><center>INFORMACION DEL VIAJE </center></h1></p>
+								<p><u><h1><center>INFORMACION DEL VIAJE </center></h1></u></p>
 							</div>
 							<div class="col-6 col-xl-6">
 								<center>
@@ -70,7 +70,7 @@ $array_v= $viajes->get_un_viaje($cadena);
 								</center>
 							</div>
 							<div class="col-12 col-xl-12">
-								<p><h1><center>DETALLE </center></h1></p>
+								<p><u><h1><center>DETALLE </center></h1></u></p>
 								<p>
 									<h3 class="text-center"><?php echo " " . $elemento['descripcion']. " ";?> </h3> 
 								</p>
@@ -82,12 +82,12 @@ $array_v= $viajes->get_un_viaje($cadena);
 									<p><h3 class="text-left"><?php
 									require_once("modelo/usuario.php");
 									$usuario_tabla=new Usuario();
-									$usuario=$usuario_tabla->get_datos_id($elemento["id_usuario"]);
-									echo "Usuario: " . $usuario["nombre"] . " ". $usuario["apellido"] ;?></h3></p>
+									$usuario=$usuario_tabla->get_datos_id($elemento["id_usuario"]);?>
+									<u>Usuario:</u>  <?php echo " ". $usuario["nombre"] . " ". $usuario["apellido"] ;?></h3></p>
 								</div>
 
 								<div class="col-xl-6 col-6">
-									<p><h3 class="text-right"><?php echo "Precio:" . " " . $elemento['costo'] . " " ;?></h3></p>	
+									<p><h3 class="text-right"> <u>Precio:</u> <?php echo  " " . $elemento['costo'] . " " ;?></h3></p>	
 								</div>		
 
 							</div>
@@ -115,7 +115,7 @@ $array_v= $viajes->get_un_viaje($cadena);
 	</div>
 
 
-	<?php include("footer.php"); ?>
+	<!--<?php include("footer.php");?>-->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

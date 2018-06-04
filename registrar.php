@@ -130,9 +130,7 @@
 	</div>
 </form>
 
-<?php 
-include("footer.php");
-?>
+<!--<?php include("footer.php");?>-->
 <script src="js/jquery.min.js"></script>
 <script src="js/registrar/validaciones_registrar.js"></script>
 <script src="js/bootstrap.min.js"></script>

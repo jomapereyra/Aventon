@@ -57,14 +57,14 @@
 										
 										<div class="col-xs-4 col-xl-6">
 											<?php $v= $elemento['id_viaje'];?>
-											<p><?php echo "Fecha Salida" . " " . $elemento['fecha_salida'];?></p>
-											<p><?php echo "Provincia:" . " " . $elemento3['nombre_provincia'] . " " ;?></p>
-											<p><?php echo "Ciudad:" . " " . $elemento5['nombre_localidad'] . " " ;?></p>
+											<p> <u><b> Fecha Salida: </u></b> <?php echo $elemento['fecha_salida'];?></p>
+											<p> <u><b>Provincia: </u></b><?php echo " " . $elemento3['nombre_provincia'] . " " ;?></p>
+											<p> <u><b>Ciudad: </u></b> <?php echo " " . $elemento5['nombre_localidad'] . " " ;?></p>
 										</div>
 										<div class="col-xs-4 col-xl-6">
-											<p><?php echo "Fecha Llegada:"  . " " . $elemento['fecha_llegada'] . " ";?></p>
-											<p><?php echo "Provincia:" . " " . $elemento4['nombre_provincia'] . " " ;?></p>
-											<p><?php echo "Ciudad:"  . " " . $elemento6['nombre_localidad'] . " " ;?></p>
+											<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $elemento['fecha_llegada'] . " ";?></p>
+											<p> <u><b>Provincia: </u></b><?php echo " " . $elemento4['nombre_provincia'] . " " ;?></p>
+											<p> <u><b> Ciudad:</u></b>  <?php echo " " . $elemento6['nombre_localidad'] . " " ;?></p>
 											
 												
 											<form action="mostrarinfoviaje.php" method="post" name="formulario">
@@ -91,7 +91,7 @@
 	</div>
 	<?php
 	} 
-	include("footer.php"); ?>
+	//include("footer.php"); ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

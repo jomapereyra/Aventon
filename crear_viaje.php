@@ -479,9 +479,7 @@
 			</div>
 
 		</form>
-	<?php }
-	include("footer.php");
-	?>
+	<?php } ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/crear_viaje/validaciones_viaje.js"></script>
