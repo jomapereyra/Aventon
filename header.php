@@ -27,24 +27,25 @@ if(!isset($_SESSION["usuario"])){
 				<li class="nav-item">
 					<a class="nav-link" href="pagina_principal.php"><i class="fas fa-home"></i> Inicio<span class="sr-only">(current)</span></a>
 				</li>
-				<!--
+				
 				<li class="nav-item">
-					<a class="nav-link disabled" href="#"><i class="fas fa-search"></i> Buscar</a>
+					<a class="nav-link" href="#"><i class="fas fa-search"></i> Buscar</a>
 				</li>
-			-->
+			
 			<li class="nav-item">
 				<a class="nav-link" href="crear_viaje.php"><i class="fab fa-avianex"></i> Crear Viaje</a>
 			</li>
-			<!--
+			
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-suitcase"></i> Mis Viajes
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="#">Mis Viajes Creados</a>
-					<a class="dropdown-item" href="#">Mis Viajes Participados</a>
+					<a class="dropdown-item" href="#">Viajes Aceptados</a>
+					<a class="dropdown-item" href="#">Viajes Pendientes</a>
 				</div>
 			</li>
-		-->
+		
 		<li class="nav-item">
 			<a class="nav-link" href="mis_vehiculos.php"><i class="fas fa-taxi"></i> Mis Vehiculos</a>
 		</li>
