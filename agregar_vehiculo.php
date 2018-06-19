@@ -13,7 +13,7 @@
 	$tabla_tipo=new TipoVehiculo();
 	$tipos=$tabla_tipo->get_tipos();
 	?>
-	<form class="" action="controlador/guardar_vehiculo.php" method="post" onSubmit="return validar();">
+	<form>
 
 		<div class="container my-container">
 
@@ -27,10 +27,13 @@
 					<label for="patente">Ingrese la patente de su vehiculo: </label>
 					<input type="text" class="form-control" id="patente" name="patente" placeholder="Patente">
 					<div id="mensaje1" class="error"><i class="fas fa-times"></i>
-
 					&nbsp;Debe ingresar la patente</div>
 					<div id="mensaje1_1" class="error"><i class="fas fa-times"></i>
 					&nbsp;No se admiten caracteres especiales, minúsculas ni espacios</div>
+					<div id="mensaje1_2" class="error"><i class="fas fa-times"></i>
+					&nbsp;Patente ya registrada</div>
+					<div id="mensaje1_3" class="error"><i class="fas fa-times"></i>
+					&nbsp;La patente debe contener entre 6 y 7 caracteres</div>
 					<small id="ayudaNombre" class="text-muted">
 						Ej:"MJD811" o "AC062WR"
 					</small>
@@ -131,7 +134,7 @@
 					</div>
 
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<button type="submit" class="btn btn-info btn-block" id="boton_agregar">Agregar</button>
+						<button type="button" class="btn btn-info btn-block" id="boton_agregar">Agregar</button>
 					</div>			
 				</div>
 
@@ -142,6 +145,6 @@
 	<!--<?php include("footer.php");?>-->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/agregar_vehiculo/validaciones_vehiculo.js"></script>
+	<script src="js/vehiculo/validaciones_agregar.js"></script>
 </body>
 </html>

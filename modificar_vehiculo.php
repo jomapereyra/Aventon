@@ -10,17 +10,20 @@
 <body class="fondo-usuario">
 	<?php include("header.php");
 	require_once("modelo/tipo_vehiculo.php");
+	require_once("modelo/vehiculo.php");
 	$tabla_tipo=new TipoVehiculo();
 	$tipos=$tabla_tipo->get_tipos();
 	$id_vehiculo=$_GET["id"];
-	$patente=$_GET["patente"];
-	$marca=$_GET["marca"];
-	$modelo=$_GET["modelo"];
-	$año=$_GET["año"];
-	$tipo=$_GET["tipo"];
-	$cant=$_GET["cant"];
+	$tabla_vehiculo=new Vehiculo();
+	$datos=$tabla_vehiculo->get_datos($id_vehiculo);
+	$patente=$datos["patente"];
+	$marca=$datos["marca"];
+	$modelo=$datos["modelo"];
+	$año=$datos["anio"];
+	$tipo=$datos["id_tipo_vehiculo"];
+	$cant=$datos["cant_asientos"];
 	?>
-	<form class="" action="controlador/guardar_modificacion_vehiculo.php" method="post" onSubmit="return validar();">
+	<form>
 
 		<div class="container my-container">
 
@@ -32,13 +35,19 @@
 				
 				<div class="form-group">
 					<label for="patente">Cambiar la patente del vehiculo: </label>
-					<input type="text" class="form-control" id="patente" name="patente" placeholder="Patente" value=<?php echo $patente; echo $patente ?>>
+					<input type="text" class="form-control" id="patente" name="patente" placeholder="Patente" value=<?php echo $patente ?>>
 					<div id="mensaje1" class="error"><i class="fas fa-times"></i>
 
 					&nbsp;Debe ingresar la patente</div>
 					<div id="mensaje1_1" class="error"><i class="fas fa-times"></i>
 					&nbsp;No se admiten caracteres especiales, minúsculas ni espacios</div>
-
+					<div id="mensaje1_2" class="error"><i class="fas fa-times"></i>
+					&nbsp;Patente ya registrada</div>
+					<div id="mensaje1_3" class="error"><i class="fas fa-times"></i>
+					&nbsp;La patente debe contener entre 6 y 7 caracteres</div>
+					<small id="ayudaNombre" class="text-muted">
+						Ej:"MJD811" o "AC062WR"
+					</small>
 				</div>
 
 				<div class="row">
@@ -144,7 +153,7 @@
 					</div>
 
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-						<button type="submit" class="btn btn-info btn-block" id="boton_agregar">Modificar</button>
+						<button type="button" class="btn btn-info btn-block" id="boton_modificar">Modificar</button>
 					</div>			
 				</div>
 
@@ -155,6 +164,6 @@
 	<!--<?php include("footer.php");?>-->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/agregar_vehiculo/validaciones_vehiculo.js"></script>
+	<script src="js/vehiculo/validaciones_modificar.js"></script>
 </body>
 </html>

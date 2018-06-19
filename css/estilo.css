@@ -42,8 +42,6 @@ footer {
 	height: 40px;
 }
 
-
-
 .fondo-inicio{
 	background-image: url("../img/fondo_inicio.jpg");
 	background-size: cover;
@@ -77,8 +75,17 @@ footer {
 	margin: 0px;
 }
 
+.padding-20{
+	padding: 20px;
+
+}
+
 .padding-left-15{
 	padding-left: 15px
+}
+
+.padding-right-15{
+	padding-right: 15px
 }
 
 .padding-top-10{
@@ -95,6 +102,10 @@ footer {
 
 .padding-bottom-20{
 	padding-bottom: 20px; 
+}
+
+.margin-right-20{
+	margin-right: 20px;
 }
 
 .error{
@@ -152,9 +163,19 @@ footer {
 	font-weight: bolder;
 }
 
+.font-notice-esperando{
+	color: #c7ac25;
+	font-weight: bolder;
+}
+
 .icon-bad{
 	font-size: 100px;
 	color: #6b1010; 
+}
+
+.icon-notice-esperando{
+	font-size: 50px;
+	color: #c7ac25; 
 }
 
 .icon-perfil{
@@ -172,7 +193,17 @@ footer {
 	padding: 20px;
 }
 
+.notice-esperando{
+	background-color: #f3ed3d;
+	padding: 20px;
+}
+
 .semitransparente{
 	background-color: #ffffffb0;
+	padding: 20px;
+}
+
+.semitransparente-pendiente{
+	background-color: #e8ea4fc2;
 	padding: 20px;
 }

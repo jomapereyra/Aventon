@@ -1,8 +1,3 @@
-<?php 
-	require ("devolverviajes.php");
-	$viajes= new Devolverviajes();
-	$array_v= $viajes->get_viajes();
-?>
 <html>
 <head>
 	<title>Aventon</title>
@@ -13,87 +8,192 @@
 	<link rel="stylesheet" href="css/estilo.css">
 </head>
 <body class="fondo-usuario">
-	<?php include("header.php");
+	<?php
 	require_once("modelo/viaje.php");
-	$viaje_tabla=new Viaje();
-	$existen_viajes=$viaje_tabla->hay_viaje();
+	require_once("modelo/usuario.php");
+	require_once("modelo/postulacion.php");
+	$tabla_viaje= new Viaje();
+	$tabla_postulacion=new Postulacion();
+	$casual= $tabla_viaje->get_viajes_casual();
+	$semanal= $tabla_viaje->get_viajes_semanal(); 
+	$existen_viajes=$tabla_viaje->hay_viaje();
+	include("header.php");
+	$email=$_SESSION["usuario"];
+	$tabla_usuario=new Usuario();
+	$usuario=$tabla_usuario->get_id($email);
 	if(!$existen_viajes){
 		include("advertencia_inicio.php");
 	}
 	else{
-	?>
+		?>
 
-	<div class="container   ">
-		
-			<section class="row  col-xs-8  ">
-			
+		<div class="container my-container col-md-8">
+
+			<section>
+				
+				<!-- *********** SELECTOR DE TIPO DE VIAJE *********************** -->
+
+				<div class="text-center padding-bottom-20">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-secondary active">
+							<input type="radio" name="options" id="option1" autocomplete="off" checked>Casual
+						</label>
+						<label class="btn btn-secondary">
+							<input type="radio" name="options" id="option2" autocomplete="off"> Semanal
+						</label>
+						<label class="btn btn-secondary">
+							<input type="radio" name="options" id="option3" autocomplete="off"> Mensual
+						</label>
+					</div>
+				</div>
+
+				<!-- *********** VIAJES CASUALES *********************** -->
+
 				<?php
-					foreach ($array_v as $elemento){
-						$ubicacion1= $viajes->get_ubicacion_origen($elemento['id_origen']);
-						  
-							foreach ($ubicacion1 as $elemento1){
-								$provincia1= $viajes->get_provincia($elemento1['id_provincia']);
-									foreach ($provincia1 as $elemento3){
-										$localidad1= $viajes->get_ciudad($elemento1['id_ciudad']);
-										foreach ($localidad1 as $elemento5){
-											
+
+				foreach ($casual as $c){
+
+					$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
+
+					?>
+					<article class=" row border border-dark semitransparente">
+
+						<div class="container">
+							<div class="row col-xs-8 ">
+
+								<div class="col-xs-4 col-xl-6">
+									<?php $v= $c['id_viaje'];?>
+									<p> <u><b> Fecha Salida: </u></b> <?php echo $c['fecha_salida'];?></p>
+									<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_origen'] . " " ;?></p>
+									<p> <u><b>Ciudad: </u></b> <?php echo " " . $c['ciudad_origen'] . " " ;?></p>
+								</div>
+								<div class="col-xs-4 col-xl-6">
+									<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $c['fecha_llegada'] . " ";?></p>
+									<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_destino'] . " " ;?></p>
+									<p> <u><b> Ciudad:</u></b>  <?php echo " " . $c['ciudad_destino'] . " " ;?></p>
+
+								</div>
+
+								<?php
+
+								if($postulado){
+
+									$estado=$tabla_postulacion->get_estado($c['id_viaje'],$usuario['id_usuario']);
+									if($estado=="esperando"){
+										echo "<style>
+										.semitransparente{
+											background-color:#e8ea4fc2;
+										}
+										</style>";
+										include("advertencia_postulacion_esperando.php");
+									}
+									else{
+										if ($estado=="aceptado") {
+											echo "<style>
+											.semitransparente{
+												background-color:#6eea4fc2;
+											}
+											</style>";
+											include("advertencia_postulacion_aceptado.php");
+										}
+										else{
+											if($estado=="rechazado"){
+												echo "<style>
+												.semitransparente{
+													background-color:#d65050c2;
+												}
+												</style>";
+												include("advertencia_postulacion_rechazado.php");
+											}
 										}
 									}
-							}
-						$ubicacion2= $viajes->get_ubicacion_destino($elemento['id_destino']);
-							foreach ($ubicacion2 as $elemento2){
-								$provincia2= $viajes->get_provincia($elemento2['id_provincia']);
-									foreach ($provincia2 as $elemento4){
-										$localidad2= $viajes->get_ciudad($elemento2['id_ciudad']);
-											foreach ($localidad2 as $elemento6){
-											}
-									}
-							}
-
-						?><article class=" row col-xl-8 col-xs-8 border border-dark semitransparente ">
-								
-								<div class="container    ">
-									<div class="row col-xs-8 ">
-										
-										<div class="col-xs-4 col-xl-6">
-											<?php $v= $elemento['id_viaje'];?>
-											<p> <u><b> Fecha Salida: </u></b> <?php echo $elemento['fecha_salida'];?></p>
-											<p> <u><b>Provincia: </u></b><?php echo " " . $elemento3['nombre_provincia'] . " " ;?></p>
-											<p> <u><b>Ciudad: </u></b> <?php echo " " . $elemento5['nombre_localidad'] . " " ;?></p>
-										</div>
-										<div class="col-xs-4 col-xl-6">
-											<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $elemento['fecha_llegada'] . " ";?></p>
-											<p> <u><b>Provincia: </u></b><?php echo " " . $elemento4['nombre_provincia'] . " " ;?></p>
-											<p> <u><b> Ciudad:</u></b>  <?php echo " " . $elemento6['nombre_localidad'] . " " ;?></p>
-											
-												
-											<form action="mostrarinfoviaje.php" method="post" name="formulario">
-												<input type="hidden" name="variable1" value="<?php echo $elemento['id_viaje'];?> ">
-												<input class="btn btn-primary float-right" type="submit" value="+Info" >
-											</form>
-												
-												
-										</div>
-									</div>
-										
+								} 
+								?>
+								<div class="col-md-12 text-right">
+									<a href="mostrar_info_viaje.php?id=<?php echo $c['id_viaje']?>" class='btn btn-primary float-right'>+INFO</a>	
 								</div>
-							
-							
-						</article>
-						<?php
+								
+							</div>
 
-					}
+						</div>
 
 
-				 ?>
+					</article>
+					<?php
+
+				}
+
+				?>
+
+				<!-- *********** VIAJES SEMANALES *********************** -->
+
+				<?php 
+				foreach ($semanal as $s){
+
+					?>
+					<article class=" row border border-dark semitransparente ">
+
+						<div class="container">
+							<div class="row col-xs-8 ">
+
+								<div class="col-xs-4 col-xl-6">
+									<?php $v= $s['id_viaje'];?>
+									<p> <u><b> Día de Salida: </u></b> <?php echo $s['dia_partida'];?></p>
+									<p> <u><b>Provincia: </u></b><?php echo " " . $s['provincia_origen'] . " " ;?></p>
+									<p> <u><b>Ciudad: </u></b> <?php echo " " . $s['ciudad_origen'] . " " ;?></p>
+								</div>
+								<div class="col-xs-4 col-xl-6">
+									<p><u><b> Día de Llegada:</u></b><?php echo  " " . $s['dia_llegada'] . " ";?></p>
+									<p> <u><b>Provincia: </u></b><?php echo " " . $s['provincia_destino'] . " " ;?></p>
+									<p> <u><b> Ciudad:</u></b>  <?php echo " " . $s['ciudad_destino'] . " " ;?></p>
+
+									<a href="mostrar_info_viaje.php?id=<?php echo $s['id_viaje'];?>" class="btn btn-primary float-right">+INFO</a>
+
+
+								</div>
+							</div>
+
+						</div>
+
+
+					</article>
+					<?php
+
+				}
+
+				?>
+
 			</section>
-		
-	</div>
-	<?php
+
+		</div>
+		<?php
 	} 
 	//include("footer.php"); ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/moment-with-locales.js"></script>
+	<script>
+		$(document).ready(function(){
+
+			moment.locale('es');
+
+			var x = 622;
+			var fecha=new Date();
+			var fecha1=new Date();
+			fecha1.getDate();
+			alert(fecha1);
+
+			moment().add(7, 'days');
+			
+			fecha=(moment(moment(fecha1).add(8, 'days')).format("DD MM YYYY"));
+
+			alert(fecha);
+
+
+
+
+		})
+	</script>
 
 </body>
 </html>

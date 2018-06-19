@@ -37,10 +37,30 @@ class Vehiculo{
 		return $mis_v;
 	}
 
+	public function get_datos($id){
+		$consulta=$this->db->query("SELECT * FROM vehiculo WHERE vehiculo.id_vehiculo=$id");
+		return $consulta->fetch(PDO::FETCH_ASSOC);
+	}
+
 	public function get_limite($id){
 		$consulta=$this->db->query("SELECT cant_asientos FROM vehiculo WHERE vehiculo.id_vehiculo=$id");
 		$resultado=$consulta->fetch(PDO::FETCH_ASSOC);
 		return $resultado["cant_asientos"];
+	}
+
+	public function existe($patente,$id_usuario){
+		$registro=$this->db->query("SELECT * FROM vehiculo WHERE vehiculo.patente='".$patente."'". "AND vehiculo.id_usuario='".$id_usuario."'")->rowCount();
+		return $registro > 0;
+	}
+
+	public function existe_viaje($id_vehiculo){
+		$registro=$this->db->query("SELECT * FROM vehiculo INNER JOIN viaje ON(vehiculo.id_vehiculo=viaje.id_vehiculo) WHERE vehiculo.id_vehiculo='".$id_vehiculo."'". "AND viaje.estado=false")->rowCount();
+		return $registro > 0;
+	}
+
+	public function existe_diferente($id_vehiculo,$patente,$id_usuario){
+		$registro=$this->db->query("SELECT * FROM vehiculo WHERE vehiculo.patente='".$patente."'". "AND vehiculo.id_usuario='".$id_usuario."'"."AND vehiculo.id_vehiculo<>'".$id_vehiculo."'")->rowCount();
+		return $registro > 0;
 	}
 }
 ?>

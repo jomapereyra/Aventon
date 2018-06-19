@@ -19,5 +19,17 @@ class Ubicacion{
 		$ubicacion=$consulta->fetch(PDO::FETCH_ASSOC);
 		return $ubicacion['valor'];
 	}
+
+	public function existe($calle,$numero,$provincia,$ciudad){
+		$registro=$this->db->query("SELECT * FROM ubicacion WHERE ubicacion.calle='".$calle."'"." AND ubicacion.numero='".$numero."'"." AND ubicacion.id_provincia='".$provincia."'"."AND ubicacion.id_ciudad='".$ciudad."'")->rowCount();
+		return $registro > 0;
+	}
+
+
+	public function get_id($calle,$numero,$provincia,$ciudad){
+		$consulta=$this->db->query("SELECT * FROM ubicacion WHERE  ubicacion.calle='".$calle."'"." AND ubicacion.numero='".$numero."'"." AND ubicacion.id_provincia='".$provincia."'"."AND ubicacion.id_ciudad='".$ciudad."'");
+		$ubicacion=$consulta->fetch(PDO::FETCH_ASSOC);
+		return $ubicacion['id_ubicacion'];
+	}
 }
 ?>

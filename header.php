@@ -42,7 +42,7 @@ if(!isset($_SESSION["usuario"])){
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="#">Mis Viajes Creados</a>
 					<a class="dropdown-item" href="#">Viajes Aceptados</a>
-					<a class="dropdown-item" href="#">Viajes Pendientes</a>
+					<a class="dropdown-item" href="viajes_pendientes.php">Viajes Pendientes</a>
 				</div>
 			</li>
 		

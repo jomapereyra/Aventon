@@ -19,14 +19,12 @@
 					<img class="logo-alternativo" src="img/logo-alternativo-aventon.png" alt="logo">
 				</div>
 
-
-
 			</div>
 
 		</div>
 	</div>
 </header>
-<form class="padding-bottom-20" name="origen" action="controlador/guardar_registro.php" method="post">
+<form class="padding-bottom-20">
 	<div class="container my-container" id="">
 		<div class="row semitransparente rounded">
 			<div class="col-md-4">

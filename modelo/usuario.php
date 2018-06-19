@@ -9,12 +9,12 @@ class Usuario{
 		$this->usuarios=array();
 	}
 
-	public function existe($email,$pass){
+	public function coincide($email,$pass){
 		$registro=$this->db->query("SELECT * FROM usuario WHERE usuario.email='".$email."'". "AND usuario.contrasenia='".$pass."'")->rowCount();
 		return $registro > 0;
 	}
 
-	public function existe1($email){
+	public function existe($email){
 		$registro=$this->db->query("SELECT * FROM usuario WHERE usuario.email='".$email."'")->rowCount();
 		return $registro > 0;
 	}

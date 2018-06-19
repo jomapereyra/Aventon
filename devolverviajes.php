@@ -22,8 +22,8 @@
 			$this->via6=array();
 		}
 
-		public function get_viajes(){
-			$sql='SELECT * FROM viaje';
+		public function get_viajes_casual(){
+			$sql='SELECT * FROM viaje WHERE viaje.tipo="casual" ORDER BY fecha_salida';
 			$sentencia=$this->db->query($sql);
 			while ($fila=$sentencia->fetch(PDO::FETCH_ASSOC)){
 				$this->via[]=$fila;
@@ -31,7 +31,14 @@
 			return $this->via;
 		}
 
-		
+		public function get_viajes_semanal(){
+			$sql='SELECT * FROM viaje INNER JOIN frecuencia_semanal ON(viaje.id_viaje=frecuencia_semanal.id_viaje) WHERE viaje.tipo="semanal" ORDER BY dia_partida';
+			$sentencia=$this->db->query($sql);
+			while ($fila=$sentencia->fetch(PDO::FETCH_ASSOC)){
+				$this->via[]=$fila;
+			} 
+			return $this->via;
+		}
 
 		public function get_ubicacion_origen($dato){
 			$this->via2=null;

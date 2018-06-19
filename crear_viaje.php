@@ -33,7 +33,7 @@
 		$vehiculos=$tabla_vehiculo->mis_vehiculos($usuario["id_usuario"]);
 		?>
 
-		<form class="pading-bottom-20" name="fo" action="controlador/guardar_viaje.php" method="post">
+		<form class="pading-bottom-20" name="fo" action="" method="post">
 
 			<!-- ******************************* ETAPA 1 *******************************</!-->
 
@@ -104,7 +104,7 @@
 							</div>
 
 							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<button type="button" id="boton_etapa1" class="btn btn-info btn-block">Siguiente</button>
+								<button type="button" id="boton_etapa1" class="btn btn-success btn-block">Siguiente</button>
 							</div>			
 						</div>
 
@@ -183,7 +183,7 @@
 							</div>
 
 							<div class="form-group col-md-4 col-sm-4 col-xs-12">
-								<button type="button" id="boton_etapa2" class="btn btn-info btn-block ">Siguiente</button>
+								<button type="button" id="boton_etapa2" class="btn btn-success btn-block ">Siguiente</button>
 							</div>			
 						</div>
 
@@ -201,86 +201,103 @@
 					</div>
 					<div class="col-md-8">
 
-						<!-- ******** FECHA PARTIDA **************** -->
-						<div class="form-row">
-
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="fecha_partida">Ingrese la fecha de partida: </label>
-								<div class="input-group date">
-									<input id="fecha_partida" name="fecha_partida" type="date" class="form-control">
-									<div class="input-group-append">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-									</div>
-								</div>
-								<div id="mensaje7" class="error"><i class="fas fa-times"></i>
-								&nbsp;Debe ingresar una fecha de partida</div>
-								<div id="mensaje7_1" class="error"><i class="fas fa-times"></i>
-								&nbsp;Debe ingresar una fecha igual o superior a la actual</div>
-								<small id="ayudaFecha1" class="text-muted">
-									La fecha de partida debe ser superior o igual a la actual 
-								</small>
-							</div>
-
-							<!-- ******** HORA PARTIDA **************** -->
-
-							<div class="form-group col-md-6 col-sm-6">
-
-								<label for="hora_partida">Ingrese una hora de partida: </label>
-								<div class="input-group date">
-									<input id="hora_partida" name="hora_partida" type="time" class="form-control">
-									<div class="input-group-append">
-										<div class="input-group-text"><i class="far fa-clock"></i></div>
-									</div>
-								</div>
-								<div id="mensaje8" class="error"><i class="fas fa-times"></i>
-								&nbsp;Debe ingresar una hora de partida</div>
-								<div id="mensaje8_1" class="error"><i class="fas fa-times"></i>
-								&nbsp;Respete una diferencia de 2 horas a la actual para poder continuar</div>
-								<small id="ayudaHora1" class="text-muted">
-									La hora de partida debe tener una diferencia minima de 2 horas a la actual 
-								</small>
-							</div>
-
+						<!-- ******** TIPO DE VIAJE **************** -->
+						<div class="form-group">
+							<label for="frecuencia">Seleccione la frecuencia del viaje:</label>
+							<select class="form-control" id="frecuencia" name="frecuencia">
+								<option value="casual">CASUAL</option>
+								<option value="semanal">SEMANAL</option>
+								<option value="mensual">MENSUAL</option>
+							</select>
 						</div>
 
-						<!-- ******** FECHA LLEGADA **************** -->
+						<div id="casual">
 
-						<div class="form-row">
+							<!-- ******** CASUAL **************** -->
 
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="fecha_llegada">Ingrese la fecha de llegada: </label>
-								<div class="input-group date">
-									<input id="fecha_llegada" name="fecha_llegada" type="date" class="form-control"/>
-									<div class="input-group-append">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+							<!-- ******** FECHA PARTIDA CASUAL **************** -->
+
+							<div class="form-row">
+
+								<div class="form-group col-md-6 col-sm-6">
+									<label for="fecha_partida">Ingrese la fecha de partida: </label>
+									<div class="input-group date">
+										<input id="fecha_partida" name="fecha_partida" type="date" class="form-control">
+										<div class="input-group-append">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
 									</div>
+									<div id="mensaje7" class="error"><i class="fas fa-times"></i>
+									&nbsp;Debe ingresar una fecha de partida</div>
+									<div id="mensaje7_1" class="error"><i class="fas fa-times"></i>
+									&nbsp;Debe ingresar una fecha igual o superior a la actual</div>
+									<small id="ayudaFecha1" class="text-muted">
+										La fecha de partida debe ser superior o igual a la actual 
+									</small>
 								</div>
-								<div id="mensaje9" class="error"><i class="fas fa-times"></i>
-								&nbsp;Debe ingresa una fecha de llegada</div>
-								<div id="mensaje9_1" class="error"><i class="fas fa-times"></i>
-								&nbsp;La fecha de llegada debe ser igual o superior a la fecha actual</div>
-								<small id="ayudaFecha2" class="text-muted">
-									La fecha de llegada debe ser superior o igual a la fecha de partida
-								</small>
+
+								<!-- ******** HORA PARTIDA CASUAL **************** -->
+
+								<div class="form-group col-md-6 col-sm-6">
+
+									<label for="hora_partida">Ingrese una hora de partida: </label>
+									<div class="input-group date">
+										<input id="hora_partida" name="hora_partida" type="time" class="form-control">
+										<div class="input-group-append">
+											<div class="input-group-text"><i class="far fa-clock"></i></div>
+										</div>
+									</div>
+									<div id="mensaje8" class="error"><i class="fas fa-times"></i>
+									&nbsp;Debe ingresar una hora de partida</div>
+									<div id="mensaje8_1" class="error"><i class="fas fa-times"></i>
+									&nbsp;Respete una diferencia de 2 horas a la actual para poder continuar</div>
+									<small id="ayudaHora1" class="text-muted">
+										La hora de partida debe tener una diferencia minima de 2 horas a la actual 
+									</small>
+								</div>
+
 							</div>
 
-							<!-- ******** HORA LLEGADA **************** -->
+							<!-- ******** FECHA LLEGADA CASUAL **************** -->
 
-							<div class="form-group col-md-6 col-sm-6">
+							<div class="form-row">
 
-								<label for="hora_llegada">Ingrese una hora de llegada: </label>
-								<div class="input-group date">
-									<input id="hora_llegada" name="hora_llegada" type="time" class="form-control">
-									<div class="input-group-append">
-										<div class="input-group-text"><i class="far fa-clock"></i></div>
+								<div class="form-group col-md-6 col-sm-6">
+									<label for="fecha_llegada">Ingrese la fecha de llegada: </label>
+									<div class="input-group date">
+										<input id="fecha_llegada" name="fecha_llegada" type="date" class="form-control"/>
+										<div class="input-group-append">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
 									</div>
+									<div id="mensaje9" class="error"><i class="fas fa-times"></i>
+									&nbsp;Debe ingresa una fecha de llegada</div>
+									<div id="mensaje9_1" class="error"><i class="fas fa-times"></i>
+									&nbsp;La fecha de llegada debe ser igual o superior a la fecha actual</div>
+									<small id="ayudaFecha2" class="text-muted">
+										La fecha de llegada debe ser superior o igual a la fecha de partida
+									</small>
 								</div>
-								<div id="mensaje10" class="error"><i class="fas fa-times"></i>
-								&nbsp;Debe ingresar una hora de llegada</div>
-								<div id="mensaje10_1" class="error"><i class="fas fa-times"></i>
-								&nbsp;Si el viaje transcurre en un dia, el horario de llegada debe ser superior al horario de partida</div>
-							</div>
 
+								<!-- ******** HORA LLEGADA CASUAL **************** -->
+
+								<div class="form-group col-md-6 col-sm-6">
+
+									<label for="hora_llegada">Ingrese una hora de llegada: </label>
+									<div class="input-group date">
+										<input id="hora_llegada" name="hora_llegada" type="time" class="form-control">
+										<div class="input-group-append">
+											<div class="input-group-text"><i class="far fa-clock"></i></div>
+										</div>
+									</div>
+									<div id="mensaje10" class="error"><i class="fas fa-times"></i>
+									&nbsp;Debe ingresar una hora de llegada</div>
+									<div id="mensaje10_1" class="error"><i class="fas fa-times"></i>
+									&nbsp;Si el viaje transcurre en un dia, el horario de llegada debe ser superior al horario de partida</div>
+								</div>
+
+							</div>
+							
 						</div>
 
 						<!-- ******** BOTONES ETAPA 3 **************** -->
@@ -296,8 +313,9 @@
 							</div>
 
 							<div class="form-group col-md-4 col-sm-4 col-xs-12">
-								<button type="button" id="boton_etapa3" class="btn btn-info btn-block ">Siguiente</button>
-							</div>			
+								<button type="button" id="boton_etapa3" class="btn btn-success btn-block ">Siguiente</button>
+							</div>
+
 						</div>
 
 					</div>
@@ -342,8 +360,9 @@
 								<input type="number" class="form-control" id="asientos" name="asientos" disabled>
 								<div id="mensaje14" class="error"><i class="fas fa-times"></i>
 								&nbsp;Debe ingresar la cantidad de asientos</div>
-								<div id="mensaje14_1" class="error"><i class="fas fa-times"></i>
-								&nbsp;El vehiculo seleccionado solo dispone de x asientos</div>	
+								<div id="mensaje14_1" class="error"><i class="fas fa-times"></i></div>
+								<div id="mensaje14_2" class="error"><i class="fas fa-times"></i>
+								&nbsp;Tiene que tener al menos 1 asiento</div>	
 							</div>
 
 
@@ -363,7 +382,7 @@
 							</div>
 
 							<div class="form-group col-md-4 col-sm-4 col-xs-12">
-								<button id="boton_etapaExtra" type="button" class="btn btn-info btn-block">Siguiente</button>
+								<button id="boton_etapaExtra" type="button" class="btn btn-success btn-block">Siguiente</button>
 							</div>	
 
 						</div>
@@ -433,7 +452,7 @@
 							</div>
 
 							<div class="form-group col-md-4 col-sm-4 col-xs-12">
-								<button id="boton_etapa4" type="button" class="btn btn-info btn-block">Siguiente</button>
+								<button id="boton_etapa4" type="button" class="btn btn-success btn-block">Siguiente</button>
 							</div>			
 						</div>
 					</div>
@@ -471,7 +490,7 @@
 							</div>
 
 							<div class="form-group col-md-4 col-sm-4 col-xs-12">
-								<button type="submit" class="btn btn-info btn-block">Crear Viaje</button>
+								<button type="button" id="crear" class="btn btn-success btn-block">Crear Viaje</button>
 							</div>			
 						</div>
 					</div>
@@ -482,6 +501,7 @@
 	<?php } ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/moment-with-locales.js"></script>
 	<script src="js/crear_viaje/validaciones_viaje.js"></script>
 	<script src="js/crear_viaje/traeme_ciudades.js"></script>
 	<script src="js/crear_viaje/enabled_disabled.js"></script>

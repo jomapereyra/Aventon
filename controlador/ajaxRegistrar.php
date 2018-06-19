@@ -2,7 +2,7 @@
 require_once("../modelo/usuario.php");
 $usuario_tabla=new Usuario();
 $email=$_GET["email"];
-$e=$usuario_tabla->existe1($email);
+$e=$usuario_tabla->existe($email);
 if(!$e){
 	require_once("../modelo/registro.php");
 	$apellido=$_GET["apellido_usuario"];
