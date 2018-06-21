@@ -14,8 +14,6 @@
 	require_once("modelo/postulacion.php");
 	$tabla_viaje= new Viaje();
 	$tabla_postulacion=new Postulacion();
-	$casual= $tabla_viaje->get_viajes_casual();
-	$semanal= $tabla_viaje->get_viajes_semanal(); 
 	$existen_viajes=$tabla_viaje->hay_viaje();
 	include("header.php");
 	$email=$_SESSION["usuario"];
@@ -31,8 +29,7 @@
 
 			<section>
 				
-				<!-- *********** SELECTOR DE TIPO DE VIAJE *********************** -->
-
+				<!-- *********** SELECTOR DE TIPO DE VIAJE *********************** 
 				<div class="text-center padding-bottom-20">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 						<label class="btn btn-secondary active">
@@ -47,132 +44,119 @@
 					</div>
 				</div>
 
-				<!-- *********** VIAJES CASUALES *********************** -->
+			-->
 
-				<?php
 
-				foreach ($casual as $c){
+			<!-- *********** VIAJES CASUALES *********************** -->
 
-					$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
+			<?php
 
-					?>
-					<article class=" row border border-dark semitransparente">
+			if(isset($_GET["pagina"])){
+				$pagina=$_GET["pagina"];
+			}
+			else
+				$pagina=1;
+			$tamaño_paginas=10;	
+			$inicio=($pagina-1)*$tamaño_paginas;
+			$num_fila= $tabla_viaje->get_numero_filas();
+			$viaje= $tabla_viaje->get_viajes($inicio,$tamaño_paginas);
+			$total_paginas=ceil($num_fila/$tamaño_paginas);
 
-						<div class="container">
-							<div class="row col-xs-8 ">
+			foreach ($viaje as $c){
 
-								<div class="col-xs-4 col-xl-6">
-									<?php $v= $c['id_viaje'];?>
-									<p> <u><b> Fecha Salida: </u></b> <?php echo $c['fecha_salida'];?></p>
-									<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_origen'] . " " ;?></p>
-									<p> <u><b>Ciudad: </u></b> <?php echo " " . $c['ciudad_origen'] . " " ;?></p>
-								</div>
-								<div class="col-xs-4 col-xl-6">
-									<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $c['fecha_llegada'] . " ";?></p>
-									<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_destino'] . " " ;?></p>
-									<p> <u><b> Ciudad:</u></b>  <?php echo " " . $c['ciudad_destino'] . " " ;?></p>
+				$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
 
-								</div>
+				?>
+				<article class=" row border border-dark semitransparente">
 
-								<?php
+					<div class="container">
+						<div class="row col-xs-8 ">
 
-								if($postulado){
+							<div class="col-xs-4 col-xl-6">
+								<?php $v= $c['id_viaje'];?>
+								<p> <u><b> Fecha Salida: </u></b> <?php echo $c['fecha_salida'];?></p>
+								<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_origen'] . " " ;?></p>
+								<p> <u><b>Ciudad: </u></b> <?php echo " " . $c['ciudad_origen'] . " " ;?></p>
+							</div>
+							<div class="col-xs-4 col-xl-6">
+								<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $c['fecha_llegada'] . " ";?></p>
+								<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_destino'] . " " ;?></p>
+								<p> <u><b> Ciudad:</u></b>  <?php echo " " . $c['ciudad_destino'] . " " ;?></p>
 
-									$estado=$tabla_postulacion->get_estado($c['id_viaje'],$usuario['id_usuario']);
-									if($estado=="esperando"){
-										echo "<style>
-										.semitransparente{
-											background-color:#e8ea4fc2;
-										}
-										</style>";
-										include("advertencia_postulacion_esperando.php");
+							</div>
+
+							<?php
+
+							if($postulado){
+
+								$estado=$tabla_postulacion->get_estado($c['id_viaje'],$usuario['id_usuario']);
+								if($estado=="esperando"){
+									include("advertencia_postulacion_esperando.php");
+								}
+								else{
+									if ($estado=="aceptado") {
+
+										include("advertencia_postulacion_aceptado.php");
 									}
 									else{
-										if ($estado=="aceptado") {
-											echo "<style>
-											.semitransparente{
-												background-color:#6eea4fc2;
-											}
-											</style>";
-											include("advertencia_postulacion_aceptado.php");
-										}
-										else{
-											if($estado=="rechazado"){
-												echo "<style>
-												.semitransparente{
-													background-color:#d65050c2;
-												}
-												</style>";
-												include("advertencia_postulacion_rechazado.php");
-											}
+										if($estado=="rechazado"){
+
+											include("advertencia_postulacion_rechazado.php");
 										}
 									}
-								} 
-								?>
-								<div class="col-md-12 text-right">
-									<a href="mostrar_info_viaje.php?id=<?php echo $c['id_viaje']?>" class='btn btn-primary float-right'>+INFO</a>	
-								</div>
-								
+								}
+							} 
+							?>
+							<div class="col-md-12 text-right">
+								<a href="mostrar_info_viaje.php?id=<?php echo $c['id_viaje']?>" class='btn btn-primary float-right'>+INFO</a>	
 							</div>
 
 						</div>
 
-
-					</article>
-					<?php
-
-				}
-
-				?>
-
-				<!-- *********** VIAJES SEMANALES *********************** -->
-
-				<?php 
-				foreach ($semanal as $s){
-
-					?>
-					<article class=" row border border-dark semitransparente ">
-
-						<div class="container">
-							<div class="row col-xs-8 ">
-
-								<div class="col-xs-4 col-xl-6">
-									<?php $v= $s['id_viaje'];?>
-									<p> <u><b> Día de Salida: </u></b> <?php echo $s['dia_partida'];?></p>
-									<p> <u><b>Provincia: </u></b><?php echo " " . $s['provincia_origen'] . " " ;?></p>
-									<p> <u><b>Ciudad: </u></b> <?php echo " " . $s['ciudad_origen'] . " " ;?></p>
-								</div>
-								<div class="col-xs-4 col-xl-6">
-									<p><u><b> Día de Llegada:</u></b><?php echo  " " . $s['dia_llegada'] . " ";?></p>
-									<p> <u><b>Provincia: </u></b><?php echo " " . $s['provincia_destino'] . " " ;?></p>
-									<p> <u><b> Ciudad:</u></b>  <?php echo " " . $s['ciudad_destino'] . " " ;?></p>
-
-									<a href="mostrar_info_viaje.php?id=<?php echo $s['id_viaje'];?>" class="btn btn-primary float-right">+INFO</a>
+					</div>
 
 
-								</div>
-							</div>
+				</article>
+				<?php
 
-						</div>
+				
 
+			}
+			if($pagina> 1){
+				$anterior= $pagina - 1;
+			}
+			else
+				$anterior = 1;
+			if($pagina<$total_paginas){
+				$siguiente= $pagina + 1;
+			}
+			else 
+				$siguiente=$total_paginas;
+			
 
-					</article>
-					<?php
+			echo "<br>
 
-				}
+			<nav aria-label='Page navigation example'>
+			<ul class='pagination'>
+			<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$anterior'>Previous</a></li>";
+			for($i=1;$i<=$total_paginas;$i++){
+				echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$i'>$i</a></li>";
+			}
+			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$siguiente'>Next</a></li>
+			</ul>
+			</nav>";
+			?>
 
-				?>
+		</section>
 
-			</section>
-
-		</div>
-		<?php
-	} 
+	</div>
+	<?php
+} 
 	//include("footer.php"); ?>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/moment-with-locales.js"></script>
-	<script>
+	<!--<script>
 		$(document).ready(function(){
 
 			moment.locale('es');
@@ -181,11 +165,14 @@
 			var fecha=new Date();
 			var fecha1=new Date();
 			fecha1.getDate();
-			alert(fecha1);
 
-			moment().add(7, 'days');
+			moment().add(1, 'months');
+			moment().add(7, 'days').add(1, 'months');
 			
-			fecha=(moment(moment(fecha1).add(8, 'days')).format("DD MM YYYY"));
+			fecha=(moment(moment(fecha1).add(10,'days').add(1, 'months')).format("DD MM YYYY"));
+
+
+			fecha=(moment(moment('2018-01-31').add(1, 'months')).format("DD MM YYYY"));
 
 			alert(fecha);
 
@@ -193,7 +180,7 @@
 
 
 		})
-	</script>
+	</script>-->
 
 </body>
 </html>

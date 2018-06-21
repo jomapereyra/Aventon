@@ -163,6 +163,7 @@ footer {
 	font-weight: bolder;
 }
 
+
 .font-notice-esperando{
 	color: #c7ac25;
 	font-weight: bolder;
@@ -182,6 +183,10 @@ footer {
 	font-size: 30px;
 }
 
+.icon-size-18{
+	font-size: 18px;
+}
+
 .icon-conexion{
 	font-size: 8px;
 	vertical-align: middle;
@@ -196,6 +201,10 @@ footer {
 .notice-esperando{
 	background-color: #f3ed3d;
 	padding: 20px;
+}
+
+.semitransparentepaginacion{
+	background-color: #ffffffb0;
 }
 
 .semitransparente{

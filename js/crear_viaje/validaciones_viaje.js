@@ -535,22 +535,18 @@ $(document).ready(function(){
 		}
 		else{
 			moment.locale('es');
-			var fecha_maxima=(moment(moment(fecha_salida).add(8, 'days')).format("DD MM YYYY"));
-			alert(fecha_maxima);
-			var fecha_nueva=moment(fecha_salida).format("DD MM YYYY");
-			alert(fecha_nueva);
+			var fecha_maxima=(moment(moment(fecha_salida).add(2, 'years')).format('YYYY-MM-DD'));
+			var fecha_nueva=moment(fecha_salida).format('YYYY-MM-DD');
 			var fecha_nueva2= fecha_llegada;
-			while(fecha_nueva>fecha_maxima){
+			alert(fecha_maxima);
+			while(moment(fecha_nueva).isSameOrBefore(fecha_maxima)){
 				$.get("controlador/guardar_viaje.php",{descripcion:descripcion,costo_impuesto:costo,provincia_origen:provincia_origen,provincia_destino:provincia_destino,ciudad_origen:ciudad_origen,ciudad_destino:ciudad_destino,calle_origen:calle_origen,calle_destino:calle_destino,numero_origen:numero_origen,numero_destino:numero_destino,vehiculo:id_vehiculo,asientos:asientos_disponibles,frecuencia:tipo,fecha_partida:fecha_nueva,fecha_llegada:fecha_nueva2,hora_partida:hora_salida,hora_llegada:hora_llegada},function(resultado){
-					alert(resultado);
-					alert("Viaje Creado");
-					alert(fecha_nueva);
-					location.href="http://localhost/Aventon/pagina_principal.php";
-					fecha_nueva=(moment(moment(fecha_nueva).add(7, 'days')).format("DD MM YYYY"));
-					fecha_nueva2=(moment(moment(fecha_nueva2).add(7, 'days')).format("DD MM YYYY"));
-
-
-				})
+				});
+				fecha_nueva=(moment(moment(fecha_nueva).add(7, 'days')).format('YYYY-MM-DD'));
+				fecha_nueva2=(moment(moment(fecha_nueva2).add(7, 'days')).format('YYYY-MM-DD'));
+			}
+			if(moment(fecha_nueva).isAfter(fecha_maxima)){
+				location.href="http://localhost/Aventon/pagina_principal.php";
 			}
 		}
 
