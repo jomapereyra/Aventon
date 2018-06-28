@@ -68,7 +68,7 @@
 										$usuario_tabla=new Usuario();
 										$usuario=$usuario_tabla->get_datos_id($info["id_usuario"]);?>
 										<u>Usuario:</u>
-										<a href="">
+										<a href="ver_perfil.php?id=<?php echo $info['id_usuario'] ?>">
 											<?php echo " ". $usuario["nombre"] . " ". $usuario["apellido"] ;?>	
 										</a>
 									</h3>

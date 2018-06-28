@@ -11,7 +11,7 @@ class Viaje{
 
 	public function crear($id_usuario,$id_vehiculo,$descripcion,$asientos,$fecha_p,$fecha_l,$hora_p,$hora_l,$id_o,$id_d,$cos,$tipo){
 		$resultado=$this->db->prepare("INSERT INTO viaje(id_usuario,id_vehiculo,descripcion,asientos_disponibles,fecha_salida,fecha_llegada,hora_salida,hora_llegada,costo,tipo,id_destino,id_origen) VALUES (:id_u,:id_v,:descri,:a,:fp,:fl,:hp,:hl,:co,:ti,:ud,:uo)");
-		$resultado->execute(array(":id_u"=>$id_usuario,"id_v"=>$id_vehiculo,':descri'=>$descripcion,':a'=>$asientos,':fp'=>$fecha_p,':fl'=>$fecha_l,':hp'=>$hora_p,':hl'=>$hora_l,':co'=>$cos,':ti'=>$tipo,':ud'=>$id_d,':uo'=>$id_o));
+		$resultado->execute(array(":id_u"=>$id_usuario,":id_v"=>$id_vehiculo,':descri'=>$descripcion,':a'=>$asientos,':fp'=>$fecha_p,':fl'=>$fecha_l,':hp'=>$hora_p,':hl'=>$hora_l,':co'=>$cos,':ti'=>$tipo,':ud'=>$id_d,':uo'=>$id_o));
 	}
 
 	public function ultimo_id(){
@@ -25,6 +25,11 @@ class Viaje{
 		return $registro > 0;
 	}
 
+	public function existen_creados($id_usuario){
+		$registro=$this->db->query("SELECT * FROM viaje WHERE viaje.id_usuario=$id_usuario")->rowCount();
+		return $registro > 0;
+	}
+
 	public function get_viajes($inicio,$tamaño_paginas){
 		$casual=array();
 		$consulta=$this->db->query("SELECT tabla1.id_viaje,tabla1.tipo,tabla1.fecha_salida,tabla1.fecha_llegada,pro1.nombre_provincia AS provincia_origen,ciu1.nombre_localidad AS ciudad_origen,pro2.nombre_provincia AS provincia_destino,ciu2.nombre_localidad AS ciudad_destino FROM viaje AS tabla1 INNER JOIN ubicacion AS origen ON(tabla1.id_origen=origen.id_ubicacion)INNER JOIN provincia AS pro1 ON(origen.id_provincia=pro1.id_provincia)INNER JOIN localidad AS ciu1 ON(origen.id_ciudad=ciu1.id_localidad)INNER JOIN ubicacion AS destino ON(tabla1.id_destino=destino.id_ubicacion)INNER JOIN provincia AS pro2 ON(destino.id_provincia=pro2.id_provincia)INNER JOIN localidad AS ciu2 ON(destino.id_ciudad=ciu2.id_localidad) ORDER BY fecha_salida LIMIT $inicio,$tamaño_paginas");
@@ -34,8 +39,22 @@ class Viaje{
 		return $casual;
 	}
 
-	public function get_numero_filas(){
+	public function get_viajes_creados($id_usuario,$inicio,$tamaño_paginas){
+		$casual=array();
+		$consulta=$this->db->query("SELECT tabla1.id_viaje,tabla1.tipo,tabla1.fecha_salida,tabla1.fecha_llegada,pro1.nombre_provincia AS provincia_origen,ciu1.nombre_localidad AS ciudad_origen,pro2.nombre_provincia AS provincia_destino,ciu2.nombre_localidad AS ciudad_destino FROM viaje AS tabla1 INNER JOIN ubicacion AS origen ON(tabla1.id_origen=origen.id_ubicacion)INNER JOIN provincia AS pro1 ON(origen.id_provincia=pro1.id_provincia)INNER JOIN localidad AS ciu1 ON(origen.id_ciudad=ciu1.id_localidad)INNER JOIN ubicacion AS destino ON(tabla1.id_destino=destino.id_ubicacion)INNER JOIN provincia AS pro2 ON(destino.id_provincia=pro2.id_provincia)INNER JOIN localidad AS ciu2 ON(destino.id_ciudad=ciu2.id_localidad) WHERE tabla1.id_usuario=$id_usuario ORDER BY fecha_salida LIMIT $inicio,$tamaño_paginas");
+		while ($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
+			$casual[]=$fila;
+		} 
+		return $casual;
+	}
+
+	public function get_filas(){
 		$consulta=$this->db->query("SELECT * FROM viaje");
+		return $consulta->rowCount();
+	}
+
+	public function get_filas_creados($id_usuario){
+		$consulta=$this->db->query("SELECT * FROM viaje WHERE viaje.id_usuario=$id_usuario");
 		return $consulta->rowCount();
 	}
 

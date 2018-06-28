@@ -211,6 +211,39 @@
 							</select>
 						</div>
 
+						<div id="semanal">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="1" value="1">
+								<label class="form-check-label" for="inlineRadio1">Lun</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="2" value="2">
+								<label class="form-check-label" for="inlineRadio2">Mar</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="3" value="3">
+								<label class="form-check-label" for="inlineRadio3">Mie</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="4" value="4">
+								<label class="form-check-label" for="inlineRadio4">Jue</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="5" value="5">
+								<label class="form-check-label" for="inlineRadio5">Vie</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="6" value="6">
+								<label class="form-check-label" for="inlineRadio6">Sab</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="7" value="7">
+								<label class="form-check-label" for="inlineRadio7">Dom</label>
+							</div>
+							<div id="mensajesemanal" class="error"><i class="fas fa-times"></i>
+							&nbsp;Debe seleccionar obligatoriamente el dia de partida </div>
+						</div>
+
 						<div id="casual">
 
 							<!-- ******** CASUAL **************** -->
@@ -295,6 +328,8 @@
 									<div id="mensaje10_1" class="error"><i class="fas fa-times"></i>
 									&nbsp;Si el viaje transcurre en un dia, el horario de llegada debe ser superior al horario de partida</div>
 								</div>
+
+								<input id="arreglo_semanal" type="hidden"></input>
 
 							</div>
 							
@@ -493,6 +528,9 @@
 								<button type="button" id="crear" class="btn btn-success btn-block">Crear Viaje</button>
 							</div>			
 						</div>
+					</div>
+					<div class="container">
+						<img id="loading" class="loading" src="img/cargando.gif">	
 					</div>
 				</div>
 			</div>

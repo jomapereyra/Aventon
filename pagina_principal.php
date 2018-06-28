@@ -9,9 +9,11 @@
 </head>
 <body class="fondo-usuario">
 	<?php
+
 	require_once("modelo/viaje.php");
 	require_once("modelo/usuario.php");
 	require_once("modelo/postulacion.php");
+	require_once("modelo/paginacion.php");
 	$tabla_viaje= new Viaje();
 	$tabla_postulacion=new Postulacion();
 	$existen_viajes=$tabla_viaje->hay_viaje();
@@ -21,8 +23,18 @@
 	$usuario=$tabla_usuario->get_id($email);
 	if(!$existen_viajes){
 		include("advertencia_inicio.php");
+
 	}
 	else{
+		if(isset($_GET["pagina"])){
+			$pagina=$_GET["pagina"];
+		}
+		else
+			$pagina=1;
+		$paginacion=new Paginacion();
+		$paginacion->paginacion_inicio($pagina);
+		$viaje= $tabla_viaje->get_viajes($paginacion->get_inicio(),$paginacion->get_tamaño());
+
 		?>
 
 		<div class="container my-container col-md-8">
@@ -50,18 +62,7 @@
 			<!-- *********** VIAJES CASUALES *********************** -->
 
 			<?php
-
-			if(isset($_GET["pagina"])){
-				$pagina=$_GET["pagina"];
-			}
-			else
-				$pagina=1;
-			$tamaño_paginas=10;	
-			$inicio=($pagina-1)*$tamaño_paginas;
-			$num_fila= $tabla_viaje->get_numero_filas();
-			$viaje= $tabla_viaje->get_viajes($inicio,$tamaño_paginas);
-			$total_paginas=ceil($num_fila/$tamaño_paginas);
-
+			
 			foreach ($viaje as $c){
 
 				$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
@@ -87,6 +88,8 @@
 
 							<?php
 
+							$ok=true;
+
 							if($postulado){
 
 								$estado=$tabla_postulacion->get_estado($c['id_viaje'],$usuario['id_usuario']);
@@ -95,21 +98,25 @@
 								}
 								else{
 									if ($estado=="aceptado") {
-
 										include("advertencia_postulacion_aceptado.php");
 									}
 									else{
 										if($estado=="rechazado"){
-
+											$ok=false;
 											include("advertencia_postulacion_rechazado.php");
 										}
 									}
 								}
-							} 
+							}
+
+							if($ok){
+								echo "<div class='col-md-12 text-right'>
+								<a href='mostrar_info_viaje.php?id=".$c['id_viaje']."' class='btn btn-primary float-right'>+INFO</a>	
+								</div>";
+							}
+
 							?>
-							<div class="col-md-12 text-right">
-								<a href="mostrar_info_viaje.php?id=<?php echo $c['id_viaje']?>" class='btn btn-primary float-right'>+INFO</a>	
-							</div>
+
 
 						</div>
 
@@ -119,32 +126,10 @@
 				</article>
 				<?php
 
-				
+
 
 			}
-			if($pagina> 1){
-				$anterior= $pagina - 1;
-			}
-			else
-				$anterior = 1;
-			if($pagina<$total_paginas){
-				$siguiente= $pagina + 1;
-			}
-			else 
-				$siguiente=$total_paginas;
-			
-
-			echo "<br>
-
-			<nav aria-label='Page navigation example'>
-			<ul class='pagination'>
-			<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$anterior'>Previous</a></li>";
-			for($i=1;$i<=$total_paginas;$i++){
-				echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$i'>$i</a></li>";
-			}
-			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$siguiente'>Next</a></li>
-			</ul>
-			</nav>";
+			$paginacion->mostrar($pagina);
 			?>
 
 		</section>
@@ -153,6 +138,9 @@
 	<?php
 } 
 	//include("footer.php"); ?>
+
+	
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/moment-with-locales.js"></script>

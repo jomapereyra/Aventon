@@ -12,6 +12,7 @@
 	require_once("modelo/usuario.php");
 	require_once("modelo/viaje.php");
 	require_once("modelo/postulacion.php");
+	require_once("modelo/paginacion.php");
 	$tabla_postulacion=new Postulacion();
 	$tabla_viaje=new Viaje();
 	include("header.php");
@@ -29,90 +30,110 @@
 				include("advertencia_viajes_pendientes.php");
 			}
 			else{
-				$postulacion=$tabla_postulacion->get_postulaciones_esperando($usuario['id_usuario']);
+				if(isset($_GET["pagina"])){
+					$pagina=$_GET["pagina"];
+				}
+				else
+					$pagina=1;
+				$paginacion=new Paginacion();
+				$paginacion->paginacion_pendiente($pagina,$usuario['id_usuario']);
+				$postulacion=$tabla_postulacion->get_postulaciones_esperando($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
 				?>
 
-				<div class="container my-container col-md-8">
+				<div class="container my-container col-md-12">
 
-					<section>
+					<!-- *********** VIAJES PENDIENTES *********************** -->
 
+					<?php
 
-						<!-- *********** VIAJES PENDIENTES *********************** -->
+					foreach ($postulacion as $p){
 
-						<?php
+						$viaje=$tabla_viaje->get_datos($p['id_viaje']);
 
-						foreach ($postulacion as $p){
+						?>
+						<article class=" row border border-dark semitransparente-pendiente">
 
-							$viaje=$tabla_viaje->get_datos($p['id_viaje']);
+							<div class="container">
+								<div class="row">
 
-							?>
-							<article class=" row border border-dark semitransparente-pendiente">
+									<div class="col-12 col-md-6">
+										<?php $v= $viaje['id_viaje'];?>
+										<p> <u><b> Fecha Salida: </u></b> <?php echo $viaje['fecha_salida'];?></p>
+										<p> <u><b>Provincia: </u></b><?php echo " " . $viaje['provincia_origen'] . " " ;?></p>
+										<p> <u><b>Ciudad: </u></b> <?php echo " " . $viaje['ciudad_origen'] . " " ;?></p>
+									</div>
 
-								<div class="container">
-									<div class="row col-xs-8 ">
+									<div class="col-12 col-md-6">
+										<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $viaje['fecha_llegada'] . " ";?></p>
+										<p> <u><b>Provincia: </u></b><?php echo " " . $viaje['provincia_destino'] . " " ;?></p>
+										<p> <u><b> Ciudad:</u></b>  <?php echo " " . $viaje['ciudad_destino'] . " " ;?></p>
 
-										<div class="col-xs-4 col-xl-6">
-											<?php $v= $viaje['id_viaje'];?>
-											<p> <u><b> Fecha Salida: </u></b> <?php echo $viaje['fecha_salida'];?></p>
-											<p> <u><b>Provincia: </u></b><?php echo " " . $viaje['provincia_origen'] . " " ;?></p>
-											<p> <u><b>Ciudad: </u></b> <?php echo " " . $viaje['ciudad_origen'] . " " ;?></p>
-										</div>
-										<div class="col-xs-4 col-xl-6">
-											<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $viaje['fecha_llegada'] . " ";?></p>
-											<p> <u><b>Provincia: </u></b><?php echo " " . $viaje['provincia_destino'] . " " ;?></p>
-											<p> <u><b> Ciudad:</u></b>  <?php echo " " . $viaje['ciudad_destino'] . " " ;?></p>
+									</div>
 
-										</div>
+									<div class="container margin-top-20">
+										<div class="row">
 
-										<?php
-										include("advertencia_postulacion_esperando.php"); 
-										?>
-
-										<div class="col-md-12 text-right">
-
-											<a href="mostrar_info_viaje.php?id=<?php echo $viaje['id_viaje']?>"class='btn btn-primary float-right'>+INFO</a>
-
-											<button type="button" class="btn btn-danger float-right margin-right-20" data-toggle="modal" data-target="#<?php echo $viaje['id_viaje']?>">Cancelar</button>	
-
-										</div>
-
-										<!-- CUADRO CONFIRMACION -->
-										<div class="modal fade" id="<?php echo $viaje['id_viaje']?>" tabindex="-1" role="dialog" aria-labelledby="header_confirmacion" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="header_confirmacion">Advertencia!</h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														¿Usted esta seguro que quiere cancelar su postulacion a este viaje?
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-														<a class="btn btn-primary" href="controlador/cancelar_viaje_pendiente.php?id_viaje=<?php echo $viaje['id_viaje']?>&id_usuario=<?php echo $usuario['id_usuario']?>">Confirmar</a>
-													</div>
-												</div>
+											<div class="col-12 col-sm-12 col-md-12 col-lg-8">
 											</div>
+
+											<div class="col-12 col-sm-12 col-md-12 col-lg-4">
+
+												<div class="row">
+
+													<div class="col-md-6">
+														<a href="mostrar_info_viaje.php?id=<?php echo $viaje['id_viaje']?>"class='btn btn-primary btn-block'>+INFO</a>
+													</div>
+
+													<div class="col-md-6">
+														<button type="button" class="btn btn-danger btn-block margin-right-20" data-toggle="modal" data-target="#<?php echo $p['id_postulacion']?>">Cancelar</button>	
+													</div>
+
+												</div>
+
+											</div>
+
 										</div>
 
 									</div>
 
+									<!-- CUADRO CONFIRMACION -->
+									<div class="modal fade" id="<?php echo $p['id_postulacion']?>" tabindex="-1" role="dialog" aria-labelledby="header_confirmacion" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="header_confirmacion">Advertencia!</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													¿Esta seguro que quiere cancelar la postulación para este viaje?
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+													<a class="btn btn-primary" href="controlador/cancelar_viaje_pendiente.php?id=<?php echo $p['id_postulacion']?>">Confirmar</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
 
+							</div>
 
-							</article>
+						</article>
 
-						</section>
+						<?php
+					}
 
-					</div>
+					echo "</div>";
+					echo "</div>";
+					$paginacion->mostrar($pagina);
 
-				</div>
-			</div>
-			<?php
-		}
-	} 
+				} 
+
+				echo "</div>";
+
 //include("footer.php"); ?>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

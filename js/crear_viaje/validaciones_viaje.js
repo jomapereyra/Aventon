@@ -178,17 +178,15 @@ $(document).ready(function(){
 
 	var cant_dias=1;
 
-	/*$("#frecuencia").change(function(){
+	$("#frecuencia").change(function(){
 		var tipo=$(this).val();
 		if(tipo=="casual"){
 			$("#semanal").hide("fast");
-			$("#casual").show("slow");
 		}
 		else{
-			$("#casual").hide("fast");
-			$("#semanal").show("slow");
+			$("#semanal").show("fast");
 		}
-	})*/
+	})
 
 	$("#agregar_dia").click(function(){
 		$("#agregar").append("<div class='form-row'><div class='form-group col-md-6'><label for='dia_partida'>Seleccione el dia de partida: </label><select class='form-control' id='dia_partida' name='dia_partida'><option value='1'>LUNES</option><option value=2>MARTES</option><option value=3>MIERCOLES</option><option value=4>JUEVES</option><option value=5>VIERNES</option><option value=6>SABADO</option><option value=7>DOMINGO</option></select></div><div class='form-group col-md-6'><label for='dia_llegada'>Seleccione el dia de llegada:</label><select class='form-control' id='dia_llegada' name='dia_llegada'><option value='1'>LUNES</option><option value='2'>MARTES</option><option value='3'>MIERCOLES</option><option value='4'>JUEVES</option><option value='5'>VIERNES</option><option value='6'>SABADO</option><option value='7'>DOMINGO</option></select></div></div><div class='form-row'><div class='form-group col-md-6 col-sm-6'><label for='hora_partida'>Ingrese una hora de partida: </label><div class='input-group date'><input id='hora_partida' name='hora_partida' type='time' class='form-control'><div class='input-group-append'><div class='input-group-text'><i class='far fa-clock'></i></div></div></div><div id='mensaje8' class='error'><i class='fas fa-times'></i>&nbsp;Debe ingresar una hora de partida</div><div id='mensaje8_1' class='error'><i class='fas fa-times'></i>&nbsp;Respete una diferencia de 2 horas a la actual para poder continuar</div><small id='ayudaHora1' class='text-muted'>La hora de partida debe tener una diferencia minima de 2 horas a la actual </small></div><div class='form-group col-md-6 col-sm-6'><label for='hora_llegada'>Ingrese una hora de llegada: </label><div class='input-group date'><input id='hora_llegada' name='hora_llegada' type='time' class='form-control'><div class='input-group-append'><div class='input-group-text'><i class='far fa-clock'></i></div></div></div><div id='mensaje10' class='error'><i class='fas fa-times'></i>&nbsp;Debe ingresar una hora de llegada</div><div id='mensaje10_1' class='error'><i class='fas fa-times'></i>&nbsp;Si el viaje transcurre en un dia, el horario de llegada debe ser superior al horario de partida</div></div></div>");
@@ -197,7 +195,8 @@ $(document).ready(function(){
 	$("#boton_etapa3").click(function(){
 
 		var tipo=$("#frecuencia").val();
-
+		var tamarreglo;
+		var arreglosemanal= new Array();
 		var fecha_partida=$("#fecha_partida").val();
 		var hora_partida=$("#hora_partida").val();
 		var fecha_llegada=$("#fecha_llegada").val();
@@ -208,7 +207,26 @@ $(document).ready(function(){
 		var año=fecha.getFullYear();
 		var horas=fecha.getHours()+2;
 		var minutos=fecha.getMinutes();
-
+		if(tipo=="semanal"){
+			for (var i = 1; i < 8; i++) {
+				if($("#"+i).prop('checked')){
+					arreglosemanal.push(($("#"+i).val()));
+				}
+			}
+			if(arreglosemanal.length==0){
+				$("#mensajesemanal").fadeIn();
+			}
+			else{
+				var diainicio=moment(fecha_partida).day();
+				if (arreglosemanal.includes((diainicio.toString()))) {
+					$("#mensajesemanal").fadeOut();
+					$("#arreglo_semanal").val(arreglosemanal);
+				}
+				else{
+					$("#mensajesemanal").fadeIn();
+				}
+			}
+		}
 		/* ****************** EL COMPORTMAIENTO DEPENDE DE LA DIFERENCIA HORARIA ********** */
 
 		if(horas>24){
@@ -435,20 +453,6 @@ $(document).ready(function(){
 			$("#costo_impuesto").val(costo_impuesto);
 			$("#etapa4").hide("fast");
 			$("#etapa5").show("slow");
-			if(tipo_viaje=="semanal"){
-				info_horario="<li>Dia de partida: " + $('#dia_partida option:selected').text() + "</li>"+
-				"<li>Hora de partida: " + $('#hora_partida_semanal').val() + "</li>"+
-				"<li>Dia de llegada: " + $('#dia_llegada option:selected').text() + "</li>"+
-				"<li>Hora de llegada: " + $('#hora_llegada_semanal').val() + "</li>";
-			}
-			else{
-				if(tipo_viaje=="casual"){
-					info_horario="<li>Fecha de partida: " + $('#fecha_partida').val() + "</li>"+
-					"<li>Hora de partida: " + $('#hora_partida').val() + "</li>"+
-					"<li>Fecha de llegada: " + $('#fecha_llegada').val() + "</li>"+
-					"<li>Hora de llegada: " + $('#hora_llegada').val() + "</li>";
-				}
-			}
 			var html="<li>Provincia de partida: " + $('#provincia_origen option:selected').text() + "</li>"+
 			"<li>Ciudad de partida: " + $('#ciudad_origen option:selected').text() + "</li>"+
 			"<li>Calle de partida: " + $('#calle_origen').val() + "</li>"+
@@ -457,7 +461,10 @@ $(document).ready(function(){
 			"<li>Ciudad de llegada: " + $('#ciudad_destino option:selected').text() + "</li>"+
 			"<li>Calle de llegada: " + $('#calle_destino').val() + "</li>"+
 			"<li>Numero de llegada: " + $('#numero_destino').val() + "</li>"+
-			info_horario +
+			"<li>Fecha de partida: " + $('#fecha_partida').val() + "</li>"+
+			"<li>Hora de partida: " + $('#hora_partida').val() + "</li>"+
+			"<li>Fecha de llegada: " + $('#fecha_llegada').val() + "</li>"+
+			"<li>Hora de llegada: " + $('#hora_llegada').val() + "</li>" +
 			"<li>Vehiculo: " + $('#vehiculo option:selected').text() + "</li>"+
 			"<li>Asientos disponibles: " + $('#asientos').val() + "</li>"+
 			"<li>Costo con impuestos: " + $('#costo_impuesto').val() +"</li>"+
@@ -505,6 +512,7 @@ $(document).ready(function(){
 	})
 
 	$("#crear").click(function(){
+		
 		var tipo=$("#frecuencia").val();
 		var id_vehiculo=$("#vehiculo").val();
 		var descripcion=$("#descripcion").val();
@@ -514,44 +522,32 @@ $(document).ready(function(){
 		var hora_salida=$("#hora_partida").val();
 		var hora_llegada=$("#hora_llegada").val();
 		var costo=$("#costo_impuesto").val();
-
-		
 		var provincia_origen=$("#provincia_origen").val();
 		var ciudad_origen=$("#ciudad_origen").val();
 		var calle_origen=$("#calle_origen").val();
 		var numero_origen=$("#numero_origen").val();
-
-
 		var provincia_destino=$("#provincia_destino").val();
 		var ciudad_destino=$("#ciudad_destino").val();
 		var calle_destino=$("#calle_destino").val();
 		var numero_destino=$("#numero_destino").val();
+		
 		if(tipo=="casual"){
 			$.get("controlador/guardar_viaje.php",{descripcion:descripcion,costo_impuesto:costo,provincia_origen:provincia_origen,provincia_destino:provincia_destino,ciudad_origen:ciudad_origen,ciudad_destino:ciudad_destino,calle_origen:calle_origen,calle_destino:calle_destino,numero_origen:numero_origen,numero_destino:numero_destino,vehiculo:id_vehiculo,asientos:asientos_disponibles,frecuencia:tipo,fecha_partida:fecha_salida,fecha_llegada:fecha_llegada,hora_partida:hora_salida,hora_llegada:hora_llegada},function(resultado){
 				alert("Viaje Creado");
-				alert(resultado);
 				location.href="http://localhost/Aventon/pagina_principal.php";
 			})
 		}
 		else{
-			moment.locale('es');
-			var fecha_maxima=(moment(moment(fecha_salida).add(2, 'years')).format('YYYY-MM-DD'));
-			var fecha_nueva=moment(fecha_salida).format('YYYY-MM-DD');
-			var fecha_nueva2= fecha_llegada;
-			alert(fecha_maxima);
-			while(moment(fecha_nueva).isSameOrBefore(fecha_maxima)){
-				$.get("controlador/guardar_viaje.php",{descripcion:descripcion,costo_impuesto:costo,provincia_origen:provincia_origen,provincia_destino:provincia_destino,ciudad_origen:ciudad_origen,ciudad_destino:ciudad_destino,calle_origen:calle_origen,calle_destino:calle_destino,numero_origen:numero_origen,numero_destino:numero_destino,vehiculo:id_vehiculo,asientos:asientos_disponibles,frecuencia:tipo,fecha_partida:fecha_nueva,fecha_llegada:fecha_nueva2,hora_partida:hora_salida,hora_llegada:hora_llegada},function(resultado){
-				});
-				fecha_nueva=(moment(moment(fecha_nueva).add(7, 'days')).format('YYYY-MM-DD'));
-				fecha_nueva2=(moment(moment(fecha_nueva2).add(7, 'days')).format('YYYY-MM-DD'));
-			}
-			if(moment(fecha_nueva).isAfter(fecha_maxima)){
+			var arreglo_s=$("#arreglo_semanal").val();
+			$("#loading").fadeIn();
+			$.get("controlador/guardar_viaje_semanal.php",{descripcion:descripcion,costo_impuesto:costo,provincia_origen:provincia_origen,provincia_destino:provincia_destino,ciudad_origen:ciudad_origen,ciudad_destino:ciudad_destino,calle_origen:calle_origen,calle_destino:calle_destino,numero_origen:numero_origen,numero_destino:numero_destino,vehiculo:id_vehiculo,asientos:asientos_disponibles,frecuencia:tipo,fecha_partida:fecha_salida,fecha_llegada:fecha_llegada,hora_partida:hora_salida,hora_llegada:hora_llegada,arreglo_semanal:arreglo_s},function(resultado){
+				$("#loading").fadeOut("fast");
+				alert("Viajes semanales creados");
 				location.href="http://localhost/Aventon/pagina_principal.php";
-			}
+			})
 		}
-
 	})
-
 })
+
 
 

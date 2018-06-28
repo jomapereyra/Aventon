@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-06-2018 a las 20:47:19
--- Versión del servidor: 5.7.21
--- Versión de PHP: 5.6.35
+-- Tiempo de generación: 27-06-2018 a las 14:39:58
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,24 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `aventon`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `frecuencia_semanal`
+--
+
+DROP TABLE IF EXISTS `frecuencia_semanal`;
+CREATE TABLE IF NOT EXISTS `frecuencia_semanal` (
+  `id_frecuencia` int(11) NOT NULL AUTO_INCREMENT,
+  `dia_partida` varchar(20) NOT NULL,
+  `hora_partida` time NOT NULL,
+  `dia_llegada` varchar(20) NOT NULL,
+  `hora_llegada` time NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  PRIMARY KEY (`id_frecuencia`),
+  KEY `id_viaje` (`id_viaje`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2430,6 +2448,49 @@ INSERT INTO `localidad` (`id_localidad`, `id_provincia`, `nombre_localidad`) VAL
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `notificacion`
+--
+
+DROP TABLE IF EXISTS `notificacion`;
+CREATE TABLE IF NOT EXISTS `notificacion` (
+  `id_notificacion` int(11) NOT NULL AUTO_INCREMENT,
+  `mensaje` varchar(100) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '0',
+  `autor` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`id_notificacion`),
+  KEY `autor` (`autor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `postulacion`
+--
+
+DROP TABLE IF EXISTS `postulacion`;
+CREATE TABLE IF NOT EXISTS `postulacion` (
+  `id_postulacion` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  `estado` varchar(20) NOT NULL DEFAULT 'esperando',
+  PRIMARY KEY (`id_postulacion`),
+  KEY `id_viaje` (`id_viaje`),
+  KEY `id_usuario` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `postulacion`
+--
+
+INSERT INTO `postulacion` (`id_postulacion`, `id_usuario`, `id_viaje`, `estado`) VALUES
+(6, 12, 1619, 'rechazado'),
+(14, 12, 1623, 'esperando'),
+(15, 12, 1621, 'esperando');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `provincia`
 --
 
@@ -2474,19 +2535,35 @@ INSERT INTO `provincia` (`id_provincia`, `nombre_provincia`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `se_anade`
+-- Estructura de tabla para la tabla `puntuacion`
 --
 
-DROP TABLE IF EXISTS `se_anade`;
-CREATE TABLE IF NOT EXISTS `se_anade` (
-  `id_anade` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `id_viaje` int(11) NOT NULL,
-  `aceptado` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id_anade`),
-  KEY `id_viaje` (`id_viaje`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `puntuacion`;
+CREATE TABLE IF NOT EXISTS `puntuacion` (
+  `id_puntuacion` int(11) NOT NULL AUTO_INCREMENT,
+  `valor` int(11) NOT NULL,
+  `comentario` varchar(260) CHARACTER SET utf8 NOT NULL,
+  `id_usuarioPuntuado` int(11) NOT NULL,
+  `id_usuarioCalificador` int(11) NOT NULL,
+  PRIMARY KEY (`id_puntuacion`),
+  KEY `id_usuarioCalificador` (`id_usuarioCalificador`),
+  KEY `id_usuarioPuntuado` (`id_usuarioPuntuado`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `puntuacion`
+--
+
+INSERT INTO `puntuacion` (`id_puntuacion`, `valor`, `comentario`, `id_usuarioPuntuado`, `id_usuarioCalificador`) VALUES
+(1, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(2, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 13, 12),
+(3, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(4, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(5, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(6, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(7, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(8, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(9, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13);
 
 -- --------------------------------------------------------
 
@@ -2529,7 +2606,45 @@ CREATE TABLE IF NOT EXISTS `ubicacion` (
   PRIMARY KEY (`id_ubicacion`),
   KEY `id_ciudad` (`id_ciudad`),
   KEY `id_provincia` (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ubicacion`
+--
+
+INSERT INTO `ubicacion` (`id_ubicacion`, `calle`, `numero`, `id_provincia`, `id_ciudad`) VALUES
+(45, 'dsadas', 'asdasd', 3, 282),
+(46, 'dasda', 'dasd', 2, 143),
+(47, 'fsdfs', 'fsdfsf', 18, 1670),
+(48, 'fdsfs', 'sdfsdf', 3, 282),
+(49, 'fsdfs', 'fsdfsf', 1, 1),
+(50, 'fdsfs', 'sdfsdf', 2, 143),
+(51, 'dsadasd', 'sadas', 2, 143),
+(52, 'dasda', 'dasdas', 1, 14),
+(53, 'uitirku', '764631', 23, 2199),
+(54, 'wtroghgh', '4467', 5, 369),
+(55, 'pepo', '123', 10, 1261),
+(56, 'pipa', '321', 11, 1280),
+(57, 'pepito', '123', 9, 994),
+(58, 'peposa', '321', 4, 368),
+(59, 'dasdsa', 'asdasd', 4, 343),
+(60, 'dasda', 'sadasd', 3, 297),
+(61, 'ewqeqw', 'ewqeq', 1, 1),
+(62, 'ewqe', 'qweqwe', 1, 1),
+(63, 'dasda', 'asdasda', 3, 282),
+(64, 'dad', 'sadasd', 2, 146),
+(65, 'rgerg', '46', 6, 439),
+(66, '46', '4676', 5, 369),
+(67, '654', '4646', 2, 143),
+(68, '15646', '3131', 4, 330),
+(69, '343', '767', 5, 369),
+(70, '46546', '6446', 3, 282),
+(71, '464', '464', 4, 330),
+(72, '46', '676', 3, 282),
+(73, '447', '373', 3, 282),
+(74, '654564', '4646', 5, 369),
+(75, 'dfsdf', 'dsfdsf', 2, 145),
+(76, 'dasd', 'sadsda', 3, 282);
 
 -- --------------------------------------------------------
 
@@ -2549,14 +2664,15 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `f_nacimiento` date NOT NULL,
   `permisos` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_usuario`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email`, `nombre`, `apellido`, `admin`, `contrasenia`, `telefono`, `f_nacimiento`, `permisos`) VALUES
-(9, 'matimosco@gmail.com', 'Matias', 'Moscoloni', 0, 'luchieslomas', '0234415427554', '1994-11-07', 0);
+(12, 'jomapereyra@hotmail.com', 'joma', 'pereyra', 0, 'sarasa123', '0234415421229', '1994-10-29', 0),
+(13, 'pedrosarasa@gmail.com', 'Pedro', 'Sarasa', 0, 'sarasa123', '0234415421229', '1994-10-29', 0);
 
 -- --------------------------------------------------------
 
@@ -2577,7 +2693,15 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   PRIMARY KEY (`id_vehiculo`,`patente`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_tipo_vehiculo` (`id_tipo_vehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`id_vehiculo`, `patente`, `id_usuario`, `id_tipo_vehiculo`, `marca`, `modelo`, `anio`, `cant_asientos`) VALUES
+(30, 'MJD811', 12, 1, 'Ford', 'Ka', 2000, 3),
+(31, 'AC062WR', 13, 1, 'Ford', 'KA', 2018, 4);
 
 -- --------------------------------------------------------
 
@@ -2590,7 +2714,7 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `id_viaje` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
   `id_vehiculo` int(11) NOT NULL,
-  `descripcion` varchar(300) CHARACTER SET utf8 NOT NULL,
+  `descripcion` varchar(300) NOT NULL,
   `asientos_disponibles` int(11) NOT NULL,
   `fecha_salida` date NOT NULL,
   `fecha_llegada` date NOT NULL,
@@ -2598,6 +2722,7 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `hora_llegada` time NOT NULL,
   `costo` float NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '0',
+  `tipo` varchar(20) NOT NULL,
   `id_destino` int(11) NOT NULL,
   `id_origen` int(11) NOT NULL,
   PRIMARY KEY (`id_viaje`),
@@ -2605,11 +2730,43 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   KEY `id_origen` (`id_origen`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_vehiculo` (`id_vehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1637 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `viaje`
+--
+
+INSERT INTO `viaje` (`id_viaje`, `id_usuario`, `id_vehiculo`, `descripcion`, `asientos_disponibles`, `fecha_salida`, `fecha_llegada`, `hora_salida`, `hora_llegada`, `costo`, `estado`, `tipo`, `id_destino`, `id_origen`) VALUES
+(1617, 13, 31, 'fweffwewewf', 3, '2019-02-05', '2019-02-05', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1618, 13, 31, 'fweffwewewf', 3, '2019-01-01', '2019-01-01', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1619, 13, 31, 'fweffwewewf', 3, '2019-01-08', '2019-01-08', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1620, 13, 31, 'fweffwewewf', 3, '2019-01-15', '2019-01-15', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1621, 13, 31, 'fweffwewewf', 3, '2019-01-29', '2019-01-29', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1622, 13, 31, 'fweffwewewf', 3, '2019-01-22', '2019-01-22', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1623, 13, 31, 'fweffwewewf', 3, '2019-02-12', '2019-02-12', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1624, 13, 31, 'fweffwewewf', 3, '2019-02-26', '2019-02-26', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1625, 13, 31, 'fweffwewewf', 3, '2019-03-12', '2019-03-12', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1626, 13, 31, 'fweffwewewf', 3, '2019-03-26', '2019-03-26', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1627, 13, 31, 'fweffwewewf', 3, '2019-04-09', '2019-04-09', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1628, 13, 31, 'fweffwewewf', 3, '2019-04-02', '2019-04-02', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1629, 13, 31, 'fweffwewewf', 3, '2019-02-19', '2019-02-19', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1630, 13, 31, 'fweffwewewf', 3, '2019-03-05', '2019-03-05', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1631, 13, 31, 'fweffwewewf', 3, '2019-03-19', '2019-03-19', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1632, 13, 31, 'fweffwewewf', 3, '2019-04-16', '2019-04-16', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1633, 13, 31, 'fweffwewewf', 3, '2019-04-23', '2019-04-23', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1634, 13, 31, 'fweffwewewf', 3, '2019-05-07', '2019-05-07', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1635, 13, 31, 'fweffwewewf', 3, '2019-05-14', '2019-05-14', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1636, 12, 30, 'dad dasasd', 3, '5555-05-05', '6666-06-06', '05:06:00', '06:51:00', 141.45, 0, 'casual', 76, 75);
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `frecuencia_semanal`
+--
+ALTER TABLE `frecuencia_semanal`
+  ADD CONSTRAINT `frecuencia_semanal_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `localidad`
@@ -2618,11 +2775,24 @@ ALTER TABLE `localidad`
   ADD CONSTRAINT `localidad_ibfk_1` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id_provincia`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `se_anade`
+-- Filtros para la tabla `notificacion`
 --
-ALTER TABLE `se_anade`
-  ADD CONSTRAINT `se_anade_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `se_anade_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
+ALTER TABLE `notificacion`
+  ADD CONSTRAINT `notificacion_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `postulacion`
+--
+ALTER TABLE `postulacion`
+  ADD CONSTRAINT `postulacion_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `postulacion_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `puntuacion`
+--
+ALTER TABLE `puntuacion`
+  ADD CONSTRAINT `puntuacion_ibfk_1` FOREIGN KEY (`id_usuarioCalificador`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `puntuacion_ibfk_2` FOREIGN KEY (`id_usuarioPuntuado`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ubicacion`

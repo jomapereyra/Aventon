@@ -40,8 +40,8 @@ if(!isset($_SESSION["usuario"])){
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-suitcase"></i> Mis Viajes
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="#">Mis Viajes Creados</a>
-					<a class="dropdown-item" href="#">Viajes Aceptados</a>
+					<a class="dropdown-item" href="mis_viajes_creados.php">Mis Viajes Creados</a>
+					<a class="dropdown-item" href="viajes_aceptados.php">Viajes Aceptados</a>
 					<a class="dropdown-item" href="viajes_pendientes.php">Viajes Pendientes</a>
 				</div>
 			</li>
@@ -69,7 +69,7 @@ if(!isset($_SESSION["usuario"])){
 
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="ver_perfil.php">Ver Perfil</a>
+				<a class="dropdown-item" href="ver_mi_perfil.php">Ver Perfil</a>
 				<a class="dropdown-item" href="controlador/cerrar_sesion.php">Cerrar Sesión</a>
 			</div>
 		</li>

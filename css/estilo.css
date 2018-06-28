@@ -42,6 +42,17 @@ footer {
 	height: 40px;
 }
 
+.loading{
+	display: none;
+	width: 300px;
+	margin: auto;
+	position: fixed;
+	top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 .fondo-inicio{
 	background-image: url("../img/fondo_inicio.jpg");
 	background-size: cover;
@@ -104,8 +115,20 @@ footer {
 	padding-bottom: 20px; 
 }
 
+.padding-bottom-10{
+	padding-bottom: 10px; 
+}
+
 .margin-right-20{
 	margin-right: 20px;
+}
+
+.margin-top-20{
+	margin-top: 20px;
+}
+
+.margin-bottom-10{
+	margin-bottom:10px;
 }
 
 .error{
@@ -122,10 +145,30 @@ footer {
 	display: none;
 }
 
+.contacto{
+	-webkit-box-shadow:0 0 10px rgba(0,0,0,0.3);
+	-moz-box-shadow:0 0 10px rgba(0,0,0,0.3);
+	-o-box-shadow:0 0 10px rgba(0,0,0,0.3);
+	background: #24772b;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	margin-top: -90px;
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 15px;
+	color: #fff;
+	display: none;
+}
+
 .my-container{
 	position: relative; 
 	padding: 20px;
-	min-height: 70%;
+	/*min-height: 70%;*/
+}
+
+.container-comentario{
+	padding: 10px;
+	background-color: #33bbe442;
+	margin-top: 10px;
 }
 
 .my-footer{
@@ -158,8 +201,22 @@ footer {
 	padding-right: 10px;
 }
 
+.puntuacion-borde{
+	border-color: #212529;
+	border-right-width: 1em;
+	border-right-style: double;
+	border-left-width: 1em;
+	border-left-style: double;
+
+}
+
 .font-bad{
 	color: #6b1010;
+	font-weight: bolder;
+}
+
+.font-promedio{
+	font-size: 100px;
 	font-weight: bolder;
 }
 
@@ -169,14 +226,39 @@ footer {
 	font-weight: bolder;
 }
 
+.font-comentario{
+	font-size: 20px;
+}
+
+.font-notice-aceptado{
+	color: #13801c;
+	font-weight: bolder;
+}
+
 .icon-bad{
 	font-size: 100px;
 	color: #6b1010; 
 }
 
+.icon-puntuacion{
+	font-size: 100px;
+	color:#ffc107;
+	text-shadow: -2px -2px 1px #000, 2px 2px 1px #000, -2px 2px 1px #000, 2px -2px 1px #000; 
+}
+
 .icon-notice-esperando{
 	font-size: 50px;
 	color: #c7ac25; 
+}
+
+.icon-notice-aceptado{
+	font-size: 50px;
+	color: #13801c; 
+}
+
+.icon-notice-rechazado{
+	font-size: 50px;
+	color:#6b1010 ; 
 }
 
 .icon-perfil{
@@ -203,6 +285,11 @@ footer {
 	padding: 20px;
 }
 
+.notice-aceptado{
+	background-color: #39b33d7a;
+	padding: 20px;
+}
+
 .semitransparentepaginacion{
 	background-color: #ffffffb0;
 }
@@ -215,4 +302,26 @@ footer {
 .semitransparente-pendiente{
 	background-color: #e8ea4fc2;
 	padding: 20px;
+}
+
+.semitransparente-aceptado{
+	background-color: #39b33d7a;
+	padding: 20px;
+}
+
+.ventana-scroll-lateral{
+	background:#EFEFEF; 
+	box-shadow: 1px 1px 10px #999; 
+	margin: auto;  
+	position: relative;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding-left:20px;
+}
+
+.scroll-lateral{
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 400px;
 }
