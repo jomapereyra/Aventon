@@ -7,21 +7,23 @@ class Paginacion{
 	private $total_paginas;
 	private $anterior;
 	private $siguiente;
-	private $maximo;
-	private $minimo;
-	private $paginas_minima;
-
-	private $paginas_restantes;
 
 	public function __construct(){
 		require_once("conexion.php");
 		$this->db=Conexion::conectar();
 	}
 
-	public function paginacion_inicio($pagina){
+	public function paginacion_inicio($pagina,$id_usuario){
 		require_once("viaje.php");
 		$tabla_viaje=new Viaje();
-		$this->num_fila=$tabla_viaje->get_filas();
+		$this->num_fila=$tabla_viaje->get_filas($id_usuario);
+		$this->calcular($pagina);
+	}
+
+	public function paginacion_buscar($pagina,$cadena,$id_usuario){
+		require_once("viaje.php");
+		$tabla_viaje=new Viaje();
+		$this->num_fila=$tabla_viaje->get_filas_buscar($cadena,$id_usuario);
 		$this->calcular($pagina);
 	}
 
@@ -70,31 +72,38 @@ class Paginacion{
 	}
 
 	public function mostrar($indice){
-		$this->paginas_restantes=$this->total_paginas -$indice;
-		if($this->paginas_restantes > 16){
-			$this->maximo= $indice + 15;
+		$paginas_restantes=$this->total_paginas - $indice;
+		$maximo;
+		if ($this->total_paginas < 16) {
+			$maximo=$this->total_paginas;
+			$minimo=1;
 		}
 		else{
-			$this->maximo=$indice + $this->paginas_restantes;
-			$indice= $this->maximo - 15;
-		}
-		$this->paginas_minima=$indice-16;
-		if ($indice>17) {
-			$this->paginas_minima=$indice-16;
-		}
-		else{
-			$this->paginas_minima=1;
-		}
+			if($paginas_restantes > 16){
+				$maximo=$indice + 15;
+			}
+			else{
 
+				$maximo=$this->total_paginas;
+			}
+			if($indice > 16){
+				$minimo= $indice - 15;
+
+			}
+			else{
+				$minimo=1;
+			}
+		}
 		echo "<br>
-
+		
 		<nav aria-label='Page navigation example'>
 		<ul class='pagination'>
-		<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->anterior'>Anterior</a></li>";echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->paginas_minima'>...</a></li>";
-		for($i=$indice;$i<=$this->maximo;$i++){
+		<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->anterior'>Anterior</a></li>";
+		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$minimo'>...</a></li>";
+		for($i=$indice;$i<=$maximo;$i++){
 			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$i'>$i</a></li>";
 		}
-		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->maximo'>...</a></li>";
+		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$maximo'>...</a></li>";
 		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->siguiente'>Siguiente</a></li>
 		</ul>
 		</nav>";

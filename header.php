@@ -24,58 +24,59 @@ if(!isset($_SESSION["usuario"])){
 
 
 			<ul class="navbar-nav mr-auto">
+				
 				<li class="nav-item">
 					<a class="nav-link" href="pagina_principal.php"><i class="fas fa-home"></i> Inicio<span class="sr-only">(current)</span></a>
 				</li>
 				
 				<li class="nav-item">
-					<a class="nav-link" href="#"><i class="fas fa-search"></i> Buscar</a>
+					<a class="nav-link" href="busqueda.php"><i class="fas fa-search"></i> Buscar</a>
 				</li>
-			
-			<li class="nav-item">
-				<a class="nav-link" href="crear_viaje.php"><i class="fab fa-avianex"></i> Crear Viaje</a>
-			</li>
-			
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-suitcase"></i> Mis Viajes
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="mis_viajes_creados.php">Mis Viajes Creados</a>
-					<a class="dropdown-item" href="viajes_aceptados.php">Viajes Aceptados</a>
-					<a class="dropdown-item" href="viajes_pendientes.php">Viajes Pendientes</a>
-				</div>
-			</li>
-		
-		<li class="nav-item">
-			<a class="nav-link" href="mis_vehiculos.php"><i class="fas fa-taxi"></i> Mis Vehiculos</a>
-		</li>
-	</ul>
 
-	<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="crear_viaje.php"><i class="fab fa-avianex"></i> Crear Viaje</a>
+				</li>
 
-		<li class="nav-item">
-				<a class="nav-link" href="notificaciones.php"><i class="far fa-bell icon-size-18"></i>&nbsp;</a>
-			</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-suitcase"></i> Mis Viajes
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="mis_viajes_creados.php">Mis Viajes Creados</a>
+						<a class="dropdown-item" href="viajes_aceptados.php">Viajes Aceptados</a>
+						<a class="dropdown-item" href="viajes_pendientes.php">Viajes Pendientes</a>
+					</div>
+				</li>
 
-		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fas fa-circle icon-conexion"></i>&nbsp;
-				<i class="fas fa-user"></i>
-				&nbsp;<?php
-				require_once("modelo/usuario.php");
-				$tabla_usuario=new Usuario();
-				$nom_ape=$tabla_usuario->get_nombre_apellido($_SESSION["usuario"]);
-				echo $nom_ape['nombre'],' ',$nom_ape['apellido']; ?>
+				<li class="nav-item">
+					<a class="nav-link" href="mis_vehiculos.php"><i class="fas fa-taxi"></i> Mis Vehiculos</a>
+				</li>
+			</ul>
 
-			</a>
-			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="ver_mi_perfil.php">Ver Perfil</a>
-				<a class="dropdown-item" href="controlador/cerrar_sesion.php">Cerrar Sesión</a>
-			</div>
-		</li>
-	</ul>
+			<ul class="navbar-nav ml-auto">
 
-</div>
-</nav>
+				<!--<li class="nav-item">
+					<a class="nav-link" href="notificaciones.php"><i class="far fa-bell icon-size-18"></i>&nbsp;</a>
+				</li>-->
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-circle icon-conexion"></i>&nbsp;
+						<i class="fas fa-user"></i>
+						&nbsp;<?php
+						require_once("modelo/usuario.php");
+						$tabla_usuario=new Usuario();
+						$nom_ape=$tabla_usuario->get_nombre_apellido($_SESSION["usuario"]);
+						echo $nom_ape['nombre'],' ',$nom_ape['apellido']; ?>
+
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="ver_mi_perfil.php">Ver Perfil</a>
+						<a class="dropdown-item" href="controlador/cerrar_sesion.php">Cerrar Sesión</a>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+	</nav>
 
 </div>

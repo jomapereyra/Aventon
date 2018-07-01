@@ -19,6 +19,7 @@
 	?>
 	<div class="container my-container">
 		<div class="semitransparente rounded">
+			<a href="javascript:history.back(-1);" title="Ir la página anterior"><i class="fas fa-arrow-left volver"></i></a>
 			<h1 class="text-center">Postulantes</h1>
 
 			<?php
@@ -51,7 +52,7 @@
 								<div class="row">
 
 									<div class="col-12 col-sm-12 col-md-12 col-lg-6 padding-top-10">
-										<h3><?php echo $p['nombre'].' '.$p['apellido'];?></h3>
+										<h3><?php echo $p['nombre'].' '.$p['apellido']."<br>".' Asientos necesarios: '.$p['cantidad_asientos'];?></h3>
 										
 									</div>
 

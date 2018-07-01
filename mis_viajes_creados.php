@@ -13,13 +13,19 @@
 	require_once("modelo/viaje.php");
 	require_once("modelo/postulacion.php");
 	require_once("modelo/paginacion.php");
+	require("modelo/Carbon/autoload.php");
+	use Carbon\Carbon;
+	use Carbon\CarbonInterval;
+	Carbon::setToStringFormat('Y-m-d');
+	Carbon::setLocale('es');
 	$tabla_postulacion=new Postulacion();
 	$tabla_viaje=new Viaje();
 	include("header.php");
 	$email=$_SESSION["usuario"];
 	$tabla_usuario=new Usuario();
 	$usuario=$tabla_usuario->get_id($email);
-	$tengo_creados=$tabla_viaje->existen_creados($usuario['id_usuario']);
+	$fecha_actual=  Carbon::now();
+	$tengo_creados=$tabla_viaje->existen_creados($usuario['id_usuario'],$fecha_actual);
 	?>
 	<div class="container my-container">
 		<div class="semitransparente rounded">
@@ -37,12 +43,12 @@
 					$pagina=1;
 				$paginacion=new Paginacion();
 				$paginacion->paginacion_creados($pagina,$usuario['id_usuario']);
-				$viaje=$tabla_viaje->get_viajes_creados($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
+				$viaje=$tabla_viaje->get_viajes_creados($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño(),$fecha_actual);
 				?>
 
 				<div class="container my-container col-md-12">
 
-					<!-- *********** VIAJES PENDIENTES *********************** -->
+					<!-- *********** VIAJES CREADOS *********************** -->
 
 					<?php
 

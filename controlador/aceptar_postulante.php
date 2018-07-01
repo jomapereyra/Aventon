@@ -1,8 +1,14 @@
 <?php 
 require_once("../modelo/postulacion.php");
+require_once("../modelo/viaje.php");
 $tabla_postulacion=new Postulacion();
 $id_postulacion=$_GET['id'];
 $tabla_postulacion->aceptar($id_postulacion);
-$id_viaje=$tabla_postulacion->get_id_viaje($id_postulacion);
+$postulacion=$tabla_postulacion->get_datos($id_postulacion);
+$tabla_viaje=new Viaje();
+$viaje=$tabla_viaje->get_datos($postulacion['id_viaje']);
+$id_viaje=$postulacion['id_viaje'];
+$asientos_libres=$viaje['asientos_disponibles'] - $postulacion['cantidad_asientos'];
+$tabla_viaje->asientos($asientos_libres,$id_viaje);
 header("location:../ver_postulantes.php?id=$id_viaje");
 ?>

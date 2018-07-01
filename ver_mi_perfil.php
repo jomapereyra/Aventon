@@ -48,7 +48,7 @@
 			require_once("modelo/puntuacion.php");
 			$tabla_puntuacion=new Puntuacion();
 			$cant=$tabla_puntuacion->get_cantidad_puntuacion($usuario['id_usuario']);
-			if($cant>0){
+			if($cant>5){
 				$puntuaciones=$tabla_puntuacion->get_puntuaciones($usuario['id_usuario']);
 				$promedio=$tabla_puntuacion->get_promedio($usuario['id_usuario']);
 				echo "
@@ -96,6 +96,9 @@
 				</div>
 				</div>";
 
+			}
+			else{
+				include("advertencia_puntuacion.php");
 			}
 			?>
 

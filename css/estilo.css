@@ -29,6 +29,23 @@ header {
 	color: black;
 }
 
+.volver{
+	font-size: 30px;
+}
+
+.color-busqueda{
+	color: #9a9da0;
+	font-size: 20px;
+}
+
+.item-busqueda{
+	margin-right: 10px;
+}
+
+.buscar{
+	margin-top: 30px;
+}
+
 article {
 	background: black;
 }

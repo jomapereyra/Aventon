@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("#patente").on("keyup blur",function(){
+	$("#patente").on("keyup",function(){
 		var patente=$("#patente").val();
 		var especiales="^[A-Z0-9_]{0,30}$";
 
@@ -25,7 +25,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#marca").on("keyup blur",function(){
+	$("#marca").on("keyup",function(){
 		var marca=$("#marca").val();
 		if(marca==""){
 			$("#mensaje2").fadeIn();
@@ -36,7 +36,7 @@ $(document).ready(function(){
 	})
 
 	
-	$("#modelo").on("keyup blur",function(){
+	$("#modelo").on("keyup",function(){
 		var modelo=$("#modelo").val();
 		if(modelo==""){
 			$("#mensaje3").fadeIn();
@@ -46,7 +46,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#año").on("keyup blur",function(){
+	$("#año").on("keyup",function(){
 		var año=$("#año").val();
 		var fecha=new Date();
 		var año_actual=fecha.getFullYear();
@@ -64,7 +64,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#tipo_vehiculo").on("change blur",function(){
+	$("#tipo_vehiculo").on("change",function(){
 		var tipo=$("#tipo_vehiculo").val();
 		if(tipo==""){
 			$("#mensaje5").fadeIn();
@@ -74,7 +74,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$("#asientos").on("keyup blur",function(){
+	$("#asientos").on("keyup",function(){
 		var asientos=$("#asientos").val();
 		if(asientos==""){
 			$("#mensaje6").fadeIn();

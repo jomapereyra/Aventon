@@ -16,14 +16,13 @@
 	require_once("modelo/paginacion.php");
 	$tabla_viaje= new Viaje();
 	$tabla_postulacion=new Postulacion();
-	$existen_viajes=$tabla_viaje->hay_viaje();
 	include("header.php");
 	$email=$_SESSION["usuario"];
 	$tabla_usuario=new Usuario();
 	$usuario=$tabla_usuario->get_id($email);
+	$existen_viajes=$tabla_viaje->hay_viaje($usuario['id_usuario']);
 	if(!$existen_viajes){
 		include("advertencia_inicio.php");
-
 	}
 	else{
 		if(isset($_GET["pagina"])){
@@ -32,15 +31,19 @@
 		else
 			$pagina=1;
 		$paginacion=new Paginacion();
-		$paginacion->paginacion_inicio($pagina);
-		$viaje= $tabla_viaje->get_viajes($paginacion->get_inicio(),$paginacion->get_tamaño());
+		$paginacion->paginacion_inicio($pagina,$usuario['id_usuario']);
+		$viaje= $tabla_viaje->get_viajes($paginacion->get_inicio(),$paginacion->get_tamaño(),$usuario['id_usuario']);
 
 		?>
 
-		<div class="container my-container col-md-8">
+		<div class="container my-container">
+			<div class="semitransparente rounded">
+				<h1 class="text-center">INICIO</h1>
 
-			<section>
-				
+				<section>
+
+					<div class="container my-container col-md-12">
+
 				<!-- *********** SELECTOR DE TIPO DE VIAJE *********************** 
 				<div class="text-center padding-bottom-20">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -56,10 +59,10 @@
 					</div>
 				</div>
 
+
 			-->
 
-
-			<!-- *********** VIAJES CASUALES *********************** -->
+			<!-- *********** INICIO *********************** -->
 
 			<?php
 			
@@ -83,7 +86,10 @@
 								<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $c['fecha_llegada'] . " ";?></p>
 								<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_destino'] . " " ;?></p>
 								<p> <u><b> Ciudad:</u></b>  <?php echo " " . $c['ciudad_destino'] . " " ;?></p>
+							</div>
 
+							<div class="col-xs-12 col-xl-12">
+								<p> <u><b> Cantidad de asientos disponibles:</u></b>  <?php echo " " . $c['asientos_disponibles'] . " " ;?></p>
 							</div>
 
 							<?php
@@ -129,18 +135,24 @@
 
 
 			}
+			$campos=array(0 => "id_provincia_partida" ,1=>"id_ciudad_partida",2=>"id_provincia_llegada",3=>"id_ciudad_llegada");
+			$cadena="";
+			foreach ($campos as $key => $value) {
+				if($key<count($campos)-1)
+					$cadena=" ".$cadena.$campos[$key]."=".$value." AND ";
+				else
+					$cadena=$cadena.$campos[$key]."=".$value;
+			}
 			$paginacion->mostrar($pagina);
 			?>
+		</div>
 
-		</section>
+	</section>
 
-	</div>
-	<?php
+</div>
+<?php
 } 
 	//include("footer.php"); ?>
-
-	
-
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/moment-with-locales.js"></script>

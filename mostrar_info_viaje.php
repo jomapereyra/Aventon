@@ -26,11 +26,16 @@
 			<article class=" semitransparente border border-dark">
 				<div class="container  ">
 					<div class="row">
-						<div class="col-12 col-xl-12">
-							<p><u><h1><center>INFORMACION DEL VIAJE </center></h1></u></p>
+						<div class="col-12 col-xl-12 row">
+							<div class="container">
+								<a href="javascript:history.back(-1);" title="Ir la página anterior"><i class="fas fa-arrow-left volver"></i></a>
+								<p><u><h1 class="text-center"><center>INFORMACION DEL VIAJE</center></h1></u></p>	
+							</div>
+							
 						</div>
 						<input type="hidden" id="id_usuario" value=<?php echo $usuario['id_usuario'] ?>></input>
 						<input type="hidden" id="id_viaje" value=<?php echo $info['id_viaje'] ?>></input>
+						<input type="hidden" id="limite" value=<?php echo $info['asientos_disponibles'] ?>></input>
 						<div class="col-6 col-xl-6">
 							<center>
 								<p> <h3>Fecha Salida: <?php echo " " . $info['fecha_salida']. " ";?> </h3> </p>
@@ -82,12 +87,38 @@
 
 						</div>
 
+
+
 						<?php 
 
 						if(!$postulado){
 
 							echo "<div class='col-xl-12 col-12 padding-top-16 padding-bottom-20'>
-							<button id='postularme' class='btn btn-primary btn-block btn-lg'>Postularme</button>
+							<button type='button' class='btn btn-primary btn-block btn-lg'data-toggle='modal' data-target='#".$info['id_viaje']."'>Postularme</button>
+							</div>";
+							echo"<div class='modal fade' id='".$info['id_viaje']."' tabindex='-1' role='dialog' aria-labelledby='header_confirmacion' aria-hidden='true'>
+							<div class='modal-dialog modal-dialog-centered' role='document'>
+							<div class='modal-content'>
+							<div class='modal-header'>
+							<h5 class='modal-title' id='header_confirmacion'>Aviso</h5>
+							<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+							<span aria-hidden='true'>&times;</span>
+							</button>
+							</div>
+							<div class='form-grop container'>
+							<label for='asientos'>Ingrese la cantidad de asientos disponibles: </label>
+							<input type='number' class='form-control' id='asientos' name='asientos'>
+							<div id='mensaje14' class='error'><i class='fas fa-times'></i>
+							&nbsp;Debe ingresar la cantidad de asientos</div>
+							<div id='mensaje14_1' class='error'><i class='fas fa-times'></i></div>
+							<div id='mensaje14_2' class='error'><i class='fas fa-times'></i>
+							&nbsp;Tiene que tener al menos 1 asiento</div>
+							<div class='modal-footer'>
+							<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+							<button id='postularme' class='btn btn-primary'>Confirmar</button>
+							</div>
+							</div>
+							</div>
 							</div>";
 
 						}

@@ -10,8 +10,8 @@ class Postulacion{
 		$this->postulaciones=array();
 	}
 
-	public function crear($id_viaje,$id_usuario){
-		$resultado=$this->db->query("INSERT INTO postulacion(id_usuario,id_viaje) VALUES ($id_usuario,$id_viaje)");
+	public function crear($id_viaje,$id_usuario,$cant){
+		$resultado=$this->db->query("INSERT INTO postulacion(id_usuario,id_viaje,cantidad_asientos) VALUES ($id_usuario,$id_viaje,$cant)");
 	}
 
 	public function estoy_postulado($id_viaje,$id_usuario){
@@ -42,6 +42,15 @@ class Postulacion{
 	public function existe_pasajero($id_viaje){
 		$consulta=$this->db->query("SELECT * FROM postulacion WHERE postulacion.id_viaje=$id_viaje AND postulacion.estado='aceptado'");
 		return $consulta->rowCount() > 0;
+	}
+
+	public function get_postulaciones_pasajeros($id_viaje){
+		$postulaciones=array();
+		$consulta=$this->db->query("SELECT * FROM postulacion WHERE postulacion.id_viaje=$id_viaje AND postulacion.estado='aceptado'");
+		while($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
+			$postulaciones[]=$fila;
+		}
+		return $postulaciones;
 	}
 
 	public function existe_postulante($id_viaje){
