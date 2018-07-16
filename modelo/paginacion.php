@@ -85,6 +85,7 @@ class Paginacion{
 			else{
 
 				$maximo=$this->total_paginas;
+				$indice=$this->total_paginas - 15;
 			}
 			if($indice > 16){
 				$minimo= $indice - 15;
