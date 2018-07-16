@@ -97,16 +97,19 @@ class Paginacion{
 		echo "<br>
 		
 		<nav aria-label='Page navigation example'>
-		<ul class='pagination'>
-		<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->anterior'>Anterior</a></li>";
-		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$minimo'>...</a></li>";
+		<ul class='pagination justify-content-center'>";
+		if($indice>1){
+			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->anterior'>Anterior</a></li>";
+			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$minimo'>...</a></li>";
+		}
 		for($i=$indice;$i<=$maximo;$i++){
 			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$i'>$i</a></li>";
 		}
-		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$maximo'>...</a></li>";
-		echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->siguiente'>Siguiente</a></li>
-		</ul>
-		</nav>";
+		if($maximo < $this->total_paginas){
+			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$maximo'>...</a></li>";
+			echo "<li class='page-item'><a class='page-link semitransparentepaginacion' href='?pagina=$this->siguiente'>Siguiente</a></li>";
+		}
+		echo "</ul></nav>";
 
 	}
 

@@ -163,8 +163,9 @@
 
 
 						}
-						echo "</div></div>";
+						echo "</div>";
 						$paginacion->mostrar($pagina);
+						echo "</div>";
 						?>
 
 					</section>

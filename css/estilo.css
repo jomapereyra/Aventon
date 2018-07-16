@@ -144,8 +144,17 @@ footer {
 	margin-top: 20px;
 }
 
+.margin-top-10{
+	margin-top:10px;
+}
+
 .margin-bottom-10{
 	margin-bottom:10px;
+}
+
+
+.font-buscar{
+	font-size: 30px;
 }
 
 .error{
@@ -194,6 +203,10 @@ footer {
 	min-height: 10%;
 	bottom:0;
 	padding-bottom:30px;
+}
+
+.navbar-busqueda{
+	background-color:#172e44; 
 }
 
 .perfil-container{
