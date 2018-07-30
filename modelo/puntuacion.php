@@ -27,11 +27,17 @@ class Puntuacion{
 		return $puntuacion;
 	}
 
-	public function crear($valor,$comentario,$id_puntuado,$id_calificador){
-		$resultado=$this->db->prepare("INSERT INTO puntuacion(valor,comentario,id_usuarioPuntuado,id_usuarioCalificador) VALUES (:v,:c,:id_p,:id_c)");
-		$resultado->execute(array(":v"=>$valor,"c"=>$comentario,':id_p'=>$id_puntuado,':id_c'=>$id_calificador));
+	public function crear($valor,$comentario,$id_puntuado,$id_calificador,$id_viaje){
+		$resultado=$this->db->prepare("INSERT INTO puntuacion(id_viaje,valor,comentario,id_usuarioPuntuado,id_usuarioCalificador) VALUES (:id_v,:v,:c,:id_p,:id_c)");
+		$resultado->execute(array(":id_v"=>$id_viaje,":v"=>$valor,":c"=>$comentario,':id_p'=>$id_puntuado,':id_c'=>$id_calificador));
 
 	}
+
+	public function existe_puntuacion($id_usuario,$id_viaje){
+		$consulta=$this->db->query("SELECT * FROM puntuacion WHERE puntuacion.id_usuarioPuntuado=$id_usuario AND puntuacion.id_viaje=$id_viaje")->rowCount();
+		return $consulta > 0;
+	}
+
 
 
 

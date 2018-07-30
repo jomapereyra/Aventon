@@ -63,8 +63,13 @@ class Postulacion{
 		return $consulta->rowCount();
 	}
 
-	public function get_filas_aceptado($id_usuario){
-		$consulta=$this->db->query("SELECT * FROM postulacion WHERE postulacion.id_usuario=$id_usuario AND postulacion.estado='aceptado'");
+	public function get_filas_aceptado_realizar($id_usuario){
+		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN viaje ON(postulacion.id_viaje=viaje.id_viaje) WHERE postulacion.id_usuario=$id_usuario AND postulacion.estado='aceptado' AND viaje.estado=0");
+		return $consulta->rowCount();
+	}
+
+	public function get_filas_aceptado_finalizados($id_usuario){
+		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN viaje ON(postulacion.id_viaje=viaje.id_viaje) WHERE postulacion.id_usuario=$id_usuario AND postulacion.estado='aceptado' AND viaje.estado=1");
 		return $consulta->rowCount();
 	}
 
@@ -83,18 +88,46 @@ class Postulacion{
 	}
 
 
-	public function get_postulaciones_aceptado($id_usuario,$inicio,$tamaño_paginas){
+	public function get_postulaciones_aceptado_realizar($id_usuario,$inicio,$tamaño_paginas){
 		$postulaciones=array();
-		$consulta=$this->db->query("SELECT * FROM postulacion WHERE postulacion.id_usuario=$id_usuario AND postulacion.estado='aceptado' LIMIT $inicio,$tamaño_paginas");
+		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN viaje ON(postulacion.id_viaje=viaje.id_viaje) WHERE postulacion.id_usuario=$id_usuario AND postulacion.estado='aceptado' AND viaje.estado=0 LIMIT $inicio,$tamaño_paginas");
 		while($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
 			$postulaciones[]=$fila;
 		}
 		return $postulaciones;
 	}
 
+	public function get_postulaciones_aceptado_finalizados($id_usuario,$inicio,$tamaño_paginas){
+		$postulaciones=array();
+		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN viaje ON(postulacion.id_viaje=viaje.id_viaje) WHERE postulacion.id_usuario=$id_usuario AND postulacion.estado='aceptado' AND viaje.estado=1 LIMIT $inicio,$tamaño_paginas");
+		while($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
+			$postulaciones[]=$fila;
+		}
+		return $postulaciones;
+	}
+	/*
+
 	public function get_postulantes($id_viaje,$inicio,$tamaño_paginas){
 		$postulaciones=array();
 		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN usuario ON(postulacion.id_usuario=usuario.id_usuario) WHERE postulacion.id_viaje=$id_viaje AND postulacion.estado='esperando' LIMIT $inicio,$tamaño_paginas");
+		while($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
+			$postulaciones[]=$fila;
+		}
+		return $postulaciones;
+	}*/
+
+	public function get_postulantes($id_viaje){
+		$postulaciones=array();
+		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN usuario ON(postulacion.id_usuario=usuario.id_usuario) WHERE postulacion.id_viaje=$id_viaje AND postulacion.estado='esperando'");
+		while($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
+			$postulaciones[]=$fila;
+		}
+		return $postulaciones;
+	}
+
+	public function get_pasajeros($id_viaje){
+		$postulaciones=array();
+		$consulta=$this->db->query("SELECT * FROM postulacion INNER JOIN usuario ON(postulacion.id_usuario=usuario.id_usuario) WHERE postulacion.id_viaje=$id_viaje AND postulacion.estado='aceptado'");
 		while($fila=$consulta->fetch(PDO::FETCH_ASSOC)){
 			$postulaciones[]=$fila;
 		}

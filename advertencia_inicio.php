@@ -5,7 +5,7 @@
 				<i class="fas fa-road icon-bad"></i>
 			</div>
 			<div class='col-md-10 col-sm-12 text-center'>
-				<h2 class='font-bad'>No existen viajes creados</h2> 
+				<h2 class='font-bad'>No existen viajes actualmente</h2> 
 			</div>
 		</div>
 	</div>

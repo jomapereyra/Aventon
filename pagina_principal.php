@@ -3,6 +3,7 @@
 	<title>Aventon</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" href="img/favicon.ico">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/fontawesome-all.min.css">
 	<link rel="stylesheet" href="css/estilo.css">
@@ -71,6 +72,7 @@
 				$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
 
 				?>
+
 				<article class=" row border border-dark semitransparente">
 
 					<div class="container">
@@ -143,7 +145,7 @@
 				else
 					$cadena=$cadena.$campos[$key]."=".$value;
 			}
-			$paginacion->mostrar($pagina);
+			
 			?>
 		</div>
 
@@ -151,6 +153,7 @@
 
 </div>
 <?php
+$paginacion->mostrar($pagina);
 } 
 	//include("footer.php"); ?>
 	<script src="js/jquery.min.js"></script>

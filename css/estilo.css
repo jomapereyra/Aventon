@@ -29,6 +29,10 @@ header {
 	color: black;
 }
 
+.fondo-ventana-pos{
+	background-color: #43964e !important;
+}
+
 .volver{
 	font-size: 30px;
 }
@@ -65,9 +69,9 @@ footer {
 	margin: auto;
 	position: fixed;
 	top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .fondo-inicio{
@@ -140,6 +144,10 @@ footer {
 	margin-right: 20px;
 }
 
+.sin-margin-top{
+	margin-top: 0px !important;
+}
+
 .margin-top-20{
 	margin-top: 20px;
 }
@@ -150,6 +158,10 @@ footer {
 
 .margin-bottom-10{
 	margin-bottom:10px;
+}
+
+.margin-bottom-20{
+	margin-bottom:20px;
 }
 
 
@@ -181,8 +193,11 @@ footer {
 	margin-top: 10px;
 	padding: 10px;
 	font-size: 15px;
-	color: #fff;
 	display: none;
+}
+
+.nombre-usuario{
+	font-weight: bold;
 }
 
 .my-container{
@@ -321,11 +336,16 @@ footer {
 }
 
 .semitransparentepaginacion{
-	background-color: #ffffffb0;
+	background-color: #eaf3f5d4;
 }
 
 .semitransparente{
 	background-color: #ffffffb0;
+	padding: 20px;
+}
+
+.postulante{
+	background-color: #80c190;
 	padding: 20px;
 }
 
@@ -350,8 +370,61 @@ footer {
 	padding-left:20px;
 }
 
-.scroll-lateral{
-	overflow-x: hidden;
-	overflow-y: scroll;
-	height: 400px;
+
+.ventana-scroll-lateral-postulantes{
+	background: #43964e;  
+	box-shadow: 1px 1px 10px #999; 
+	margin: auto;  
+	position: relative;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
+
+.scroll-lateral-postulantes{
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: auto;
+	max-height: 400px;
+}
+
+.estrella_label{
+	color:gray;
+
+}
+
+.estrella_input{
+	display: none;
+}
+
+
+.estrella_label:hover,
+.estrella_label:hover ~ .estrella_label{
+	color:orange;
+}
+
+.estrella_input:checked ~ .estrella_label{
+	color:orange;
+}
+
+
+.clasificacion{
+	direction: rtl;/* right to left */
+	unicode-bidi: bidi-override;/* bidi de bidireccional */
+	font-size: 40px;
+}
+
+.valor{
+	font-size: 80;
+}
+
+.mensaje-cali{
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+.pestaña-viajes{
+	padding: 10px;
+	background-color: #9cc6c7;
+}
+

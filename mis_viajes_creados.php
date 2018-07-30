@@ -12,11 +12,12 @@
 	require_once("modelo/usuario.php");
 	require_once("modelo/viaje.php");
 	require_once("modelo/postulacion.php");
+	require_once("modelo/puntuacion.php");
 	require_once("modelo/paginacion.php");
 	require("modelo/Carbon/autoload.php");
 	use Carbon\Carbon;
 	use Carbon\CarbonInterval;
-	Carbon::setToStringFormat('Y-m-d');
+	Carbon::setToStringFormat('Ymd');
 	Carbon::setLocale('es');
 	$tabla_postulacion=new Postulacion();
 	$tabla_viaje=new Viaje();
@@ -24,8 +25,8 @@
 	$email=$_SESSION["usuario"];
 	$tabla_usuario=new Usuario();
 	$usuario=$tabla_usuario->get_id($email);
-	$fecha_actual=  Carbon::now();
-	$tengo_creados=$tabla_viaje->existen_creados($usuario['id_usuario'],$fecha_actual);
+	$fecha_actual=Carbon::now();
+	$tengo_creados=$tabla_viaje->existen_creados($usuario['id_usuario']);
 	?>
 	<div class="container my-container">
 		<div class="semitransparente rounded">
@@ -36,132 +37,118 @@
 				include("advertencia_viajes_creados.php");
 			}
 			else{
-				if(isset($_GET["pagina"])){
-					$pagina=$_GET["pagina"];
-				}
-				else
-					$pagina=1;
-				$paginacion=new Paginacion();
-				$paginacion->paginacion_creados($pagina,$usuario['id_usuario']);
-				$viaje=$tabla_viaje->get_viajes_creados($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño(),$fecha_actual);
+
 				?>
 
-				<div class="container my-container col-md-12">
+				<div class="container my-container col-md-12" style="padding-top: 10px;">
+
 
 					<!-- *********** VIAJES CREADOS *********************** -->
+					<?php 
+					$tabla_viaje->actualizar_historial($fecha_actual,$usuario['id_usuario']);
 
-					<?php
+					if(isset($_GET["action"])){
+						$action=$_GET["action"];
+					}
+					else
+						$action=1;
+					if($action==1){
 
-					foreach ($viaje as $p){
+						echo "
+						<ul class='container col-5 nav nav-pills mb-3 text-center rounded pestaña-viajes' id='pills-tab' role='tablist'>
+						<li class='nav-item col-6'>
+						<a class='nav-link active' id='realizar-tab' data-toggle='pill' href='#realizar' role='tab' aria-controls='realizar' aria-selected='true'>Viajes a realizar</a>
+						</li>
+						<li class='nav-item col-6'>
+						<a class='nav-link' id='finalizados-tab' data-toggle='pill' href='#finalizados' role='tab' aria-controls='finalizados' aria-selected='false'>Viajes finalizados</a>
+						</li>
+						</ul>";
 
-						$viaje=$tabla_viaje->get_datos($p['id_viaje']);
+					}
+					else{
 
-						?>
-						<article class=" row border border-dark semitransparente">
+						echo "
+						<ul class='container col-5 nav nav-pills mb-3 text-center rounded pestaña-viajes' id='pills-tab' role='tablist'>
+						<li class='nav-item col-6'>
+						<a class='nav-link' id='realizar-tab' data-toggle='pill' href='#realizar' role='tab' aria-controls='realizar' aria-selected='false'>Viajes a realizar</a>
+						</li>
+						<li class='nav-item col-6'>
+						<a class='nav-link active' id='finalizados-tab' data-toggle='pill' href='#finalizados' role='tab' aria-controls='finalizados' aria-selected='true'>Viajes finalizados</a>
+						</li>
+						</ul>";
 
-							<div class="container">
-								<div class="row">
+					}
 
-									<div class="col-12 col-md-6">
-										<?php $v= $viaje['id_viaje'];?>
-										<p> <u><b> Fecha Salida: </u></b> <?php echo $viaje['fecha_salida'];?></p>
-										<p> <u><b>Provincia: </u></b><?php echo " " . $viaje['provincia_origen'] . " " ;?></p>
-										<p> <u><b>Ciudad: </u></b> <?php echo " " . $viaje['ciudad_origen'] . " " ;?></p>
-									</div>
+					?>
 
-									<div class="col-12 col-md-6">
-										<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $viaje['fecha_llegada'] . " ";?></p>
-										<p> <u><b>Provincia: </u></b><?php echo " " . $viaje['provincia_destino'] . " " ;?></p>
-										<p> <u><b> Ciudad:</u></b>  <?php echo " " . $viaje['ciudad_destino'] . " " ;?></p>
-
-									</div>
-
-									<div class="container padding-top-16">
-										<div class="row">
-
-											<div class="col-12 col-sm-12 col-md-12 col-lg-6">
-											</div>
-
-											<div class="col-12 col-sm-12 col-md-12 col-lg-6">
-
-												<div class="row">
-
-													<div class="col-md-4 padding-bottom-10">
-
-														<a href="ver_postulantes.php?id=<?php echo $viaje['id_viaje']?>"class='btn btn-success btn-block  margin-right-20'>Postulantes</a>
-
-													</div>
-
-													<div class="col-md-4 padding-bottom-10">
-
-														<a href="mostrar_info_viaje.php?id=<?php echo $viaje['id_viaje']?>"class='btn btn-primary btn-block margin-right-20'>+INFO</a>
-
-													</div>
-
-													<div class="col-md-4 padding-bottom-10">
-
-														<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#<?php echo $viaje['id_viaje']?>">Cancelar</button>
-
-													</div>
-
-												</div>
-												
-											</div>
-											
-										</div>
-
-									</div>
-
-
-									<!-- CUADRO CONFIRMACION -->
-									<div class="modal fade" id="<?php echo $viaje['id_viaje']?>" tabindex="-1" role="dialog" aria-labelledby="header_confirmacion" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="header_confirmacion">Advertencia!</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													¿Esta seguro que quiere cancelar este viaje?
-													<?php
-													$pasajeros=$tabla_postulacion->existe_pasajero($viaje['id_viaje']);
-													if($pasajeros){
-														echo "
-														<div class='alert alert-danger margin-top-20' role='alert'>
-														<strong>ATENCION!</strong>&nbsp;Esta accion trae como consecuencia una calificacion negativa 
-														</div>";
-													} 
-													?>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-													<a class="btn btn-primary" href="controlador/cancelar_viaje_conductor.php?id_viaje=<?php echo $viaje['id_viaje']?>">Confirmar</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-
-						</article>
+					<!--******************************* VIAJES A REALIZAR *********************************** -->
+					
+					<div class="tab-content" id="pills-tabContent">
 
 						<?php
+
+						if($action==1){
+
+							echo "<div class='tab-pane fade show active' id='realizar' role='tabpanel' aria-labelledby='realizar-tab'>";
+
+						} 
+						else{
+
+							echo "<div class='tab-pane fade show' id='realizar' role='tabpanel' aria-labelledby='realizar-tab'>";
+
+						}
+						
+						if(isset($_GET["pagina"])){
+							$pagina=$_GET["pagina"];
+						}
+						else
+							$pagina=1;
+						$paginacion=new Paginacion();
+						$paginacion->paginacion_creados_realizar($pagina,$usuario['id_usuario']);
+						$viaje=$tabla_viaje->get_viajes_creados_realizar($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
+						include("listar_creados_realizar.php");
+						$paginacion->mostrar($pagina);
+						
+						?>
+
+					</div>
+
+
+					<!--******************************* VIAJES FINALIZADOS ******************************** -->
+
+					<input type="hidden" id="calificador" value="<?php echo $usuario['id_usuario']?>">
+					<?php
+					if($action==1){
+						echo "<div class='tab-pane fade show' id='finalizados' role='tabpanel' aria-labelledby='finalizados-tab'>";
 					}
-					
-					echo "</div>";
-					echo "</div>";
-					$paginacion->mostrar($pagina);
+					else{
+						echo "<div class='tab-pane fade show active' id='finalizados' role='tabpanel' aria-labelledby='finalizados-tab'>";
+					}
 
-				} 
-				
-				echo "</div>";
+					if(isset($_GET["pagina_f"])){
+						$pagina_f=$_GET["pagina_f"];
+					}
+					else
+						$pagina_f=1;
+					$paginacion=new Paginacion();
+					$paginacion->paginacion_creados_finalizados($pagina_f,$usuario['id_usuario']);
+					$viaje=$tabla_viaje->get_viajes_creados_finalizados($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
+					include("listar_creados_finalizados.php");
+					$paginacion->mostrar_finalizados($pagina_f);
+					?>
 
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php 
+} 
+
+echo "</div>";
 //include("footer.php"); ?>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/mis_viajes/mostrar_info.js"></script>
+<script src="js/mis_viajes/calificacion.js"></script>
 </body>
 </html>

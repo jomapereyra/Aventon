@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/estilo.css">
 	<link rel="stylesheet" href="css/fontawesome-all.min.css">
+	<link rel="shortcut icon" href="img/favicon.ico">
 </head>
 <body class="fondo-inicio">
 	<header>

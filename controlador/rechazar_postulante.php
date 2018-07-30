@@ -2,7 +2,8 @@
 require_once("../modelo/postulacion.php");
 $tabla_postulacion=new Postulacion();
 $id_postulacion=$_GET['id'];
+$pagina=$_GET['pag'];
+$postulacion=$tabla_postulacion->get_datos($id_postulacion);
 $tabla_postulacion->rechazar($id_postulacion);
-$id_viaje=$tabla_postulacion->get_id_viaje($id_postulacion);
-header("location:../ver_postulantes.php?id=$id_viaje");
+header("location:../mis_viajes_creados.php?pagina=$pagina#$postulacion['id_viaje']");
 ?>

@@ -1,4 +1,4 @@
-<div class='container padding-bottom-20 padding-top-10'>
+<div class='container padding-top-10'>
 	<div class='bad-notice rounded'>
 		<div class='row'>
 			<div class='col-md-2 col-sm-12 text-center'>

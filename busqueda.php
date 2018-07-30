@@ -64,116 +64,133 @@
 
 	}		
 	else{
-		if(isset($_GET["pagina"])){
-			$pagina=$_GET["pagina"];
+		$existen_viajes=$tabla_viaje->hay_viaje($usuario['id_usuario']);
+		if(!$existen_viajes){
+			echo "
+			<div class='container my-container'>
+			<div class='semitransparente rounded'>
+			<h1 class='text-center'>Busqueda</h1>
+			<div class='container my-container col-md-12'>";
+			include("advertencia_inicio.php");
+			echo "
+			</div>
+			</div>
+			</div>";
 		}
-		else
-			$pagina=1;
-		$paginacion=new Paginacion();
-		$paginacion->paginacion_inicio($pagina,$usuario['id_usuario']);
-		$viaje= $tabla_viaje->get_viajes($paginacion->get_inicio(),$paginacion->get_tamaño(),$usuario['id_usuario']);
-	}
+		else{
+			if(isset($_GET["pagina"])){
+				$pagina=$_GET["pagina"];
+			}
+			else
+				$pagina=1;
+			$paginacion=new Paginacion();
+			$paginacion->paginacion_inicio($pagina,$usuario['id_usuario']);
+			$viaje= $tabla_viaje->get_viajes($paginacion->get_inicio(),$paginacion->get_tamaño(),$usuario['id_usuario']);
 
 	//if(count($viaje)>0){
-		?>
+			?>
 
 
-		<div class="container my-container">
-			<div class="semitransparente rounded">
+			<div class="container my-container">
+				<div class="semitransparente rounded">
 
-				<h1 class="text-center">Busqueda</h1>
-
-
-				<div class="container my-container col-md-12">
-
-					<section>
+					<h1 class="text-center">Busqueda</h1>
 
 
-						<!-- *********** RESULTADOS *********************** -->
+					<div class="container my-container col-md-12">
 
-						<?php
+						<section>
 
-						foreach ($viaje as $c){
 
-							$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
+							<!-- *********** RESULTADOS *********************** -->
 
-							?>
-							<article class=" row border border-dark semitransparente">
+							<?php
 
-								<div class="container">
-									<div class="row col-xs-8 ">
+							foreach ($viaje as $c){
 
-										<div class="col-xs-4 col-xl-6">
-											<?php $v= $c['id_viaje'];?>
-											<p> <u><b> Fecha Salida: </u></b> <?php echo $c['fecha_salida'];?></p>
-											<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_origen'] . " " ;?></p>
-											<p> <u><b>Ciudad: </u></b> <?php echo " " . $c['ciudad_origen'] . " " ;?></p>
-										</div>
-										<div class="col-xs-4 col-xl-6">
-											<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $c['fecha_llegada'] . " ";?></p>
-											<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_destino'] . " " ;?></p>
-											<p> <u><b> Ciudad:</u></b>  <?php echo " " . $c['ciudad_destino'] . " " ;?></p>
+								$postulado=$tabla_postulacion->estoy_postulado($c['id_viaje'],$usuario['id_usuario']);
 
-										</div>
+								?>
+								<article class=" row border border-dark semitransparente">
 
-										<div class="col-xs-12 col-xl-12">
-											<p> <u><b> Cantidad de asientos disponibles:</u></b>  <?php echo " " . $c['asientos_disponibles'] . " " ;?></p>
-										</div>
+									<div class="container">
+										<div class="row col-xs-8 ">
 
-										<?php
+											<div class="col-xs-4 col-xl-6">
+												<?php $v= $c['id_viaje'];?>
+												<p> <u><b> Fecha Salida: </u></b> <?php echo $c['fecha_salida'];?></p>
+												<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_origen'] . " " ;?></p>
+												<p> <u><b>Ciudad: </u></b> <?php echo " " . $c['ciudad_origen'] . " " ;?></p>
+											</div>
+											<div class="col-xs-4 col-xl-6">
+												<p><u><b> Fecha Llegada:</u></b><?php echo  " " . $c['fecha_llegada'] . " ";?></p>
+												<p> <u><b>Provincia: </u></b><?php echo " " . $c['provincia_destino'] . " " ;?></p>
+												<p> <u><b> Ciudad:</u></b>  <?php echo " " . $c['ciudad_destino'] . " " ;?></p>
 
-										$ok=true;
+											</div>
 
-										if($postulado){
+											<div class="col-xs-12 col-xl-12">
+												<p> <u><b> Cantidad de asientos disponibles:</u></b>  <?php echo " " . $c['asientos_disponibles'] . " " ;?></p>
+											</div>
 
-											$estado=$tabla_postulacion->get_estado($c['id_viaje'],$usuario['id_usuario']);
-											if($estado=="esperando"){
-												include("advertencia_postulacion_esperando.php");
-											}
-											else{
-												if ($estado=="aceptado") {
-													include("advertencia_postulacion_aceptado.php");
+											<?php
+
+											$ok=true;
+
+											if($postulado){
+
+												$estado=$tabla_postulacion->get_estado($c['id_viaje'],$usuario['id_usuario']);
+												if($estado=="esperando"){
+													include("advertencia_postulacion_esperando.php");
 												}
 												else{
-													if($estado=="rechazado"){
-														$ok=false;
-														include("advertencia_postulacion_rechazado.php");
+													if ($estado=="aceptado") {
+														include("advertencia_postulacion_aceptado.php");
+													}
+													else{
+														if($estado=="rechazado"){
+															$ok=false;
+															include("advertencia_postulacion_rechazado.php");
+														}
 													}
 												}
 											}
-										}
 
-										if($ok){
-											echo "<div class='col-md-12 text-right'>
-											<a href='mostrar_info_viaje.php?id=".$c['id_viaje']."' class='btn btn-primary float-right'>+INFO</a>	
-											</div>";
-										}
+											if($ok){
+												echo "<div class='col-md-12 text-right'>
+												<a href='mostrar_info_viaje.php?id=".$c['id_viaje']."' class='btn btn-primary float-right'>+INFO</a>	
+												</div>";
+											}
 
-										?>
+											?>
 
+
+										</div>
 
 									</div>
 
-								</div>
 
-
-							</article>
-							<?php
+								</article>
+								<?php
 
 
 
-						}
-						echo "</div>";
-						$paginacion->mostrar($pagina);
-						echo "</div>";
-						?>
+							}
+							echo "</div>";
+							$paginacion->mostrar($pagina);
+							echo "</div>";
+							?>
 
-					</section>
+						</section>
 
+					</div>
 				</div>
 			</div>
-		</div>
-		<?php
+			<?php
+		}
+
+	}
+
 /*
 	}
 	else{
