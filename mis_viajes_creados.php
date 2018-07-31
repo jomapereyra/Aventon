@@ -106,8 +106,16 @@
 						$paginacion=new Paginacion();
 						$paginacion->paginacion_creados_realizar($pagina,$usuario['id_usuario']);
 						$viaje=$tabla_viaje->get_viajes_creados_realizar($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
-						include("listar_creados_realizar.php");
-						$paginacion->mostrar($pagina);
+						if (count($viaje)==0){
+							include("advertencia_realizar.php");
+						}
+						else{
+
+							include("listar_creados_realizar.php");
+							$paginacion->mostrar($pagina);
+
+						}
+						
 						
 						?>
 
@@ -133,8 +141,14 @@
 					$paginacion=new Paginacion();
 					$paginacion->paginacion_creados_finalizados($pagina_f,$usuario['id_usuario']);
 					$viaje=$tabla_viaje->get_viajes_creados_finalizados($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
-					include("listar_creados_finalizados.php");
-					$paginacion->mostrar_finalizados($pagina_f);
+					if (count($viaje)==0){
+						include("advertencia_finalizados.php");
+					}
+					else{
+						include("listar_creados_finalizados.php");
+						$paginacion->mostrar_finalizados($pagina_f);
+					}
+					
 					?>
 
 				</div>

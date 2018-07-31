@@ -23,22 +23,22 @@
 	$usuario=$tabla_usuario->get_id($email);
 	$consulta=array();
 	$campos=array(0 => "pro1.id_provincia" ,1=>"ciu1.id_localidad",2=>"pro2.id_provincia",3=>"ciu2.id_localidad");
-	if(isset($_POST['provincia_origen'])){
-		if($_POST['provincia_origen']!=0){
-			$consulta[0]=$_POST['provincia_origen'];
-			if(isset($_POST['ciudad_origen'])){
-				if($_POST['ciudad_origen']!=0)
-					$consulta[1]=$_POST['ciudad_origen'];
+	if(isset($_GET['provincia_origen'])){
+		if($_GET['provincia_origen']!=0){
+			$consulta[0]=$_GET['provincia_origen'];
+			if(isset($_GET['ciudad_origen'])){
+				if($_GET['ciudad_origen']!=0)
+					$consulta[1]=$_GET['ciudad_origen'];
 			}	
 		}
 		
 	}
-	if(isset($_POST['provincia_destino'])){
-		if($_POST['provincia_destino']!=0){
-			$consulta[2]=$_POST['provincia_destino'];
-			if(isset($_POST['ciudad_destino'])){
-				if ($_POST['ciudad_destino']!=0)
-					$consulta[3]=$_POST['ciudad_destino'];
+	if(isset($_GET['provincia_destino'])){
+		if($_GET['provincia_destino']!=0){
+			$consulta[2]=$_GET['provincia_destino'];
+			if(isset($_GET['ciudad_destino'])){
+				if ($_GET['ciudad_destino']!=0)
+					$consulta[3]=$_GET['ciudad_destino'];
 			}	
 		}
 	}

@@ -70,6 +70,14 @@
 
 									</div>
 
+									<div class="col-xs-12 col-xl-12">
+										<p> <u><b> Cantidad de asientos disponibles:</u></b>  <?php echo " " . $viaje['asientos_disponibles'] . " " ;?></p>
+									</div>
+
+									<div class="col-xs-12 col-xl-12">
+										<p> <u><b> Asientos que deseo ocupar:</u></b>  <?php echo " " . $p['cantidad_asientos'] . " " ;?></p>
+									</div>
+
 									<div class="container margin-top-20">
 										<div class="row">
 

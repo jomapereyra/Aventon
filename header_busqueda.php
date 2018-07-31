@@ -5,7 +5,7 @@ $provincias=$tabla_provincia->get_provincias();
 ?>
 
 <nav class="navbar navbar-busqueda">
-	<form class="row col-md-12 sin-margen" method="post" action="busqueda.php">
+	<form class="row col-md-12 sin-margen" method="get" action="busqueda.php">
 
 		<div class="row  col-md-12 color-busqueda">
 

@@ -59,17 +59,31 @@ foreach ($viaje as $p){
 							<div class="row">
 
 								<?php
-								if($tabla_postulacion->existe_postulante($viaje['id_viaje'])){
+
+								if ($viaje['asientos_disponibles']==0) {
 									echo "
 									<div class='col-md-12 padding-bottom-10'>
-									<button type='button' class='btn btn-warning btn-block margin-right-20 mostrar' id='pos_".$viaje['id_viaje']."'>Postulantes</button>
+									<button type='button' class='btn btn-secondary btn-block' disabled>Sin asientos</button>
 									</div>";
 								}
 								else{
-									echo "
-									<div class='col-md-12 padding-bottom-10'>
-									<button type='button' class='btn btn-secondary btn-block' disabled>Sin postulantes</button>
-									</div>";
+
+									if(!$tabla_postulacion->existe_postulante($viaje['id_viaje'])){
+										echo "
+										<div class='col-md-12 padding-bottom-10'>
+										<button type='button' class='btn btn-secondary btn-block' disabled>Sin postulantes</button>
+										</div>";
+									}
+									
+									else{
+
+										echo "
+										<div class='col-md-12 padding-bottom-10'>
+										<button type='button' class='btn btn-warning btn-block margin-right-20 mostrar' id='pos_".$viaje['id_viaje']."'>Postulantes</button>
+										</div>";
+
+									}
+									
 								} 
 								?>												
 							</div>
@@ -233,11 +247,28 @@ foreach ($viaje as $p){
 														<div class="row">
 
 															<div class="col-lg-6 col-md-12 padding-bottom-10">
-																<a href="controlador/aceptar_postulante.php?id=<?php echo $p['id_postulacion'];?>&pag=<?php echo $pagina ?>" class='btn btn-success  btn-block'>Aceptar</a>
+
+																<?php 
+
+																if ($viaje['asientos_disponibles']>= $p['cantidad_asientos']) {
+																	
+																	echo "<button type='button' class='btn btn-success  btn-block' data-toggle='modal' data-target='#aceptar_".$p['id_postulacion']."'>Aceptar</button>";
+																}
+																else{
+
+																	echo "<button type='button' class='btn btn-secondary  btn-block' disabled>No hay lugar</button>";
+
+																}
+
+																?>
+																
+
+																<!--<a href="controlador/aceptar_postulante.php?id=<?php echo $p['id_postulacion'];?>&pag=<?php echo $pagina ?>" class='btn btn-success  btn-block'>Aceptar</a>-->
+
 															</div>
 
 															<div class="col-lg-6 col-md-12 padding-bottom-10">
-																<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#<?php echo $p['id_postulacion']?>">Rechazar</button>
+																<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#rechazar_<?php echo $p['id_postulacion']?>">Rechazar</button>
 															</div>
 
 														</div>
@@ -249,7 +280,7 @@ foreach ($viaje as $p){
 											</tr>
 
 											<!-- CUADRO CONFIRMACION RECHAZAR -->
-											<div class="modal fade" id="<?php echo $p['id_postulacion']?>" tabindex="-1" role="dialog" aria-labelledby="header_confirmacion" aria-hidden="true">
+											<div class="modal fade" id="rechazar_<?php echo $p['id_postulacion']?>" tabindex="-1" role="dialog" aria-labelledby="header_confirmacion" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -269,8 +300,26 @@ foreach ($viaje as $p){
 												</div>
 											</div>
 
-
-
+											<!-- CUADRO CONFIRMACION ACEPTAR -->
+											<div class="modal fade" id="aceptar_<?php echo $p['id_postulacion']?>" tabindex="-1" role="dialog" aria-labelledby="header_confirmacion" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="header_confirmacion">Advertencia!</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															¿Esta seguro que quiere aceptar a este usuario?
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+															<a class="btn btn-primary" href="controlador/aceptar_postulante.php?id=<?php echo $p['id_postulacion'];?>&pag=<?php echo $pagina ?>">Confirmar</a>
+														</div>
+													</div>
+												</div>
+											</div>
 											<?php
 										}
 

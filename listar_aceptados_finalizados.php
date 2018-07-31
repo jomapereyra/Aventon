@@ -24,6 +24,10 @@ foreach ($postulacion as $p){
 
 				</div>
 
+				<div class="col-xs-12 col-xl-12">
+					<p> <u><b> Asientos que ocupé:</u></b>  <?php echo " " . $p['cantidad_asientos'] . " " ;?></p>
+				</div>
+
 				<?php
 				$conductor=$tabla_usuario->get_datos_id($viaje["id_usuario"]); 
 				?>
@@ -39,7 +43,7 @@ foreach ($postulacion as $p){
 							<div class="row">
 
 								<div class="col-md-6 margin-bottom-10">
-									<button id="<?php echo $num?>" type="button" class="btn btn-success btn-block margin-right-20">Conductor</button>
+									<button id="c_<?php echo $viaje['id_viaje']?>" type="button" class="btn btn-success btn-block margin-right-20 conductor">Conductor</button>
 								</div>
 
 								<div class="col-md-6 margin-bottom-10">
@@ -51,7 +55,7 @@ foreach ($postulacion as $p){
 
 						<?php $num++; ?>
 
-						<div id="<?php echo $num?>" class="container col-md-8 contacto rounded margin-bottom-10" style="color: white">
+						<div id="conductor_<?php echo $viaje['id_viaje']?>" class="container col-md-8 contacto rounded margin-bottom-10" style="color: white">
 							
 							<div class="table-responsive">
 

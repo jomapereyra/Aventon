@@ -41,7 +41,7 @@
 			else{
 				?>
 
-				<div class="container my-container col-md-12">
+				<div class="container my-container col-md-12" style="padding-top: 10px;">
 					
 					<?php
 					$tabla_viaje->actualizar_historial($fecha_actual,$usuario['id_usuario']);
@@ -105,7 +105,7 @@
 						$postulacion=$tabla_postulacion->get_postulaciones_aceptado_realizar($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
 						$num=0;//TENGO QUE REMPLAZARLO
 						if (count($postulacion)==0) {
-							include("advertencia_aceptados_realizar.php");
+							include("advertencia_realizar.php");
 						}
 						else{
 							include("listar_aceptados_realizar.php");
@@ -136,7 +136,7 @@
 					$postulacion=$tabla_postulacion->get_postulaciones_aceptado_finalizados($usuario['id_usuario'],$paginacion->get_inicio(),$paginacion->get_tamaño());
 					$num=0;
 					if (count($postulacion)==0){
-						include("advertencia_aceptados_finalizados.php");
+						include("advertencia_finalizados.php");
 					}
 					else{
 						include("listar_aceptados_finalizados.php");
