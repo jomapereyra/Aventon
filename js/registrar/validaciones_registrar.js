@@ -137,6 +137,8 @@ $(document).ready(function(){
 		var fecha_nacimiento=$("#fecha_nacimiento").val();
 		var telefono=$("#telefono_usuario").val();
 		var fecha=new Date();
+		var pregunta=$("#pregunta").val();
+		var respuesta=$("#respuesta").val();
 		fecha.setDate(fecha.getDate());
 		dia=fecha.getDate();
 		mes=fecha.getMonth()+1;
@@ -192,7 +194,8 @@ $(document).ready(function(){
 									}
 									else{
 										$("#mensaje7").fadeOut();
-										$.get("controlador/ajaxRegistrar.php",{email:email,nombre_usuario:nombre,apellido_usuario:apellido,contraseña:contraseña,fecha_nacimiento:fecha_nacimiento,telefono_usuario:telefono},function(resultado){
+										$.get("controlador/ajaxRegistrar.php",{email:email,nombre_usuario:nombre,apellido_usuario:apellido,contraseña:contraseña,fecha_nacimiento:fecha_nacimiento,telefono_usuario:telefono,pregunta:pregunta,respuesta:respuesta},function(resultado){
+											alert(resultado);
 											if(!resultado){
 												alert("Usuario registrado correctamente");
 												$(location).attr('href',"index.php");

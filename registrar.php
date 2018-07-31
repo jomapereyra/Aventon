@@ -86,6 +86,26 @@
 						Tiene que ser igual a la contraseña.
 					</small>
 				</div>
+				<div class="form-group col-md-6 col-sm-12">
+					<label for="pregunta">Seleccione una pregunta: </label>
+					<select class="form-control" id="pregunta" name="pregunta">
+						<option value="">Elija una pregunta</option>
+						<?php 
+						echo "<option>¿Nombre de tu mascota?</option>";
+						echo "<option>¿Pelicula favorita?</option>";
+						echo "<option>¿Color favorito?</option>";
+						echo "<option>¿Dibujito favorito?</option>";										
+						?>
+					</select>
+					<div id="mensaje8" class="error"><i class="fas fa-times"></i>
+					&nbsp;Seleccione una pregunta</div>
+				</div>
+				<div class="form-group col-md-6 col-sm-12">
+					<label for="respuesta">Ingresar una respuesta: </label>
+					<input type="text"	class="form-control" id="respuesta" name="respuesta" value="" placeholder="Respuesta">
+					<div id="mensaje9" class="error"><i class="fas fa-times"></i>
+					&nbsp;Debe ingresar una respuesta</div>														
+				</div>
 				<div class="form-group col-md-6 col-sm-6">
 					<label for="fecha_nacimiento">Ingrese su fecha de nacimiento: </label>
 					<div class="input-group date">

@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title> index </title>
+	<title> Aventon </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/estilo.css">
@@ -66,6 +66,11 @@ if(isset($_SESSION["usuario"])){
 		<div class="container col-md-8 text-center padding-top-10">
 			<div class="form-group">
 				<button type="button" id="boton_iniciar_sesion" class="btn btn-dark btn-block">Iniciar Sesión</button>
+			</div>					
+		</div>
+		<div class="container col-md-8 text-center padding-top-10">
+			<div class="form-group">
+				<a href="recuperar.php">¿Has olvidado tu contraseña?</a>
 			</div>					
 		</div>
 
