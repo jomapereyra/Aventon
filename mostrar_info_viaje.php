@@ -154,8 +154,8 @@
 																<input type='text' name='cont' size='100' class='centrado' id="olx">
 																<input type="hidden" name="id" value=<?php echo $id ?>>
 																<input type="hidden" name="id_p" value=<?php echo $key['id_pregunta'] ?>>
-																<div id="mensaje12" class="error"><i class="fas fa-times"></i>
-																&nbsp;Debe ingresar un monto</div>
+																<!--<div id="mensaje12" class="error"><i class="fas fa-times"></i>
+																&nbsp;Debe ingresar un monto</div>-->
 																<input type='submit' name='cr' id='cr' value='Responder'>
 															</form>
 														</div>
@@ -176,8 +176,8 @@
 											<input type='text' name='cont' size='100' class='centrado' id="olx">
 											<input type="hidden" name="id" value=<?php echo $id ?>>
 											<input type="hidden" name="id_u" value=<?php echo $info['id_usuario'] ?>>
-											<div id="mensaje12" class="error"><i class="fas fa-times"></i>
-								      		&nbsp;Debe ingresar un monto</div>
+											<!--<div id="mensaje12" class="error"><i class="fas fa-times"></i>
+								      		&nbsp;Debe ingresar un monto</div>-->
 											<input type='submit' name='cr' id='cr' value='Preguntar'>
 											
 										</form>
@@ -241,7 +241,7 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/postulacion/crear_postulacion.js"></script>
-	<script src="js/info_viaje/info_viaje.js"></script>
+	<!--<script src="js/info_viaje/info_viaje.js"></script>-->
 
 </body>
 </html>

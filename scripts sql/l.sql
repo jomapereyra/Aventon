@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-08-2018 a las 05:41:51
--- Versión del servidor: 5.7.21
--- Versión de PHP: 5.6.35
+-- Tiempo de generación: 27-06-2018 a las 14:39:58
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -2474,47 +2474,19 @@ CREATE TABLE IF NOT EXISTS `postulacion` (
   `id_usuario` int(11) NOT NULL,
   `id_viaje` int(11) NOT NULL,
   `estado` varchar(20) NOT NULL DEFAULT 'esperando',
-  `cantidad_asientos` int(11) NOT NULL,
   PRIMARY KEY (`id_postulacion`),
   KEY `id_viaje` (`id_viaje`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `pregunta`
---
-
-DROP TABLE IF EXISTS `pregunta`;
-CREATE TABLE IF NOT EXISTS `pregunta` (
-  `id_pregunta` int(11) NOT NULL AUTO_INCREMENT,
-  `id_viaje` int(11) NOT NULL,
-  `autor` int(11) NOT NULL,
-  `contenido` varchar(300) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`id_pregunta`),
-  KEY `id_viaje` (`id_viaje`),
-  KEY `autor` (`autor`),
   KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `pregunta`
+-- Volcado de datos para la tabla `postulacion`
 --
 
-INSERT INTO `pregunta` (`id_pregunta`, `id_viaje`, `autor`, `contenido`, `id_usuario`) VALUES
-(5, 14744, 20, 'quiero irme con voss por fisss', 18),
-(6, 14744, 20, 'quiero irme con voss por fisss', 18),
-(7, 14744, 20, 'gato anotame', 18),
-(8, 14744, 20, 'gatoooooooooooooooooooooooo', 18),
-(9, 14744, 20, 'quiero unirrrrrmeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 18),
-(10, 14744, 20, '', 18),
-(11, 14744, 20, '', 18),
-(12, 14744, 20, '', 18),
-(13, 14744, 20, '', 18),
-(14, 14744, 20, '', 18),
-(15, 14744, 20, 'fwhiodfhifdhidfhdhfñ', 18);
+INSERT INTO `postulacion` (`id_postulacion`, `id_usuario`, `id_viaje`, `estado`) VALUES
+(6, 12, 1619, 'rechazado'),
+(14, 12, 1623, 'esperando'),
+(15, 12, 1621, 'esperando');
 
 -- --------------------------------------------------------
 
@@ -2569,42 +2541,29 @@ INSERT INTO `provincia` (`id_provincia`, `nombre_provincia`) VALUES
 DROP TABLE IF EXISTS `puntuacion`;
 CREATE TABLE IF NOT EXISTS `puntuacion` (
   `id_puntuacion` int(11) NOT NULL AUTO_INCREMENT,
-  `id_viaje` int(11) DEFAULT NULL,
   `valor` int(11) NOT NULL,
   `comentario` varchar(260) CHARACTER SET utf8 NOT NULL,
   `id_usuarioPuntuado` int(11) NOT NULL,
   `id_usuarioCalificador` int(11) NOT NULL,
   PRIMARY KEY (`id_puntuacion`),
   KEY `id_usuarioCalificador` (`id_usuarioCalificador`),
-  KEY `id_usuarioPuntuado` (`id_usuarioPuntuado`),
-  KEY `puntuacion_ibfk_3` (`id_viaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+  KEY `id_usuarioPuntuado` (`id_usuarioPuntuado`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Estructura de tabla para la tabla `respuesta`
+-- Volcado de datos para la tabla `puntuacion`
 --
 
-DROP TABLE IF EXISTS `respuesta`;
-CREATE TABLE IF NOT EXISTS `respuesta` (
-  `id_respuesta` int(11) NOT NULL AUTO_INCREMENT,
-  `id_pregunta` int(11) NOT NULL,
-  `autor` int(11) NOT NULL,
-  `contenido` varchar(300) NOT NULL,
-  PRIMARY KEY (`id_respuesta`),
-  KEY `id_pregunta` (`id_pregunta`),
-  KEY `autor` (`autor`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `respuesta`
---
-
-INSERT INTO `respuesta` (`id_respuesta`, `id_pregunta`, `autor`, `contenido`) VALUES
-(4, 5, 18, 'lo voy a pensar'),
-(5, 6, 18, 'nop'),
-(6, 7, 18, 'sasa');
+INSERT INTO `puntuacion` (`id_puntuacion`, `valor`, `comentario`, `id_usuarioPuntuado`, `id_usuarioCalificador`) VALUES
+(1, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(2, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 13, 12),
+(3, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(4, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(5, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(6, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(7, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(8, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13),
+(9, 1, 'Calificacion generada por Aventon debido a la cancelacion inesperada de un viaje.', 12, 13);
 
 -- --------------------------------------------------------
 
@@ -2647,16 +2606,45 @@ CREATE TABLE IF NOT EXISTS `ubicacion` (
   PRIMARY KEY (`id_ubicacion`),
   KEY `id_ciudad` (`id_ciudad`),
   KEY `id_provincia` (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `ubicacion`
 --
 
 INSERT INTO `ubicacion` (`id_ubicacion`, `calle`, `numero`, `id_provincia`, `id_ciudad`) VALUES
-(151, '78', '1783', 1, 73),
-(152, 'allende', '178', 1, 90),
-(153, '78', '1783', 1, 1);
+(45, 'dsadas', 'asdasd', 3, 282),
+(46, 'dasda', 'dasd', 2, 143),
+(47, 'fsdfs', 'fsdfsf', 18, 1670),
+(48, 'fdsfs', 'sdfsdf', 3, 282),
+(49, 'fsdfs', 'fsdfsf', 1, 1),
+(50, 'fdsfs', 'sdfsdf', 2, 143),
+(51, 'dsadasd', 'sadas', 2, 143),
+(52, 'dasda', 'dasdas', 1, 14),
+(53, 'uitirku', '764631', 23, 2199),
+(54, 'wtroghgh', '4467', 5, 369),
+(55, 'pepo', '123', 10, 1261),
+(56, 'pipa', '321', 11, 1280),
+(57, 'pepito', '123', 9, 994),
+(58, 'peposa', '321', 4, 368),
+(59, 'dasdsa', 'asdasd', 4, 343),
+(60, 'dasda', 'sadasd', 3, 297),
+(61, 'ewqeqw', 'ewqeq', 1, 1),
+(62, 'ewqe', 'qweqwe', 1, 1),
+(63, 'dasda', 'asdasda', 3, 282),
+(64, 'dad', 'sadasd', 2, 146),
+(65, 'rgerg', '46', 6, 439),
+(66, '46', '4676', 5, 369),
+(67, '654', '4646', 2, 143),
+(68, '15646', '3131', 4, 330),
+(69, '343', '767', 5, 369),
+(70, '46546', '6446', 3, 282),
+(71, '464', '464', 4, 330),
+(72, '46', '676', 3, 282),
+(73, '447', '373', 3, 282),
+(74, '654564', '4646', 5, 369),
+(75, 'dfsdf', 'dsfdsf', 2, 145),
+(76, 'dasd', 'sadsda', 3, 282);
 
 -- --------------------------------------------------------
 
@@ -2672,23 +2660,19 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `apellido` varchar(50) NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   `contrasenia` varchar(20) NOT NULL,
-  `pregunta` varchar(150) NOT NULL,
-  `respuesta` varchar(150) NOT NULL,
   `telefono` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
   `f_nacimiento` date NOT NULL,
   `permisos` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_usuario`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `email`, `nombre`, `apellido`, `admin`, `contrasenia`, `pregunta`, `respuesta`, `telefono`, `f_nacimiento`, `permisos`) VALUES
-(17, 'matimosco@gmail.com', 'Matias', 'Moscoloni', 0, 'sarasa123', '¿Nombre de tu mascota?', 'Dobby', '0234415427554', '1994-11-07', 0),
-(18, 'dieguitoibarra@hotmail.com', 'diego', 'ibarra', 0, '123456789', '¿Nombre de tu mascota?', 'jaime', '022156389608', '1988-06-19', 0),
-(19, 'sirdrdiect10@gmail.com', 'diego', 'ibarra', 0, '123456789', '¿Nombre de tu mascota?', 'jaime', '022156389608', '1988-06-19', 0),
-(20, 'ggg.@hotmail.com', 'juan', 'perez', 0, '123456789', '¿Nombre de tu mascota?', 'jaime', '022156389608', '1960-06-06', 0);
+INSERT INTO `usuario` (`id_usuario`, `email`, `nombre`, `apellido`, `admin`, `contrasenia`, `telefono`, `f_nacimiento`, `permisos`) VALUES
+(12, 'jomapereyra@hotmail.com', 'joma', 'pereyra', 0, 'sarasa123', '0234415421229', '1994-10-29', 0),
+(13, 'pedrosarasa@gmail.com', 'Pedro', 'Sarasa', 0, 'sarasa123', '0234415421229', '1994-10-29', 0);
 
 -- --------------------------------------------------------
 
@@ -2709,15 +2693,15 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   PRIMARY KEY (`id_vehiculo`,`patente`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_tipo_vehiculo` (`id_tipo_vehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
 --
 
 INSERT INTO `vehiculo` (`id_vehiculo`, `patente`, `id_usuario`, `id_tipo_vehiculo`, `marca`, `modelo`, `anio`, `cant_asientos`) VALUES
-(34, 'KDF220', 18, 1, 'wv', 'gol', 2011, 4),
-(35, 'KDF220', 20, 1, 'wv', 'gol', 2011, 4);
+(30, 'MJD811', 12, 1, 'Ford', 'Ka', 2000, 3),
+(31, 'AC062WR', 13, 1, 'Ford', 'KA', 2018, 4);
 
 -- --------------------------------------------------------
 
@@ -2746,15 +2730,33 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   KEY `id_origen` (`id_origen`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_vehiculo` (`id_vehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=14746 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1637 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
 INSERT INTO `viaje` (`id_viaje`, `id_usuario`, `id_vehiculo`, `descripcion`, `asientos_disponibles`, `fecha_salida`, `fecha_llegada`, `hora_salida`, `hora_llegada`, `costo`, `estado`, `tipo`, `id_destino`, `id_origen`) VALUES
-(14744, 18, 34, 'me voy de vacaciones.. quien quiera aprovechar el viaje bienvenido sea', 3, '2018-08-31', '2018-08-31', '06:00:00', '13:00:00', 2300, 0, 'casual', 152, 151),
-(14745, 18, 34, 'rkfdjkldfgiog{s<}iobi{Ndiosh<piodfjgb}otehb{p}jbr}pj<s}bpo}hgEP]J}pib}pb}jn<j]n', 3, '2018-08-31', '2018-08-31', '06:00:00', '13:00:00', 1725, 0, 'casual', 152, 153);
+(1617, 13, 31, 'fweffwewewf', 3, '2019-02-05', '2019-02-05', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1618, 13, 31, 'fweffwewewf', 3, '2019-01-01', '2019-01-01', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1619, 13, 31, 'fweffwewewf', 3, '2019-01-08', '2019-01-08', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1620, 13, 31, 'fweffwewewf', 3, '2019-01-15', '2019-01-15', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1621, 13, 31, 'fweffwewewf', 3, '2019-01-29', '2019-01-29', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1622, 13, 31, 'fweffwewewf', 3, '2019-01-22', '2019-01-22', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1623, 13, 31, 'fweffwewewf', 3, '2019-02-12', '2019-02-12', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1624, 13, 31, 'fweffwewewf', 3, '2019-02-26', '2019-02-26', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1625, 13, 31, 'fweffwewewf', 3, '2019-03-12', '2019-03-12', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1626, 13, 31, 'fweffwewewf', 3, '2019-03-26', '2019-03-26', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1627, 13, 31, 'fweffwewewf', 3, '2019-04-09', '2019-04-09', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1628, 13, 31, 'fweffwewewf', 3, '2019-04-02', '2019-04-02', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1629, 13, 31, 'fweffwewewf', 3, '2019-02-19', '2019-02-19', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1630, 13, 31, 'fweffwewewf', 3, '2019-03-05', '2019-03-05', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1631, 13, 31, 'fweffwewewf', 3, '2019-03-19', '2019-03-19', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1632, 13, 31, 'fweffwewewf', 3, '2019-04-16', '2019-04-16', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1633, 13, 31, 'fweffwewewf', 3, '2019-04-23', '2019-04-23', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1634, 13, 31, 'fweffwewewf', 3, '2019-05-07', '2019-05-07', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1635, 13, 31, 'fweffwewewf', 3, '2019-05-14', '2019-05-14', '04:00:00', '21:00:00', 53527.9, 0, 'semanal', 74, 73),
+(1636, 12, 30, 'dad dasasd', 3, '5555-05-05', '6666-06-06', '05:06:00', '06:51:00', 141.45, 0, 'casual', 76, 75);
 
 --
 -- Restricciones para tablas volcadas
@@ -2782,31 +2784,15 @@ ALTER TABLE `notificacion`
 -- Filtros para la tabla `postulacion`
 --
 ALTER TABLE `postulacion`
-  ADD CONSTRAINT `postulacion_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `postulacion_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `pregunta`
---
-ALTER TABLE `pregunta`
-  ADD CONSTRAINT `pregunta_ibfk_2` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pregunta_ibfk_3` FOREIGN KEY (`autor`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `pregunta_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `viaje` (`id_usuario`);
+  ADD CONSTRAINT `postulacion_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `postulacion_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `puntuacion`
 --
 ALTER TABLE `puntuacion`
   ADD CONSTRAINT `puntuacion_ibfk_1` FOREIGN KEY (`id_usuarioCalificador`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `puntuacion_ibfk_2` FOREIGN KEY (`id_usuarioPuntuado`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `puntuacion_ibfk_3` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id_viaje`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `respuesta`
---
-ALTER TABLE `respuesta`
-  ADD CONSTRAINT `respuesta_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `pregunta` (`id_pregunta`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `respuesta_ibfk_2` FOREIGN KEY (`autor`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `puntuacion_ibfk_2` FOREIGN KEY (`id_usuarioPuntuado`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ubicacion`
@@ -2826,10 +2812,10 @@ ALTER TABLE `vehiculo`
 -- Filtros para la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  ADD CONSTRAINT `viaje_ibfk_1` FOREIGN KEY (`id_destino`) REFERENCES `ubicacion` (`id_ubicacion`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `viaje_ibfk_2` FOREIGN KEY (`id_origen`) REFERENCES `ubicacion` (`id_ubicacion`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `viaje_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `viaje_ibfk_4` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `viaje_ibfk_1` FOREIGN KEY (`id_destino`) REFERENCES `ubicacion` (`id_ubicacion`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `viaje_ibfk_2` FOREIGN KEY (`id_origen`) REFERENCES `ubicacion` (`id_ubicacion`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `viaje_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `viaje_ibfk_4` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
