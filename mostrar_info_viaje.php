@@ -12,14 +12,19 @@
 	require_once("modelo/viaje.php");
 	require_once("modelo/usuario.php");
 	require_once("modelo/postulacion.php");
+	require_once("modelo/preguntas.php");
 	$id= $_GET['id'];
 	$email=$_SESSION["usuario"];
 	$tabla_usuario=new Usuario();
 	$usuario=$tabla_usuario->get_id($email);
+	$usuario2=$tabla_usuario->get_id($email);
 	$tabla_viaje= new Viaje();
 	$info=$tabla_viaje->get_datos($id);
 	$tabla_postulacion=new Postulacion();
 	$postulado=$tabla_postulacion->estoy_postulado($info['id_viaje'],$usuario['id_usuario']);
+	$preguntado= new Preguntas();
+	$pre= $preguntado->existe_preguntas($id);
+	$creadordelviaje=$tabla_viaje->soy_creador1($id,$usuario2['id_usuario']);
 	?>
 	<div class="container my-container">
 		<section class="row">
@@ -87,6 +92,99 @@
 
 						</div>
 
+						
+						<div class="container col-xl-12 col-12">
+							
+								<?php 
+
+									if(!$pre) {
+										?>
+										<div class=" row col-xl-12 ">
+										<?php
+									
+											echo "no existen preguntas realizadas";
+										?>
+										</div>
+										<?php
+									}else{
+										
+											$pregunta= $preguntado->get_preguntas($id);
+											foreach ($pregunta as $key ) {
+												?>
+												<div class=" border border-dark semitransparente row col-xl-12 ">
+												<?php
+													$u_q_preg=$tabla_usuario->get_datos_id($key['autor']);
+													echo $u_q_preg['nombre'];echo " ";echo $u_q_preg['apellido'];echo ":"?><br><?php
+													echo $key['contenido'];
+												?>
+												</div>
+												<?php
+												$exresp=$preguntado->existe_respuesta($key['id_pregunta']);
+
+												if($exresp){
+
+														$ex=$preguntado->get_respuesta($key['id_pregunta']);
+														foreach ($ex as $val) {
+															?>
+															<div class=" border border-dark semitransparente row col-xl-12 ">
+															<?php
+															echo $usuario['nombre'];echo " "; echo $usuario['apellido'];echo ":";?><br><?php
+															echo $val['contenido'];
+															?>
+															</div>
+															<?php
+														}
+														
+												}else{
+													
+													
+													if($creadordelviaje == 0){
+														?>
+														<div class="border border-dark semitransparente row col-xl-12 ">
+														<?php
+															echo "Esperando respuesta.....  en la brevedad sera respondido";
+														?>
+														</div>
+														<?php
+
+													}else{
+														?>
+														<div class=" border border-dark semitransparente row col-xl-12 ">
+															<form method="post" action="guardarrespuesta.php">
+																<input type='text' name='cont' size='100' class='centrado'>
+																<input type="hidden" name="id" value=<?php echo $id ?>>
+																<input type="hidden" name="id_p" value=<?php echo $key['id_pregunta'] ?>>
+																<input type='submit' name='cr' id='cr' value='Responder'>
+															</form>
+														</div>
+														<?php
+													}
+												}
+
+											}
+										
+									}
+								?>
+							</div>
+							<?php
+								if($creadordelviaje == 0){
+									?>
+									<div class=" border border-dark semitransparente row col-xl-12 ">
+										<form method="post" action="guardarpregunta.php">
+											<input type='text' name='cont' size='100' class='centrado'>
+											<input type="hidden" name="id" value=<?php echo $id ?>>
+											<input type="hidden" name="id_u" value=<?php echo $info['id_usuario'] ?>>
+											<input type='submit' name='cr' id='cr' value='Preguntar'>
+											
+										</form>
+									</div>
+									<?php
+								}
+							?>
+
+						</div>
+						
+					
 
 
 						<?php 

@@ -25,7 +25,7 @@ class Viaje{
 	}
 
 	public function hay_viaje($usuario){
-		$registro=$this->db->query("SELECT * FROM viaje WHERE viaje.id_usuario<>$usuario AND viaje.asientos_disponibles > 0 AND viaje.estado=0")->rowCount();
+		$registro=$this->db->query("SELECT * FROM viaje WHERE viaje.id_usuario<>$usuario AND viaje.asientos_disponibles > 0 AND viaje.estado = 0")->rowCount();
 		return $registro > 0;
 	}
 
@@ -103,6 +103,10 @@ class Viaje{
 
 	public function actualizar_historial($fecha_actual,$id_usuario){
 		$consulta=$this->db->query("UPDATE viaje SET estado=1 WHERE viaje.fecha_llegada<$fecha_actual AND viaje.id_usuario=$id_usuario");
+	}
+	public function soy_creador1($id_v, $id_u){
+		$registro=$this->db->query("SELECT * FROM viaje WHERE viaje.id_viaje= $id_v AND viaje.id_usuario=$id_u")->rowCount();
+		return $registro > 0;
 	}
 
 }
