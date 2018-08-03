@@ -52,6 +52,11 @@ class Usuario{
 		$resultado->execute(array(':nom'=>$nombre,':ape'=>$apellido,':pass'=>$contraseña,':tel'=>$telefono,':fn'=>$fecha_nacimiento));
 	}
 
+	public function modificar_contraseña($id_usuario,$contraseña){
+		$resultado=$this->db->prepare("UPDATE usuario SET contrasenia=:con WHERE usuario.id_usuario=$id_usuario");
+		$resultado->execute(array(':con'=>$contraseña));
+	}
+
 	
 }
 ?>

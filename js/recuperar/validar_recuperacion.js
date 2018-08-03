@@ -67,7 +67,7 @@ $(document).ready(function(){
 		if(!ok.includes(false)){
 			$.get("controlador/verificar_datos.php",{email:email,pregunta:pregunta,respuesta:respuesta},function(resultado){
 				if (resultado) {
-					location.href="http://localhost/Aventon/cambiar.php";
+					location.href="http://localhost/Aventon/cambiar.php?email="+email;
 				}
 				else{
 					alert("Datos incorrectos");
